@@ -193,10 +193,10 @@ export default function ProjectsClientPage() {
                     </div>
                     <div className="mt-6">
                       <Link
-                        href={`/projeler/${project.id}`}
-                        className="inline-block bg-red-600 text-white px-6 py-3 rounded font-medium transition-all duration-300 hover:bg-red-700"
+                        href={`/iletisim`}
+                        className="inline-block bg-red-500 hover:bg-red-800 text-white px-6 py-3 rounded font-medium transition-all duration-300"
                       >
-                        Detayları Gör
+                        Bizimle Birlikte Çalışın
                       </Link>
                     </div>
                   </div>
