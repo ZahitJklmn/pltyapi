@@ -1,40 +1,48 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Plus } from "lucide-react"
-import ProductAddModal from "./ProductAddModal"
+import { useAuth } from "@/contexts/AuthContext"
+import ProjectAddModal from "./ProjectAddModal" // Proje ekleme modalını import et
 
-export default function AdminAddButton({ brandId, categoryId, brandSlug, categorySlug }) {
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-
-  useEffect(() => {
-    // Admin durumunu kontrol et
-    const adminStatus = localStorage.getItem("isAdmin") === "true"
-    setIsAdmin(adminStatus)
-  }, [])
+// brandId, categoryId, brandSlug, categorySlug props'ları kaldırıldı.
+// Artık sadece proje ekleme için kullanılacak.
+// Hangi sayfada görüneceğine bağlı olarak 'type' prop'u eklenebilir (örn: type="project")
+export default function AdminAddButton({ pageType }) {
+  const [showProjectModal, setShowProjectModal] = useState(false)
+  const { isAdmin } = useAuth()
 
   if (!isAdmin) return null
 
-  return (
-    <>
-      <button
-        onClick={() => setShowModal(true)}
-        className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-all duration-300"
-        aria-label="Yeni ürün ekle"
-      >
-        <Plus className="h-5 w-5" />
-      </button>
+  // Sadece proje sayfasında veya genel bir admin panelinde gösterilecekse
+  if (pageType === "projects") {
+    return (
+      <>
+        <button
+          onClick={() => setShowProjectModal(true)}
+          className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 z-50"
+          aria-label="Yeni proje ekle"
+          title="Yeni Proje Ekle"
+        >
+          <Plus className="h-6 w-6" />
+        </button>
 
-      {showModal && (
-        <ProductAddModal
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-          brandId={brandId}
-          categoryId={categoryId}
-          brandSlug={brandSlug}
-          categorySlug={categorySlug}
-        />
-      )}
-    </>
-  )
+        {showProjectModal && (
+          <ProjectAddModal
+            isOpen={showProjectModal}
+            onClose={() => setShowProjectModal(false)}
+            onSuccess={() => {
+              setShowProjectModal(false)
+              // Proje listesini yenilemek için bir callback veya router.refresh() kullanılabilir.
+              // Örneğin: window.location.reload(); veya router.refresh();
+              if (typeof window !== "undefined") window.location.reload()
+            }}
+          />
+        )}
+      </>
+    )
+  }
+
+  // Diğer sayfa tipleri için (örn: ürünler) buton gösterilmeyecek
+  // veya farklı bir buton gösterilebilir.
+  return null
 }

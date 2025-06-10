@@ -41,9 +41,9 @@ export default function BrandsSection() {
         <Link
           key={brand.id}
           href={brand.link}
-          className="bg-white rounded flex items-center justify-center hover:shadow-lg transition-shadow duration-300 brand-card"
+          className="bg-white rounded-xl flex items-center justify-center hover:shadow-lg transition-shadow duration-300 brand-card"
         >
-          <img src={brand.image || "/placeholder.svg"} alt={brand.name} className="max-h-20 object-contain" />
+          <img src={brand.image || "/placeholder.svg"} alt={brand.name} className="max-h-20 object-contain rounded-xl" />
         </Link>
       ))}
     </div>

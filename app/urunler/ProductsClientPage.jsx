@@ -1,134 +1,46 @@
 "use client"
-import { useState, useEffect } from "react"
 import Link from "next/link"
-import { getSupabaseClient } from "@/lib/supabase"
-import { getAllLocalBrands } from "@/lib/localData"
 
 export default function ProductsClientPage() {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [brands, setBrands] = useState([])
-  const [usingLocalData, setUsingLocalData] = useState(false)
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true)
-        console.log("Marka verileri yükleniyor...")
-
-        // Önce yerel veriyi hazırla (fallback için)
-        const localBrandsData = getAllLocalBrands()
-
-        // Supabase'den veri çekmeyi dene
-        let brandsData = []
-        let useLocalData = false
-
-        const supabase = getSupabaseClient()
-
-        // Supabase bağlantısını kontrol et
-        if (!supabase) {
-          console.log("Supabase client oluşturulamadı, yerel veri kullanılacak")
-          useLocalData = true
-        } else {
-          try {
-            // Marka bilgilerini al
-            const { data: brandsResult, error: brandsError } = await supabase
-              .from("brands")
-              .select("id, name, slug, image_url, description")
-              .order("name")
-
-            console.log("Marka sorgu sonucu:", { data: brandsResult, error: brandsError })
-
-            if (brandsError) {
-              console.error("Marka verisi çekilirken hata:", JSON.stringify(brandsError))
-              throw new Error(`Markalar yüklenirken hata oluştu: ${brandsError.message}`)
-            }
-
-            if (!brandsResult || brandsResult.length === 0) {
-              console.log("Hiç marka bulunamadı, yerel veri kullanılacak")
-              useLocalData = true
-            } else {
-              brandsData = brandsResult
-              console.log("Marka verisi (Supabase):", brandsData)
-            }
-          } catch (err) {
-            console.error("Supabase veri çekme hatası:", err)
-            useLocalData = true
-          }
-        }
-
-        // Eğer Supabase'den veri çekemediyse, yerel veriyi kullan
-        if (useLocalData || brandsData.length === 0) {
-          console.log("Yerel veri kullanılıyor...")
-          setUsingLocalData(true)
-          brandsData = localBrandsData
-          console.log("Yerel veri:", brandsData)
-        }
-
-        // Verileri state'e kaydet
-        setBrands(brandsData)
-      } catch (err) {
-        console.error("Veri yükleme hatası:", err)
-        setError(err.message || "Bilinmeyen bir hata oluştu")
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  // Yükleniyor durumu
-  if (loading) {
-    return (
-      <div className="pt-24 pb-16">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex flex-col items-center justify-center min-h-[400px]">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-red-600 mb-4"></div>
-            <p className="text-gray-600">Yükleniyor...</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Hata durumu
-  if (error) {
-    return (
-      <div className="pt-24 pb-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl font-bold mb-4">Hata</h1>
-          <p className="mb-8">{error}</p>
-          <div className="flex justify-center">
-            <Link
-              href="/"
-              className="bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors duration-300"
-            >
-              Anasayfaya Dön
-            </Link>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  // Marka verileri direkt burada tanımlanıyor
+  const brands = [
+    {
+      id: 1,
+      name: "Jotun",
+      slug: "jotun",
+      description:
+        "Jotun, yüksek kaliteli iç ve dış cephe boyaları sunan dünya çapında bir markadır. 1926'dan beri faaliyet gösteren Norveç kökenli marka, denizcilik, koruyucu kaplamalar ve dekoratif boyalar alanında lider konumdadır.",
+      image_url: "/placeholder.svg?height=150&width=250&text=JOTUN",
+    },
+    {
+      id: 2,
+      name: "Filli Boya",
+      slug: "filli-boya",
+      description:
+        "Filli Boya, Türkiye'nin önde gelen boya markalarından biridir. 1962'den beri kaliteli ürünler üreten marka, iç ve dış cephe boyalarında geniş ürün yelpazesi sunar.",
+      image_url: "/placeholder.svg?height=150&width=250&text=FILLI+BOYA",
+    },
+    {
+      id: 3,
+      name: "Marshall",
+      slug: "marshall",
+      description:
+        "Marshall, geniş renk seçenekleri ve kaliteli ürünleriyle tanınan bir boya markasıdır. İç ve dış cephe boyalarında uzman olan marka, dekoratif çözümler sunar.",
+      image_url: "/placeholder.svg?height=150&width=250&text=MARSHALL",
+    },
+    {
+      id: 4,
+      name: "Hekim Panel",
+      slug: "hekim-panel",
+      description:
+        "Hekim Panel, çatı ve cephe panelleri konusunda uzmanlaşmış bir markadır. Yalıtımlı panel sistemleri ve modern yapı çözümleri sunar.",
+      image_url: "/placeholder.svg?height=150&width=250&text=HEKIM+PANEL",
+    },
+  ]
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
       <div className="container mx-auto px-4">
-        {/* Yerel veri uyarısı */}
-        {usingLocalData && (
-          <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded">
-            <p className="font-bold">Bilgi</p>
-            <p>
-              Veritabanı bağlantısı kurulamadığı için yerel veri kullanılıyor. Gerçek veriler için lütfen{" "}
-              <Link href="/env-setup" className="underline font-medium">
-                Supabase bağlantınızı kontrol edin
-              </Link>
-              .
-            </p>
-          </div>
-        )}
-
         {/* Hero Section */}
         <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
           <div
@@ -173,9 +85,7 @@ export default function ProductsClientPage() {
             >
               <div className="h-48 overflow-hidden">
                 <img
-                  src={
-                    brand.image_url || "/placeholder.svg?height=200&width=300&text=" + encodeURIComponent(brand.name)
-                  }
+                  src={brand.image_url || "/placeholder.svg"}
                   alt={brand.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />

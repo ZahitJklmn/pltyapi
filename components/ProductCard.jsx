@@ -1,90 +1,95 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Trash2, Edit2, Star } from "lucide-react"
+import { Trash2, Star, Eye, Heart } from "lucide-react"
 import { getSupabaseClient } from "@/lib/supabase"
+import { useAuth } from "@/components/auth/AuthProvider"
 import ImageEditModal from "./admin/ImageEditModal"
 
-export default function ProductCard({ product, brandId, categoryId, isAdmin = false, onDelete, onFeaturedChange }) {
+export default function ProductCard({ product, brandId, categoryId, onDelete }) {
+  const { isAdmin, user } = useAuth()
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [showImageEditModal, setShowImageEditModal] = useState(false)
   const [isFeatured, setIsFeatured] = useState(false)
   const [isTogglingFeatured, setIsTogglingFeatured] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
-  // Ürünün öne çıkan olup olmadığını kontrol et
   useEffect(() => {
-    const checkFeaturedStatus = async () => {
-      try {
-        const supabase = getSupabaseClient()
-        const { data, error } = await supabase
-          .from("featured_products")
-          .select("id")
-          .eq("product_id", product.id)
-          .single()
+    if (isAdmin && product?.slug && brandId && categoryId) {
+      const checkFeaturedStatus = async () => {
+        try {
+          const supabase = getSupabaseClient()
+          const { data, error } = await supabase
+            .from("featured_products")
+            .select("id")
+            .eq("product_slug", product.slug)
+            .eq("brand_slug", brandId)
+            .eq("category_slug", categoryId)
+            .maybeSingle()
 
-        if (!error && data) {
-          setIsFeatured(true)
+          if (data) {
+            setIsFeatured(true)
+          } else {
+            setIsFeatured(false)
+          }
+        } catch (error) {
+          console.error("Featured status kontrol hatası:", error)
+          setIsFeatured(false)
         }
-      } catch (error) {
-        console.error("Öne çıkan ürün kontrolü hatası:", error)
       }
-    }
-
-    if (isAdmin && product.id) {
       checkFeaturedStatus()
     }
-  }, [isAdmin, product.id])
+  }, [isAdmin, product?.slug, brandId, categoryId])
 
-  // Öne çıkan durumunu değiştir
-  const toggleFeatured = async () => {
+  const handleToggleFeatured = async (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
     if (isTogglingFeatured) return
-    setIsTogglingFeatured(true)
 
+    setIsTogglingFeatured(true)
     try {
       const supabase = getSupabaseClient()
 
       if (isFeatured) {
-        // Öne çıkan ürünlerden kaldır
-        const { error } = await supabase.from("featured_products").delete().eq("product_id", product.id)
+        const { error } = await supabase
+          .from("featured_products")
+          .delete()
+          .eq("product_slug", product.slug)
+          .eq("brand_slug", brandId)
+          .eq("category_slug", categoryId)
 
         if (error) throw error
         setIsFeatured(false)
       } else {
-        // Öne çıkan ürünlere ekle
-        // Önce mevcut öne çıkan ürün sayısını kontrol et
-        const { data: featuredCount, error: countError } = await supabase
-          .from("featured_products")
-          .select("id", { count: "exact" })
-
-        if (countError) throw countError
-
-        if (featuredCount.length >= 4) {
-          alert("En fazla 4 ürün öne çıkarılabilir. Lütfen önce bir ürünü öne çıkarılanlardan kaldırın.")
-          setIsTogglingFeatured(false)
-          return
-        }
-
-        // Öne çıkan ürünlere ekle
-        const { error } = await supabase.from("featured_products").insert({ product_id: product.id })
+        const { error } = await supabase.from("featured_products").insert({
+          product_name: product.name,
+          product_slug: product.slug,
+          product_description: product.description,
+          product_image_url: product.image_url,
+          brand_slug: brandId,
+          category_slug: categoryId,
+          created_by: user?.id,
+        })
 
         if (error) throw error
         setIsFeatured(true)
       }
-
-      // Callback fonksiyonunu çağır
-      if (onFeaturedChange) {
-        onFeaturedChange(product.id, !isFeatured)
-      }
     } catch (error) {
-      console.error("Öne çıkan ürün değiştirme hatası:", error)
-      alert("Öne çıkan ürün durumu değiştirilirken bir hata oluştu.")
+      console.error("Featured toggle hatası:", error)
+      alert("İşlem sırasında bir hata oluştu: " + error.message)
     } finally {
       setIsTogglingFeatured(false)
     }
   }
 
-  // Silme işlemi
+  const handleEditClick = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setShowImageEditModal(true)
+  }
+
   const handleDelete = async () => {
     if (isDeleting) return
 
@@ -92,13 +97,10 @@ export default function ProductCard({ product, brandId, categoryId, isAdmin = fa
     try {
       const supabase = getSupabaseClient()
 
-      // Önce ilişkili kayıtları sil
       await supabase.from("product_features").delete().eq("product_id", product.id)
       await supabase.from("product_technical_specs").delete().eq("product_id", product.id)
       await supabase.from("product_application_areas").delete().eq("product_id", product.id)
-      await supabase.from("featured_products").delete().eq("product_id", product.id)
 
-      // Ürünü veritabanından sil
       const { error } = await supabase.from("products").delete().eq("id", product.id)
 
       if (error) {
@@ -106,7 +108,6 @@ export default function ProductCard({ product, brandId, categoryId, isAdmin = fa
         throw error
       }
 
-      // Silme işlemi başarılı olduğunda onDelete callback'ini çağır
       if (onDelete) onDelete(product.id)
     } catch (error) {
       console.error("Ürün silme hatası:", error)
@@ -118,125 +119,159 @@ export default function ProductCard({ product, brandId, categoryId, isAdmin = fa
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg relative">
-      {/* Görsel Alanı */}
-      <div className="h-64 overflow-hidden relative">
+    <div
+      className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-black/10 hover:-translate-y-2"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Image Container */}
+      <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
         <img
           src={product.image_url || "/placeholder.svg"}
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
         />
 
-        {/* Admin Kontrolleri */}
-        {isAdmin && (
-          <div className="absolute top-2 right-2 flex space-x-2">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+        {/* Floating Action Buttons */}
+        <div
+          className={`absolute top-4 right-4 flex flex-col space-y-2 transition-all duration-300 ${isHovered ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"}`}
+        >
+          {isAdmin && (
             <button
-              onClick={() => setShowImageEditModal(true)}
-              className="bg-white p-1.5 rounded-full shadow-md hover:bg-gray-100 transition-colors"
-              title="Görseli Düzenle"
+              onClick={handleToggleFeatured}
+              disabled={isTogglingFeatured}
+              className={`w-10 h-10 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 flex items-center justify-center ${
+                isFeatured
+                  ? "bg-yellow-500/90 text-white shadow-lg shadow-yellow-500/25"
+                  : "bg-black/30 text-white hover:bg-black/50"
+              }`}
+              title={isFeatured ? "Öne çıkanlardan kaldır" : "Öne çıkanlara ekle"}
             >
-              <Edit2 className="h-4 w-4 text-gray-700" />
+              {isTogglingFeatured ? (
+                <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"></div>
+              ) : (
+                <Star className={`h-4 w-4 ${isFeatured ? "fill-current" : ""}`} />
+              )}
             </button>
-          </div>
-        )}
+          )}
+
+          <button className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/50 transition-all duration-300 flex items-center justify-center">
+            <Heart className="h-4 w-4" />
+          </button>
+
+          <button className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/50 transition-all duration-300 flex items-center justify-center">
+            <Eye className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Category Badge */}
+        <div className="absolute top-4 left-4">
+          <span className="px-3 py-1 bg-black/80 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/20">
+            {brandId?.toUpperCase()}
+          </span>
+        </div>
       </div>
 
-      {/* İçerik Alanı */}
+      {/* Content */}
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-2 text-gray-800">{product.name}</h3>
-        <p className="text-gray-600 text-sm mb-4 h-12 overflow-hidden">{product.description}</p>
+        <h3 className="text-xl font-bold mb-3 text-gray-900 line-clamp-2 group-hover:text-orange-600 transition-colors duration-300">
+          {product.name}
+        </h3>
 
-        <div className="flex justify-between items-center">
-          {/* Admin için kontroller */}
+        <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">{product.description}</p>
+
+        {/* Features */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          <span className="px-2 py-1 bg-orange-50 text-orange-600 text-xs font-medium rounded-lg">Kaliteli</span>
+          <span className="px-2 py-1 bg-blue-50 text-blue-600 text-xs font-medium rounded-lg">Dayanıklı</span>
+          <span className="px-2 py-1 bg-green-50 text-green-600 text-xs font-medium rounded-lg">Çevre Dostu</span>
+        </div>
+
+        {/* Action Bar */}
+        <div className="flex items-center justify-between">
+          {/* Admin Controls */}
           {isAdmin && (
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
               <button
-                onClick={toggleFeatured}
-                className={`text-yellow-500 hover:text-yellow-600 transition-colors ${isTogglingFeatured ? "opacity-50 cursor-not-allowed" : ""}`}
-                title={isFeatured ? "Öne çıkarılanlardan kaldır" : "Öne çıkanlara ekle"}
-                disabled={isTogglingFeatured}
+                onClick={handleEditClick}
+                className="w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                title="Düzenle"
               >
-                <Star className={`h-5 w-5 ${isFeatured ? "fill-yellow-500" : ""}`} />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  />
+                </svg>
               </button>
 
               <button
                 onClick={() => setShowDeleteConfirm(true)}
-                className="text-red-600 hover:text-red-800 transition-colors"
-                title="Ürünü Sil"
+                className="w-8 h-8 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                title="Sil"
               >
-                <Trash2 className="h-5 w-5" />
+                <Trash2 className="h-4 w-4" />
               </button>
             </div>
           )}
 
-          {/* İncele butonu */}
+          {/* View Product Button */}
           <Link
             href={`/urunler/${brandId}/${categoryId}/${product.slug}`}
-            className="bg-red-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-red-700 transition-colors duration-300 ml-auto"
+            className="ml-auto group/btn relative px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
           >
-            İncele
+            <span className="relative z-10 flex items-center">
+              İncele
+              <Eye className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
           </Link>
         </div>
       </div>
 
-      {/* Silme Onay Modalı */}
+      {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-sm w-full">
-            <h3 className="text-lg font-bold mb-4">Ürünü Silmek İstediğinize Emin Misiniz?</h3>
-            <p className="text-gray-600 mb-6">
-              "{product.name}" ürünü kalıcı olarak silinecektir. Bu işlem geri alınamaz.
-            </p>
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={() => setShowDeleteConfirm(false)}
-                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
-                disabled={isDeleting}
-              >
-                İptal
-              </button>
-              <button
-                onClick={handleDelete}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center"
-                disabled={isDeleting}
-              >
-                {isDeleting ? (
-                  <>
-                    <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Siliniyor...
-                  </>
-                ) : (
-                  <>
-                    <Trash2 className="h-4 w-4 mr-1" />
-                    Eminim, Sil
-                  </>
-                )}
-              </button>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Trash2 className="h-8 w-8 text-red-600" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Ürünü Sil</h3>
+              <p className="text-gray-600 mb-6">
+                "{product.name}" ürünü kalıcı olarak silinecektir. Bu işlem geri alınamaz.
+              </p>
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-200"
+                  disabled={isDeleting}
+                >
+                  İptal
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex-1 px-4 py-3 bg-red-600 text-white rounded-xl font-medium hover:bg-red-700 transition-colors duration-200 flex items-center justify-center"
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? (
+                    <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                  ) : (
+                    "Sil"
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Görsel Düzenleme Modalı */}
+      {/* Image Edit Modal */}
       {showImageEditModal && (
         <ImageEditModal
           isOpen={showImageEditModal}

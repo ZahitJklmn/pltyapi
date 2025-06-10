@@ -1,17 +1,20 @@
 "use client"
 import { useState } from "react"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
+import PhoneInput from "@/components/PhoneInput"
 
 export default function ContactPageClient() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   })
   const [formErrors, setFormErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState("")
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -20,6 +23,26 @@ export default function ContactPageClient() {
     // Hata mesajını temizle
     if (formErrors[id]) {
       setFormErrors({ ...formErrors, [id]: "" })
+    }
+
+    // Submit error'ı temizle
+    if (submitError) {
+      setSubmitError("")
+    }
+  }
+
+  // Telefon numarası değişimi için ayrı handler
+  const handlePhoneChange = (phoneValue) => {
+    setFormData({ ...formData, phone: phoneValue })
+
+    // Hata mesajını temizle
+    if (formErrors.phone) {
+      setFormErrors({ ...formErrors, phone: "" })
+    }
+
+    // Submit error'ı temizle
+    if (submitError) {
+      setSubmitError("")
     }
   }
 
@@ -36,12 +59,24 @@ export default function ContactPageClient() {
       errors.email = "Geçerli bir e-posta adresi giriniz"
     }
 
+    if (!formData.phone.trim()) {
+      errors.phone = "Telefon numaranız gereklidir"
+    } else {
+      // Telefon numarası validasyonu - en az 8 rakam olmalı
+      const phoneDigits = formData.phone.replace(/\D/g, "")
+      if (phoneDigits.length < 8) {
+        errors.phone = "Geçerli bir telefon numarası giriniz"
+      }
+    }
+
     if (!formData.subject.trim()) {
       errors.subject = "Konu gereklidir"
     }
 
     if (!formData.message.trim()) {
       errors.message = "Mesajınız gereklidir"
+    } else if (formData.message.trim().length < 10) {
+      errors.message = "Mesajınız en az 10 karakter olmalıdır"
     }
 
     setFormErrors(errors)
@@ -56,11 +91,22 @@ export default function ContactPageClient() {
     }
 
     setIsSubmitting(true)
+    setSubmitError("")
 
     try {
-      // E-posta gönderme işlemi burada yapılacak
-      // Örnek olarak bir timeout ile simüle ediyoruz
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || "Bir hata oluştu")
+      }
 
       // Başarılı mesajı göster
       setSubmitSuccess(true)
@@ -69,6 +115,7 @@ export default function ContactPageClient() {
       setFormData({
         name: "",
         email: "",
+        phone: "",
         subject: "",
         message: "",
       })
@@ -79,14 +126,14 @@ export default function ContactPageClient() {
       }, 5000)
     } catch (error) {
       console.error("Form gönderme hatası:", error)
-      alert("Form gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.")
+      setSubmitError(error.message || "Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.")
     } finally {
       setIsSubmitting(false)
     }
   }
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
@@ -101,10 +148,10 @@ export default function ContactPageClient() {
         </div>
 
         {/* Contact Info & Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 items-stretch">
           {/* Contact Info */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="lg:col-span-1 h-full">
+            <div className="bg-white rounded-lg shadow-lg p-8 h-full flex flex-col justify-between">
               <h2 className="text-2xl font-bold mb-6 text-gray-800">İletişim Bilgileri</h2>
 
               <div className="space-y-6">
@@ -129,8 +176,8 @@ export default function ContactPageClient() {
                   <Mail className="h-6 w-6 text-red-600 mr-4 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">E-posta</h3>
+                    <p className="text-gray-600">zahidjklmn@gmail.com</p>
                     <p className="text-gray-600">info@boyamalzemeleri.com</p>
-                    <p className="text-gray-600">satis@boyamalzemeleri.com</p>
                   </div>
                 </div>
 
@@ -231,8 +278,8 @@ export default function ContactPageClient() {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="lg:col-span-2 h-full">
+            <div className="bg-white rounded-lg shadow-lg p-8 h-full">
               <h2 className="text-2xl font-bold mb-6 text-gray-800">Bize Ulaşın</h2>
 
               {submitSuccess && (
@@ -240,6 +287,8 @@ export default function ContactPageClient() {
                   Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.
                 </div>
               )}
+
+              {submitError && <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-md">{submitError}</div>}
 
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -278,6 +327,15 @@ export default function ContactPageClient() {
                     {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
                   </div>
                 </div>
+
+                {/* Telefon Numarası - Yeni Komponent */}
+                <div className="mb-6">
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Telefon Numaranız <span className="text-red-600">*</span>
+                  </label>
+                  <PhoneInput value={formData.phone} onChange={handlePhoneChange} error={formErrors.phone} required />
+                </div>
+
                 <div className="mb-6">
                   <label htmlFor="subject" className="block text-gray-700 font-medium mb-2">
                     Konu <span className="text-red-600">*</span>
@@ -295,6 +353,7 @@ export default function ContactPageClient() {
                   />
                   {formErrors.subject && <p className="text-red-500 text-sm mt-1">{formErrors.subject}</p>}
                 </div>
+
                 <div className="mb-6">
                   <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
                     Mesajınız <span className="text-red-600">*</span>
@@ -328,8 +387,8 @@ export default function ContactPageClient() {
 
         {/* Google Map */}
         <div className="bg-white rounded-lg shadow-lg p-4 overflow-hidden">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 px-4">Konum</h2>
-          <div className="h-[400px] w-full">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 px-4 text-center">Dükkanımızın Konumu</h2>
+          <div className="h-[800px] w-full">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.9533631421576!2d28.979697!3d41.037183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7650656bd63%3A0x8ca058b28c20b6c3!2zVGFrc2ltIE1leWRhbsSxLCBHw7xtw7zFn3N1eXUsIDM0NDM1IEJleW_En2x1L8Swc3RhbmJ1bA!5e0!3m2!1str!2str!4v1620000000000!5m2!1str!2str"
               width="100%"
@@ -345,3 +404,4 @@ export default function ContactPageClient() {
     </div>
   )
 }
+  

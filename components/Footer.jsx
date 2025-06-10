@@ -1,290 +1,368 @@
 "use client"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Phone, Mail, MapPin, Clock, Instagram, Facebook, Twitter, X, Eye, EyeOff } from "lucide-react"
+import { Phone, Mail, MapPin, Clock, Instagram, Facebook, Twitter, X, Eye, EyeOff, LogIn, ArrowUp } from "lucide-react"
+import { useAuth } from "./auth/AuthProvider"
+import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 
 export default function Footer() {
-  const footerRef = useRef(null)
+  const [footerRef, isFooterVisible] = useScrollAnimation()
   const [showLoginModal, setShowLoginModal] = useState(false)
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loginError, setLoginError] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const contentRefs = useRef([])
+  const [loading, setLoading] = useState(false)
+  const [showScrollTop, setShowScrollTop] = useState(false)
+  const { user, isAdmin, signIn } = useAuth()
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Footer görünür olduğunda animasyonu başlat
-            entry.target.classList.add("animate-in")
-
-            // İçerik elemanlarını animasyonla göster
-            setTimeout(() => {
-              contentRefs.current.forEach((ref, index) => {
-                if (ref) {
-                  setTimeout(() => {
-                    ref.classList.remove("opacity-0", "translate-y-10")
-                  }, index * 150) // Her eleman için 150ms gecikme
-                }
-              })
-            }, 300)
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-
-    if (footerRef.current) {
-      observer.observe(footerRef.current)
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500)
     }
 
-    return () => {
-      if (footerRef.current) {
-        observer.unobserve(footerRef.current)
-      }
-    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    if (username === "admin" && password === "pltyapi60tokat") {
-      // Başarılı giriş
-      setLoginError("")
-      localStorage.setItem("isAdmin", "true")
-      alert("Giriş başarılı! Admin paneline yönlendiriliyorsunuz.")
-      setShowLoginModal(false)
-      window.location.reload() // Sayfayı yenile
-    } else {
-      // Hatalı giriş
-      setLoginError("Kullanıcı adı veya şifre hatalı!")
+    setLoading(true)
+    setLoginError("")
+
+    try {
+      const { data, error } = await signIn(email, password)
+
+      if (error) {
+        setLoginError(error.message || "Giriş başarısız. Email ve şifrenizi kontrol edin.")
+      } else {
+        setShowLoginModal(false)
+        setEmail("")
+        setPassword("")
+      }
+    } catch (err) {
+      setLoginError(err.message || "Bir hata oluştu. Lütfen tekrar deneyin.")
+    } finally {
+      setLoading(false)
     }
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
   return (
-    <footer
-      ref={footerRef}
-      className="bg-gray-900 text-white pt-16 pb-8 opacity-0 transform translate-y-20 transition-all duration-700 ease-out select-none"
-    >
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Company Info */}
+    <>
+      <footer
+        ref={footerRef}
+        className={`relative bg-gradient-to-br from-black via-gray-900 to-black text-white pt-20 pb-8 transition-all duration-1000 ${
+          isFooterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        {/* Background Pattern - Turuncu hover efekti kaldırıldı */}
+        <div className="absolute inset-0 opacity-5">
           <div
-            ref={(el) => (contentRefs.current[0] = el)}
-            className="opacity-0 transform translate-y-10 transition-all duration-700"
-          >
-            <img src="/placeholder.svg?height=50&width=150&text=LOGO" alt="Logo" className="h-12 mb-6" />
-            <p className="text-gray-400 mb-6">
-              Kaliteli boya ürünleri ve profesyonel çözümler için 20 yılı aşkın tecrübemizle hizmetinizdeyiz.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <Twitter className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links - Sadece masaüstünde görünecek */}
-          <div
-            ref={(el) => (contentRefs.current[1] = el)}
-            className="hidden md:block opacity-0 transform translate-y-10 transition-all duration-700"
-          >
-            <h3 className="text-lg font-bold mb-6 relative">
-              Hızlı Linkler
-              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-red-600"></span>
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Ana Sayfa
-                </Link>
-              </li>
-              <li>
-                <Link href="/urunler" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Ürünler
-                </Link>
-              </li>
-              <li>
-                <Link href="/projeler" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Projeler
-                </Link>
-              </li>
-              <li>
-                <Link href="/hakkimizda" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Hakkımızda
-                </Link>
-              </li>
-              <li>
-                <Link href="/iletisim" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  İletişim
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Products - Sadece masaüstünde görünecek */}
-          <div
-            ref={(el) => (contentRefs.current[2] = el)}
-            className="hidden md:block opacity-0 transform translate-y-10 transition-all duration-700"
-          >
-            <h3 className="text-lg font-bold mb-6 relative">
-              Ürün Kategorileri
-              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-red-600"></span>
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/urunler/ic-cephe-urunleri"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  İç Cephe Ürünleri
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/urunler/dis-cephe-urunleri"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Dış Cephe Ürünleri
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/urunler/ahsap-urunleri"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Ahşap Ürünleri
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/urunler/metal-urunleri"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Metal Ürünleri
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/urunler/boya-ekipmanlari"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Boya Ekipmanları
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div
-            ref={(el) => (contentRefs.current[3] = el)}
-            className="opacity-0 transform translate-y-10 transition-all duration-700"
-          >
-            <h3 className="text-lg font-bold mb-6 relative">
-              İletişim Bilgileri
-              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-red-600"></span>
-            </h3>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <MapPin className="h-5 w-5 text-red-500 mr-3 mt-1 flex-shrink-0" />
-                <span className="text-gray-400">Örnek Mahallesi, Örnek Caddesi No:123, İstanbul, Türkiye</span>
-              </li>
-              <li className="flex items-center">
-                <Phone className="h-5 w-5 text-red-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-400">0212 123 45 67</span>
-              </li>
-              <li className="flex items-center">
-                <Mail className="h-5 w-5 text-red-500 mr-3 flex-shrink-0" />
-                <button
-                  onClick={() => setShowLoginModal(true)}
-                  className="text-gray-400 transition-colors duration-300"
-                >
-                  info@boyamalzemeleri.com
-                </button>
-              </li>
-              <li className="flex items-center">
-                <Clock className="h-5 w-5 text-red-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-400">Pazartesi - Cumartesi: 09:00 - 18:00</span>
-              </li>
-            </ul>
-          </div>
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 25% 25%, rgba(255, 107, 0, 0.05) 0%, transparent 50%),
+                             radial-gradient(circle at 75% 75%, rgba(220, 38, 38, 0.05) 0%, transparent 50%)`,
+            }}
+          ></div>
         </div>
 
-        {/* Bottom Bar */}
-        <div
-          ref={(el) => (contentRefs.current[4] = el)}
-          className="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm opacity-0 transform translate-y-10 transition-all duration-700"
-        >
-          <p>© {new Date().getFullYear()} Boya Malzemeleri. Tüm hakları saklıdır.</p>
-        </div>
-      </div>
-
-      {/* Login Modal */}
-      {showLoginModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-gray-800">Admin Girişi</h3>
-              <button onClick={() => setShowLoginModal(false)} className="text-gray-500 hover:text-gray-700">
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-            <form onSubmit={handleLogin}>
-              {loginError && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">{loginError}</div>}
-              <div className="mb-4">
-                <label htmlFor="username" className="block text-gray-700 font-medium mb-2">
-                  Kullanıcı Adı
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-                  required
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Top Section */}
+          <div
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 transition-all duration-1000 delay-300 ${
+              isFooterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            {/* Company Info */}
+            <div className="space-y-6">
+              <div className="group">
+                <img
+                  src="/images/plt-yapi-logo-arkaplanli.png?height=50&width=150&text=LOGO"
+                  alt="Logo"
+                  className="h-20 rounded-xl mb-6 transition-all duration-300 group-hover:scale-105"
+                  draggable="false"
                 />
               </div>
-              <div className="mb-6">
-                <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
-                  Şifre
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-800"
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                    onClick={() => setShowPassword(!showPassword)}
+
+              <p className="text-gray-300 mb-6 leading-relaxed">
+                Kaliteli boya ürünleri ve profesyonel çözümler için 20 yılı aşkın tecrübemizle hizmetinizdeyiz.
+              </p>
+
+              {/* Social Media - Gradient background hover */}
+              <div className="flex space-x-4">
+                {[
+                  { icon: Facebook, href: "#" },
+                  { icon: Instagram, href: "#" },
+                  { icon: Twitter, href: "#" },
+                ].map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl flex items-center justify-center text-gray-300 transition-all duration-300 hover:scale-110 hover:text-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-600 hover:border-orange-400"
                   >
-                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                  </button>
-                </div>
+                    <social.icon className="h-5 w-5" />
+                  </a>
+                ))}
               </div>
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className="bg-red-600 text-white px-6 py-2 rounded-md font-medium hover:bg-red-700 transition-colors duration-300"
-                >
-                  Giriş Yap
+            </div>
+
+            {/* Quick Links - Gradient underline hover */}
+            <div className="hidden md:block">
+              <h3 className="text-xl font-bold mb-6 relative">
+                <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                  Hızlı Linkler
+                </span>
+                <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  { name: "Ana Sayfa", href: "/" },
+                  { name: "Ürünler", href: "/urunler" },
+                  { name: "Projeler", href: "/projeler" },
+                  { name: "Hakkımızda", href: "/hakkimizda" },
+                  { name: "İletişim", href: "/iletisim" },
+                ].map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      href={link.href}
+                      className="text-gray-400 hover:text-white transition-all duration-300 inline-block relative group"
+                    >
+                      {link.name}
+                      <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Product Categories - Gradient underline hover */}
+            <div className="hidden md:block">
+              <h3 className="text-xl font-bold mb-6 relative">
+                <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                  Ürün Kategorileri
+                </span>
+                <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  { name: "İç Cephe Ürünleri", href: "/urunler/jotun/ic-cephe-urunleri" },
+                  { name: "Dış Cephe Ürünleri", href: "/urunler/jotun/dis-cephe-urunleri" },
+                  { name: "Ahşap Ürünleri", href: "/urunler/jotun/ahsap-urunleri" },
+                  { name: "Metal Ürünleri", href: "/urunler/jotun/metal-urunleri" },
+                  { name: "Boya Ekipmanları", href: "/urunler/filli-boya/ic-cephe-boyalari" },
+                ].map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      href={link.href}
+                      className="text-gray-400 hover:text-white transition-all duration-300 text-sm inline-block relative group"
+                    >
+                      {link.name}
+                      <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact Info - Icon gradient hover */}
+            <div>
+              <h3 className="text-xl font-bold mb-6 relative">
+                <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                  İletişim Bilgileri
+                </span>
+                <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  {
+                    icon: MapPin,
+                    text: "Örnek Mahallesi, Örnek Caddesi No:123, İstanbul, Türkiye",
+                  },
+                  {
+                    icon: Phone,
+                    text: "0212 123 45 67",
+                  },
+                  {
+                    icon: Mail,
+                    text: "info@boyamalzemeleri.com",
+                    clickable: false,
+                  },
+                  {
+                    icon: Clock,
+                    text: "Pazartesi - Cumartesi: 09:00 - 18:00",
+                    clickable: true,
+                  },
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center mr-3 mt-0.5">
+                      <item.icon className="h-4 w-4 text-orange-400" />
+                    </div>
+                    {item.clickable ? (
+                      <button
+                        onClick={() => setShowLoginModal(true)}
+                        className="text-gray-400 hover:text-gray-400 hover:cursor-text transition-colors duration-300 text-left"
+                      >
+                        {item.text}
+                      </button>
+                    ) : (
+                      <span className="text-gray-400">{item.text}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Newsletter Section  hidden div gereksiz diye*/}
+          <div
+            className={`border-t hidden border-white/10 pt-8 mb-8 transition-all duration-1000 delay-500 ${
+              isFooterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <div className="max-w-md mx-auto text-center">
+              <h4 className="text-lg font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                Haberlerden Haberdar Olun
+              </h4>
+              <div className="flex">
+                <input
+                  type="email"
+                  placeholder="Email adresiniz"
+                  className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-l-xl text-white placeholder-gray-400 focus:outline-none focus:border-orange-400 transition-colors duration-300"
+                />
+                <button className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-r-xl hover:from-orange-600 hover:to-red-700 transition-all duration-300 hover:scale-105">
+                  Abone Ol
                 </button>
               </div>
-            </form>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div
+            className={`border-t border-white/10 pt-8 text-center transition-all duration-1000 delay-700 ${
+              isFooterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <p className="text-gray-400 text-sm">
+              © {new Date().getFullYear()} PLT YAPI | Tüm hakları saklıdır
+              <span className="text-orange-400 ml-1 hidden">Modern tasarım ile güçlendirilmiştir.</span> {/* bu div hidden */}
+            </p>
           </div>
         </div>
-      )}
-    </footer>
+
+        {/* Scroll to Top Button */}
+        {showScrollTop && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-full shadow-lg hover:shadow-orange-500/25 transition-all duration-300 hover:scale-110 z-50 flex items-center justify-center"
+          >
+            <ArrowUp className="h-5 w-5" />
+          </button>
+        )}
+
+        {/* Login Modal */}
+        {showLoginModal && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md mx-4">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-800">Admin Girişi</h3>
+                <button
+                  onClick={() => setShowLoginModal(false)}
+                  className="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200"
+                >
+                  <X className="h-5 w-5 text-gray-600" />
+                </button>
+              </div>
+
+              <form onSubmit={handleLogin} className="space-y-6">
+                {loginError && (
+                  <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">
+                    {loginError}
+                  </div>
+                )}
+
+                <div>
+                  <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                    placeholder="admin@example.com"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
+                    Şifre
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white py-3 rounded-xl font-medium hover:from-orange-600 hover:to-red-700 transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
+                >
+                  {loading ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Giriş yapılıyor...
+                    </>
+                  ) : (
+                    <>
+                      <LogIn className="h-5 w-5 mr-2" />
+                      Giriş Yap
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+      </footer>
+    </>
   )
 }

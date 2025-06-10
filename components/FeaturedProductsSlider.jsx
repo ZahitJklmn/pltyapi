@@ -2,42 +2,40 @@
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-
-const featuredProducts = [
-  {
-    id: 1,
-    title: "Premium İç Cephe Boyası",
-    description: "Yüksek kapatıcılık ve dayanıklılık",
-    image: "/placeholder.svg?height=300&width=300&text=Ürün 1",
-    link: "/urunler/ic-cephe-boyalari/premium-ic-cephe-boyasi",
-  },
-  {
-    id: 2,
-    title: "Dış Cephe Silikonlu Boya",
-    description: "Hava koşullarına dayanıklı, su itici",
-    image: "/placeholder.svg?height=300&width=300&text=Ürün 2",
-    link: "/urunler/dis-cephe-boyalari/dis-cephe-silikonlu-boya",
-  },
-  {
-    id: 3,
-    title: "Ahşap Vernik",
-    description: "Doğal ahşap dokusu, UV korumalı",
-    image: "/placeholder.svg?height=300&width=300&text=Ürün 3",
-    link: "/urunler/ahsap-boyalari/ahsap-vernik",
-  },
-  {
-    id: 4,
-    title: "Metal Antipas",
-    description: "Pas önleyici, uzun ömürlü koruma",
-    image: "/placeholder.svg?height=300&width=300&text=Ürün 4",
-    link: "/urunler/metal-boyalari/metal-antipas",
-  },
-]
+import { getSupabaseClient } from "@/lib/supabase"
 
 export default function FeaturedProductsSlider() {
+  const [featuredProducts, setFeaturedProducts] = useState([])
+  const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const autoPlayRef = useRef(null)
+
+  // Öne çıkan ürünleri yükle - sadece component mount olduğunda
+  useEffect(() => {
+    const loadFeaturedProducts = async () => {
+      try {
+        const supabase = getSupabaseClient()
+        const { data, error } = await supabase
+          .from("featured_products")
+          .select("*")
+          .order("created_at", { ascending: false })
+
+        if (error) {
+          console.error("Featured products yükleme hatası:", error)
+          return
+        }
+
+        setFeaturedProducts(data || [])
+      } catch (error) {
+        console.error("Featured products genel hatası:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadFeaturedProducts()
+  }, []) // Sadece mount olduğunda çalışır
 
   // Responsive ayarları
   useEffect(() => {
@@ -52,7 +50,7 @@ export default function FeaturedProductsSlider() {
 
   // Otomatik ilerleme (sadece mobilde)
   useEffect(() => {
-    if (isMobile) {
+    if (isMobile && featuredProducts.length > 0) {
       const play = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % featuredProducts.length)
       }
@@ -65,7 +63,7 @@ export default function FeaturedProductsSlider() {
         }
       }
     }
-  }, [isMobile])
+  }, [isMobile, featuredProducts.length])
 
   const goToPrev = () => {
     setCurrentIndex((prevIndex) => {
@@ -78,6 +76,27 @@ export default function FeaturedProductsSlider() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % featuredProducts.length)
   }
 
+  // Loading durumu
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-16">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+      </div>
+    )
+  }
+
+  // Hiç öne çıkan ürün yoksa
+  if (featuredProducts.length === 0) {
+    return (
+      <div className="text-center py-16">
+        <p className="text-gray-500 text-lg">Henüz öne çıkan ürün bulunmuyor.</p>
+        <p className="text-gray-400 text-sm mt-2">
+          Admin olarak giriş yapıp ürün kartlarındaki yıldız butonuna tıklayarak ürünleri öne çıkarabilirsiniz.
+        </p>
+      </div>
+    )
+  }
+
   // Masaüstü görünümü
   if (!isMobile) {
     return (
@@ -85,19 +104,19 @@ export default function FeaturedProductsSlider() {
         {featuredProducts.map((product) => (
           <Link
             key={product.id}
-            href={product.link}
+            href={`/urunler/${product.brand_slug}/${product.category_slug}/${product.product_slug}`}
             className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl"
           >
             <div className="p-4">
               <div className="mb-4 overflow-hidden rounded">
                 <img
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.title}
+                  src={product.product_image_url || "/placeholder.svg"}
+                  alt={product.product_name}
                   className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.title}</h3>
-              <p className="text-sm text-gray-600 mb-3">{product.description}</p>
+              <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
+              <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
               <div className="flex justify-end items-center mt-auto">
                 <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-medium transition-all duration-300 group-hover:bg-red-700">
                   İncele
@@ -125,19 +144,19 @@ export default function FeaturedProductsSlider() {
             <div key={product.id} className="w-full flex-shrink-0">
               <div className="p-2">
                 <Link
-                  href={product.link}
+                  href={`/urunler/${product.brand_slug}/${product.category_slug}/${product.product_slug}`}
                   className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl block h-full"
                 >
                   <div className="p-4 flex flex-col h-full">
                     <div className="mb-4 overflow-hidden rounded">
                       <img
-                        src={product.image || "/placeholder.svg"}
-                        alt={product.title}
+                        src={product.product_image_url || "/placeholder.svg"}
+                        alt={product.product_name}
                         className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.title}</h3>
-                    <p className="text-sm text-gray-600 mb-3">{product.description}</p>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
+                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
                     <div className="flex justify-end items-center mt-auto">
                       <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-medium transition-all duration-300 group-hover:bg-red-700">
                         İncele
@@ -151,36 +170,40 @@ export default function FeaturedProductsSlider() {
         </div>
       </div>
 
-      {/* Navigation Buttons */}
-      <button
-        onClick={goToPrev}
-        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10 -ml-3"
-        aria-label="Önceki ürün"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </button>
-
-      <button
-        onClick={goToNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10 -mr-3"
-        aria-label="Sonraki ürün"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </button>
-
-      {/* Dots */}
-      <div className="flex justify-center mt-4 space-x-2">
-        {featuredProducts.map((_, index) => (
+      {/* Navigation Buttons - Sadece birden fazla ürün varsa */}
+      {featuredProducts.length > 1 && (
+        <>
           <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all ${
-              currentIndex === index ? "bg-red-600 w-4" : "bg-gray-300"
-            }`}
-            aria-label={`Ürün ${index + 1}`}
-          />
-        ))}
-      </div>
+            onClick={goToPrev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10 -ml-3"
+            aria-label="Önceki ürün"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+
+          <button
+            onClick={goToNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10 -mr-3"
+            aria-label="Sonraki ürün"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+
+          {/* Dots */}
+          <div className="flex justify-center mt-4 space-x-2">
+            {featuredProducts.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  currentIndex === index ? "bg-red-600 w-4" : "bg-gray-300"
+                }`}
+                aria-label={`Ürün ${index + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   )
 }

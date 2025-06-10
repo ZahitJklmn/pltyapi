@@ -5,7 +5,7 @@ export default function AboutPageClient() {
   const [isFlipped, setIsFlipped] = useState(false)
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
@@ -95,7 +95,7 @@ export default function AboutPageClient() {
           <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Neden Bizi Tercih Etmelisiniz?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -106,7 +106,7 @@ export default function AboutPageClient() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-red-600"
+                  className="text-green-600"
                 >
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
@@ -117,26 +117,29 @@ export default function AboutPageClient() {
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-red-600"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Hızlı Teslimat</h3>
+            <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="text-yellow-600"
+  >
+    <rect x="3" y="3" width="7" height="7" rx="1" />
+    <rect x="14" y="3" width="7" height="7" rx="1" />
+    <rect x="14" y="14" width="7" height="7" rx="1" />
+    <rect x="3" y="14" width="7" height="7" rx="1" />
+  </svg>
+</div>
+
+              <h3 className="text-xl font-bold mb-2 text-gray-800">Geniş Ürün Yelpazesi</h3>
               <p className="text-gray-600">
-                Siparişlerinizi en kısa sürede hazırlayıp, güvenli bir şekilde adresinize teslim ediyoruz.
+              İhtiyacınıza uygun onlarca farklı ürün seçeneği.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
@@ -162,33 +165,6 @@ export default function AboutPageClient() {
                 ulaşabilirsiniz.
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* Ekibimiz */}
-        <div>
-          <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Ekibimiz</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { name: "Ahmet Yılmaz", title: "Genel Müdür" },
-              { name: "Ayşe Kaya", title: "Satış Müdürü" },
-              { name: "Mehmet Demir", title: "Teknik Danışman" },
-              { name: "Zeynep Çelik", title: "Müşteri İlişkileri" },
-            ].map((person, idx) => (
-              <div key={idx} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="h-64 bg-gray-200">
-                  <img
-                    src={`/placeholder.svg?height=300&width=300&text=${person.name}`}
-                    alt={person.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-4 text-center">
-                  <h3 className="text-xl font-bold text-gray-800">{person.name}</h3>
-                  <p className="text-gray-600">{person.title}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

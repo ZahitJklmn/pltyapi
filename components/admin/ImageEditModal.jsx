@@ -12,8 +12,28 @@ export default function ImageEditModal({ isOpen, onClose, productId, currentImag
   const [success, setSuccess] = useState(false)
   const fileInputRef = useRef(null)
 
+  // Modal kapatma - event propagation'ı durdur
+  const handleBackdropClick = (e) => {
+    e.stopPropagation()
+    if (e.target === e.currentTarget) {
+      onClose()
+    }
+  }
+
+  // Modal içeriği tıklaması - propagation'ı durdur
+  const handleModalContentClick = (e) => {
+    e.stopPropagation()
+  }
+
+  // Kapatma butonu
+  const handleCloseClick = (e) => {
+    e.stopPropagation()
+    onClose()
+  }
+
   // Görsel seçme işlemi
   const handleImageSelect = async (e) => {
+    e.stopPropagation()
     const file = e.target.files[0]
     if (!file) return
 
@@ -29,8 +49,16 @@ export default function ImageEditModal({ isOpen, onClose, productId, currentImag
     }
   }
 
+  // Dosya input'a tıklama
+  const handleFileInputClick = (e) => {
+    e.stopPropagation()
+    fileInputRef.current?.click()
+  }
+
   // Görsel güncelleme işlemi
-  const handleUpdateImage = async () => {
+  const handleUpdateImage = async (e) => {
+    e.stopPropagation()
+
     if (!imageFile) {
       setError("Lütfen bir görsel seçin.")
       return
@@ -101,19 +129,36 @@ export default function ImageEditModal({ isOpen, onClose, productId, currentImag
     }
   }
 
+  // Görsel kaldırma
+  const handleRemoveImage = (e) => {
+    e.stopPropagation()
+    setImageFile(null)
+    setImagePreview(null)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""
+    }
+  }
+
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center" onClick={handleBackdropClick}>
       {/* Arkaplan overlay */}
-      <div className="absolute inset-0 bg-black/70" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/70"></div>
 
       {/* Modal içeriği */}
-      <div className="relative bg-white rounded-lg shadow-xl w-full max-w-md">
+      <div
+        className="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto"
+        onClick={handleModalContentClick}
+      >
         {/* Başlık ve kapatma butonu */}
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-4 border-b sticky top-0 bg-white">
           <h2 className="text-xl font-bold">Ürün Görselini Güncelle</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 transition-colors">
+          <button
+            onClick={handleCloseClick}
+            className="text-gray-500 hover:text-gray-700 transition-colors p-1"
+            type="button"
+          >
             <X className="h-6 w-6" />
           </button>
         </div>
@@ -137,7 +182,7 @@ export default function ImageEditModal({ isOpen, onClose, productId, currentImag
             <h3 className="text-sm font-medium text-gray-700 mb-2">Yeni Görsel</h3>
             <div
               className="border-2 border-dashed border-gray-300 rounded-lg h-48 flex flex-col items-center justify-center cursor-pointer hover:border-red-500 transition-colors"
-              onClick={() => fileInputRef.current.click()}
+              onClick={handleFileInputClick}
             >
               {imagePreview ? (
                 <div className="relative w-full h-full">
@@ -148,12 +193,8 @@ export default function ImageEditModal({ isOpen, onClose, productId, currentImag
                   />
                   <button
                     type="button"
-                    className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setImageFile(null)
-                      setImagePreview(null)
-                    }}
+                    className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full hover:bg-red-700"
+                    onClick={handleRemoveImage}
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -186,9 +227,10 @@ export default function ImageEditModal({ isOpen, onClose, productId, currentImag
           {/* Butonlar */}
           <div className="flex justify-end space-x-3">
             <button
-              onClick={onClose}
+              onClick={handleCloseClick}
               className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
               disabled={loading}
+              type="button"
             >
               İptal
             </button>
@@ -198,6 +240,7 @@ export default function ImageEditModal({ isOpen, onClose, productId, currentImag
                 loading || !imageFile ? "opacity-70 cursor-not-allowed" : ""
               }`}
               disabled={loading || !imageFile || success}
+              type="button"
             >
               {loading ? (
                 <>

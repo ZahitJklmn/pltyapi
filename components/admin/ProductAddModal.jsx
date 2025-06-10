@@ -3,6 +3,7 @@ import { useState, useRef } from "react"
 import { compressAndConvertToWebP } from "@/utils/imageCompression"
 import { getSupabaseClient } from "@/lib/supabase"
 import { X, Upload, ArrowRight, ArrowLeft, Check } from "lucide-react"
+import { uploadImageToSupabase } from "@/utils/supabaseUpload"
 
 const applicationAreaOptions = [
   "İç duvarlar",
@@ -179,32 +180,20 @@ export default function ProductAddModal({ isOpen, onClose, brandId, categoryId, 
       console.log("Görsel sıkıştırılıyor...")
       const compressedImage = await compressAndConvertToWebP(productImage)
 
+      // Supabase Storage'a yükleme kısmını daha detaylı hale getirelim:
+
       // 2. Görseli Supabase Storage'a yükle
       console.log("Görsel Supabase Storage'a yükleniyor...")
-      const timestamp = new Date().getTime()
-      const randomString = Math.random().toString(36).substring(2, 10)
-      const fileName = `products/${timestamp}_${randomString}.webp`
+      let publicUrl
 
-      console.log("Yüklenecek dosya:", fileName)
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("product-images")
-        .upload(fileName, compressedImage, {
-          cacheControl: "3600",
-          upsert: false,
-        })
-
-      if (uploadError) {
+      try {
+        // Utils fonksiyonunu kullanarak yükleme işlemini yap
+        publicUrl = await uploadImageToSupabase(compressedImage, "product-images", "products")
+        console.log("Görsel başarıyla yüklendi, URL:", publicUrl)
+      } catch (uploadError) {
         console.error("Görsel yükleme hatası:", uploadError)
         throw new Error(`Görsel yükleme hatası: ${uploadError.message || JSON.stringify(uploadError)}`)
       }
-
-      console.log("Görsel başarıyla yüklendi:", uploadData)
-
-      // Yüklenen görselin public URL'ini al
-      const { data: urlData } = supabase.storage.from("product-images").getPublicUrl(fileName)
-      const publicUrl = urlData.publicUrl
-
-      console.log("Görsel URL'i:", publicUrl)
 
       // 3. Ürün slug'ını oluştur
       const slug = productName
@@ -212,6 +201,8 @@ export default function ProductAddModal({ isOpen, onClose, brandId, categoryId, 
         .replace(/[^\w\s-]/g, "")
         .replace(/[\s_-]+/g, "-")
         .replace(/^-+|-+$/g, "")
+
+      // Ürünü veritabanına ekleme kısmını güncelleyelim:
 
       // 4. Ürünü veritabanına ekle
       console.log("Ürün veritabanına ekleniyor...")
@@ -225,15 +216,13 @@ export default function ProductAddModal({ isOpen, onClose, brandId, categoryId, 
 
       const { data: productData, error: productError } = await supabase
         .from("products")
-        .insert([
-          {
-            category_id: categoryId,
-            name: productName,
-            slug: slug,
-            description: productDescription,
-            image_url: publicUrl,
-          },
-        ])
+        .insert({
+          category_id: categoryId,
+          name: productName,
+          slug: slug,
+          description: productDescription,
+          image_url: publicUrl,
+        })
         .select()
 
       if (productError) {
@@ -250,16 +239,14 @@ export default function ProductAddModal({ isOpen, onClose, brandId, categoryId, 
 
       // 5. Ürün özelliklerini ekle
       const validFeatures = features.filter((f) => f.trim() !== "")
-      for (const feature of validFeatures) {
-        const { error: featureError } = await supabase.from("product_features").insert({
+      const featurePromises = validFeatures.map((feature) => {
+        return supabase.from("product_features").insert({
           product_id: productId,
           feature: feature,
         })
+      })
 
-        if (featureError) {
-          console.error("Özellik ekleme hatası:", featureError)
-        }
-      }
+      await Promise.all(featurePromises)
 
       // 6. Teknik özellikleri ekle
       const techSpecsEntries = Object.entries(technicalSpecs).filter(([_, value]) => value.trim() !== "")
@@ -272,30 +259,26 @@ export default function ProductAddModal({ isOpen, onClose, brandId, categoryId, 
         dilution: "İnceltme",
       }
 
-      for (const [key, value] of techSpecsEntries) {
-        const { error: techSpecError } = await supabase.from("product_technical_specs").insert({
+      const techSpecPromises = techSpecsEntries.map(([key, value]) => {
+        return supabase.from("product_technical_specs").insert({
           product_id: productId,
           spec_name: techSpecsMap[key],
           spec_value: value,
         })
+      })
 
-        if (techSpecError) {
-          console.error("Teknik özellik ekleme hatası:", techSpecError)
-        }
-      }
+      await Promise.all(techSpecPromises)
 
       // 7. Uygulama alanlarını ekle
       const validAreas = applicationAreas.filter((a) => a.trim() !== "")
-      for (const area of validAreas) {
-        const { error: areaError } = await supabase.from("product_application_areas").insert({
+      const areaPromises = validAreas.map((area) => {
+        return supabase.from("product_application_areas").insert({
           product_id: productId,
           application_area: area,
         })
+      })
 
-        if (areaError) {
-          console.error("Uygulama alanı ekleme hatası:", areaError)
-        }
-      }
+      await Promise.all(areaPromises)
 
       // Başarılı mesajı göster
       setSuccess(true)
