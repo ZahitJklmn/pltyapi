@@ -9,30 +9,29 @@ import { useAuth } from "./auth/AuthProvider"
 // Ürünler menüsünü markalar şeklinde değiştirmek için productCategories değişkenini güncelliyorum
 const productCategories = [
   {
-    title: "Jotun",
-    image: "/placeholder.svg?height=80&width=150&text=JOTUN",
+    title: "",
+    image: "/images/jotun-logo.png?height=80&width=150&text=JOTUN",
     link: "/urunler/jotun",
     items: [
       { name: "İç Cephe Ürünleri", link: "/urunler/jotun/ic-cephe-urunleri" },
       { name: "Dış Cephe Ürünleri", link: "/urunler/jotun/dis-cephe-urunleri" },
-      { name: "Ahşap Ürünleri", link: "/urunler/jotun/ahsap-urunleri" },
-      { name: "Metal Ürünleri", link: "/urunler/jotun/metal-urunleri" },
+      { name: "Dış Cephe Renk Koleksiyonları", link: "/urunler/jotun/renk-koleksiyonlari" },
     ],
   },
   {
-    title: "Filli Boya",
-    image: "/placeholder.svg?height=80&width=150&text=FILLI BOYA",
-    link: "/urunler/filli-boya",
+    title: "",
+    image: "/images/mapei-logo.png?height=80&width=150&text=MAPEI",
+    link: "/urunler/mapei",
     items: [
-      { name: "İç Cephe Boyaları", link: "/urunler/filli-boya/ic-cephe-boyalari" },
-      { name: "Dış Cephe Boyaları", link: "/urunler/filli-boya/dis-cephe-boyalari" },
-      { name: "Metal Boyaları", link: "/urunler/filli-boya/metal-boyalari" },
+      { name: "İç Cephe Boyaları", link: "/urunler/mapei/" },
+      { name: "Dış Cephe Boyaları", link: "/urunler/mapei/" },
+      { name: "Metal Boyaları", link: "/urunler/mapei/" },
     ],
   },
   {
-    title: "Marshall",
-    image: "/placeholder.svg?height=80&width=150&text=MARSHALL",
-    link: "/urunler/marshall",
+    title: "Tepe Betopan",
+    image: "/images/tepe-betopan-logo.png?height=80&width=150&text=TEPE+BETOPAN",
+    link: "/urunler/tepe-betopan",
     items: [
       { name: "İç Cephe Boyaları", link: "/urunler/marshall/ic-cephe-boyalari" },
       { name: "Dış Cephe Boyaları", link: "/urunler/marshall/dis-cephe-boyalari" },
@@ -40,9 +39,19 @@ const productCategories = [
     ],
   },
   {
-    title: "Hekim Panel",
-    image: "/placeholder.svg?height=80&width=150&text=HEKIM PANEL",
-    link: "/urunler/hekim-panel",
+    title: "Tepepan",
+    image: "/images/tepepan-logo.png?height=80&width=150&text=TEPEPAN",
+    link: "/urunler/tepepan",
+    items: [
+      { name: "Çatı Panelleri", link: "/urunler/hekim-panel/cati-panelleri" },
+      { name: "Cephe Panelleri", link: "/urunler/hekim-panel/cephe-panelleri" },
+      { name: "Konteyner Paneli", link: "/urunler/hekim-panel/konteyner-paneli" },
+    ],
+  },
+  {
+    title: "",
+    image: "/images/bianca-logo.png?height=80&width=150&text=BIANCA+STELLA",
+    link: "/urunler/bianca",
     items: [
       { name: "Çatı Panelleri", link: "/urunler/hekim-panel/cati-panelleri" },
       { name: "Cephe Panelleri", link: "/urunler/hekim-panel/cephe-panelleri" },
@@ -103,7 +112,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-gradient-to-b from-black to-black/5" : "bg-neutral-500 transition-transform duration-500  "}`}
+      className={`select-none fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-gradient-to-b from-black to-black/5" : "bg-neutral-500 transition-transform duration-500  "}`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
@@ -111,7 +120,7 @@ export default function Navbar() {
           <Link href="/" className="flex-shrink-0 group">
             <div className="relative">
               <img
-                src="/images/plt-yapi-logo.png?height=50&width=150&text=LOGO"
+                src="/images/plt-yapi-logo-beyaz.png?height=50&width=150&text=LOGO"
                 alt="Logo"
                 className="h-12 transition-all duration-300 group-hover:scale-105"
               />
@@ -139,7 +148,11 @@ export default function Navbar() {
                   <div className="grid grid-cols-2 gap-8">
                     {productCategories.map((category, idx) => (
                       <div key={idx} className="group/item">
+                      <Link
+                      href={category.link} className="block text-white hover:text-orange-400 transition-all duration-200 mb-4" title={category.title} draggable="false"
+                      >
                         <div className="flex items-center mb-4 p-3 rounded-xl bg-gradient-to-r from-white/5 to-transparent hover:from-orange-500/10 hover:to-red-600/10 transition-all duration-300">
+
                           <img
                             src={category.image || "/placeholder.svg"}
                             alt={category.title}
@@ -147,6 +160,7 @@ export default function Navbar() {
                           />
                           <h3 className="text-white font-bold text-lg">{category.title}</h3>
                         </div>
+                      </Link>
                         <div className="space-y-2 ml-4">
                           {category.items.map((item, itemIdx) => (
                             <Link
@@ -254,7 +268,7 @@ export default function Navbar() {
             {/* Kapatma butonu ve logo */}
             <div className="flex justify-between items-start mb-8">
               <div className="w-48">
-                <img src="/images/plt-yapi-logo-arkaplanli.png?height=80&width=200&text=LOGO" alt="Logo" className="w-full rounded-sm" draggable="false" />
+                <img src="/images/plt-yapi-logo-beyaz.png?height=80&width=200&text=LOGO" alt="Logo" className="w-full rounded-sm" draggable="false" />
               </div>
               <button
                 onClick={() => setIsMenuOpen(false)}
@@ -333,15 +347,14 @@ export default function Navbar() {
                 />
               )}
 
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d305940.92568511216!2d36.0725749!3d40.3249801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x408738cad646a9f7%3A0xf5a18284ed23b9fc!2sTokat!5e0!3m2!1str!2str!4v1718114875315!5m2!1str!2str"
-                width="270"
-                height="250"
-                style={{ border: 0, borderRadius: '8px', pointerEvents: 'none' }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3041.4821996920773!2d36.5446746!3d40.331648!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407db75a72a89f95%3A0x69af5028f6bdacbd!2sPLT%20YAPI%20S%C4%B0STEMLER%C4%B0%20-%20JOTUN%20BOYA%20SATI%C5%9E%20MA%C4%9EAZASI!5e0!3m2!1str!2str!4v1749754342474!5m2!1str!2str" 
+            width="253" 
+            height="250" 
+            style={{ border: 0, borderRadius: '8px', pointerEvents: 'revert' }}
+            allowFullScreen="" 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade">
+          </iframe>
             </div>
                   
             {/* İletişim Bilgileri */}
@@ -352,15 +365,20 @@ export default function Navbar() {
               <div className="space-y-4 text-sm">
                 <div className="flex items-start p-3 bg-white/5 rounded-xl">
                   <MapPin className="h-4 w-4 text-orange-400 mr-3 mt-1 flex-shrink-0" />
-                  <span className="text-gray-300">Örnek Mahallesi, Örnek Caddesi No:123, İstanbul, Türkiye</span>
+                  <span className="text-gray-300">Bosna Cd 27, Yeşilırmak Mh., Tokat, Türkiye</span>
                 </div>
                 <div className="flex items-center p-3 bg-white/5 rounded-xl">
+                <Link
+                className="flex items-center text-gray-300 hover:text-orange-400 transition-all duration-300"
+                href={"tel:03562125660"}
+                >
                   <Phone className="h-4 w-4 text-orange-400 mr-3 flex-shrink-0" />
-                  <span className="text-gray-300">0212 123 45 67</span>
+                  <span className="text-gray-300 hover:text-orange-400 transition-all duration-300">(0356) 212 56 60</span>
+                </Link>
                 </div>
                 <div className="flex items-center p-3 bg-white/5 rounded-xl">
                   <Mail className="h-4 w-4 text-orange-400 mr-3 flex-shrink-0" />
-                  <span className="text-gray-300">info@boyamalzemeleri.com</span>
+                  <span className="text-gray-300">pltyapitokat@gmail.com</span>
                 </div>
               </div>
             </div>

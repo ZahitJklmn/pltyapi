@@ -4,20 +4,16 @@ import Footer from "@/components/Footer"
 import SocialFixedIcons from "@/components/SocialFixedIcons"
 import LoadingScreen from "@/components/LoadingScreen"
 import { AuthProvider } from "@/components/auth/AuthProvider"
-import Head from "next/head"
+import ScrollToTopButton from "@/components/ScrollToTopButton"
 
 export const metadata = {
   title: "Boya Malzemeleri",
   description: "Kaliteli boya ürünleri ve profesyonel çözümler",
-  themeColor: '#ea580c', // ← Burası!
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="tr">
-      <Head>
-        <meta name="theme-color" content="#ea580c" />
-      </Head>
       <body className="min-h-screen flex flex-col">
         <AuthProvider>
           <LoadingScreen />
@@ -26,6 +22,7 @@ export default function RootLayout({ children }) {
           <SocialFixedIcons />
           <Footer />
         </AuthProvider>
+        <ScrollToTopButton />
       </body>
     </html>
   )

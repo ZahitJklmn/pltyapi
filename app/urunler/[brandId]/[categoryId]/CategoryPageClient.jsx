@@ -1,7 +1,8 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import ProductCardList from "@/components/ProductCardList"
+import ProductCard from "@/components/ProductCard"
+import { ArrowBigLeft, ArrowBigRight, ChevronRight } from "lucide-react"
 
 export default function CategoryPageClient({ params }) {
   const { brandId, categoryId } = params || {}
@@ -11,6 +12,9 @@ export default function CategoryPageClient({ params }) {
   const [category, setCategory] = useState(null)
   const [products, setProducts] = useState([])
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const productsPerPage = 9
+
   // Tüm markalar
   const brands = [
     {
@@ -19,31 +23,39 @@ export default function CategoryPageClient({ params }) {
       slug: "jotun",
       description:
         "Jotun, yüksek kaliteli iç ve dış cephe boyaları sunan dünya çapında bir markadır. 1926'dan beri faaliyet gösteren Norveç kökenli marka, denizcilik, koruyucu kaplamalar ve dekoratif boyalar alanında lider konumdadır.",
-      image_url: "/placeholder.svg?height=150&width=250&text=JOTUN",
+      image_url: "/images/jotun-logo.png?height=150&width=250&text=JOTUN",
     },
     {
       id: 2,
-      name: "Filli Boya",
-      slug: "filli-boya",
+      name: "Mapei",
+      slug: "mapei",
       description:
-        "Filli Boya, Türkiye'nin önde gelen boya markalarından biridir. 1962'den beri kaliteli ürünler üreten marka, iç ve dış cephe boyalarında geniş ürün yelpazesi sunar.",
-      image_url: "/placeholder.svg?height=150&width=250&text=FILLI+BOYA",
+        "Mapei, inşaat sektöründe yapıştırıcılar, harçlar ve kaplama malzemeleri üreten uluslararası bir markadır. 1937'de İtalya'da kurulan Mapei, yenilikçi ürünleri ve geniş ürün yelpazesi ile tanınır.",
+      image_url: "/marka-urun-karti/mapei.png?height=150&width=250&text=MAPEI",
     },
     {
       id: 3,
-      name: "Marshall",
-      slug: "marshall",
+      name: "Tepe Betopan",
+      slug: "tepe-betopan",
       description:
-        "Marshall, geniş renk seçenekleri ve kaliteli ürünleriyle tanınan bir boya markasıdır. İç ve dış cephe boyalarında uzman olan marka, dekoratif çözümler sunar.",
-      image_url: "/placeholder.svg?height=150&width=250&text=MARSHALL",
+        "Tepe Betopan, prefabrik yapı elemanları ve çatı sistemleri üreten Türkiye merkezli bir markadır. Yüksek kaliteli beton panelleri ile inşaat sektöründe önemli bir yere sahiptir.",
+      image_url: "/marka-urun-karti/tepe-betopan.png?height=150&width=250&text=TEPE+BETOPAN",
     },
     {
       id: 4,
-      name: "Hekim Panel",
-      slug: "hekim-panel",
+      name: "Tepepan",
+      slug: "tepepan",
       description:
-        "Hekim Panel, çatı ve cephe panelleri konusunda uzmanlaşmış bir markadır. Yalıtımlı panel sistemleri ve modern yapı çözümleri sunar.",
-      image_url: "/placeholder.svg?height=150&width=250&text=HEKIM+PANEL",
+        "Tepepan, prefabrik yapı elemanları ve inşaat malzemeleri üreten bir markadır. Tepe Grubu'nun bir parçası olarak, yüksek kaliteli ürünleri ile sektördeki yerini sağlamlaştırmıştır.",
+      image_url: "/marka-urun-karti/tepepan.png?height=150&width=250&text=TEPEPAN",
+    },
+    {
+      id: 5,
+      name: "Bianca Stella",
+      slug: "bianca",
+      description:
+        "Bianca Stella, iç cephe boyaları ve dekoratif kaplama ürünleri üreten bir markadır. Kaliteli ve estetik çözümleri ile ev dekorasyonunda tercih edilen markalardan biridir.",
+      image_url: "/marka-urun-karti/bianca.png?height=150&width=250&text=BIANCA+STELLA",
     },
   ]
 
@@ -71,17 +83,9 @@ export default function CategoryPageClient({ params }) {
     {
       id: 3,
       brand_id: 1,
-      name: "Ahşap Ürünleri",
-      slug: "ahsap-urunleri",
-      description: "Ahşap yüzeyler için koruyucu ve dekoratif boyalar. Vernik, lak ve emprenye ürünleri.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Ahşap+Ürünleri",
-    },
-    {
-      id: 4,
-      brand_id: 1,
-      name: "Metal Ürünleri",
-      slug: "metal-urunleri",
-      description: "Metal yüzeyler için pas önleyici ve koruyucu boyalar. Endüstriyel ve dekoratif çözümler.",
+      name: "Dış Cephe Renk Koleksiyonları",
+      slug: "renk-koleksiyonlari",
+      description: "Jotun'un dış cepheler için özel olarak geliştirdiği renk koleksiyonları. Estetik ve modern tasarımlar.",
       image_url: "/placeholder.svg?height=200&width=300&text=Metal+Ürünleri",
     },
     // Filli Boya kategorileri
@@ -161,33 +165,108 @@ export default function CategoryPageClient({ params }) {
     },
   ]
 
-  // Tüm ürünler
+  // Tüm ürünler - 2'şer fotoğraf ile
   const allProducts = [
     // Jotun İç Cephe Ürünleri
     {
       id: 1,
       category_id: 1,
-      name: "Fenomastic",
-      slug: "fenomastic",
+      name: "Fenomastic Zen",
+      slug: "fenomastic-zen",
       description:
-        "Yüksek kapatıcılığa sahip, silinebilir iç cephe boyası. Kokusuz formülü ile sağlıklı yaşam alanları.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Fenomastic",
+        "Daima Güzel ve Temiz Duvarlar",
+      image_url: "/jotun/ic-cephe/feno-zen-on.png?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/feno-zen-arka.png?height=300&width=300&text=Fenomastic+Detay",
     },
     {
       id: 2,
       category_id: 1,
-      name: "Majestic",
-      slug: "majestic",
-      description: "Leke tutmayan, ipeksi mat görünümlü iç cephe boyası. Anti-bakteriyel özellikli.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Majestic",
+      name: "Fenomastic Güzel Evim Saf İpek", 
+      slug: "fenomastic-guzel-evim-saf-ipek",
+      description:
+        "Yumuşak görünüm ile doğal doku",
+      image_url: "/jotun/ic-cephe/gevim-saf-ipek-on.png?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/gevim-saf-ipek-arka.png?height=300&width=300&text=Fenomastic+Detay",
     },
     {
       id: 3,
       category_id: 1,
-      name: "Lady Pure Colours",
-      slug: "lady-pure-colours",
-      description: "Çocuk odaları için özel geliştirilmiş, tamamen doğal iç cephe boyası.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Lady+Pure+Colours",
+      name: "Fenomastic Güzel Evim Mineral", 
+      slug: "fenomastic-guzel-evim-mineral",
+      description:
+        "Benzersiz renk oyunu",
+      image_url: "/jotun/ic-cephe/gevim-mineral-on.png?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/gevim-mineral-arka.png?height=300&width=300&text=Fenomastic+Detay",
+    },
+    {
+      id: 4,
+      category_id: 1,
+      name: "Fenomastic Güzel Evim Mineral Şeffaf Koruyucu", 
+      slug: "fenomastic-guzel-evim-mineral-seffaf-koruyucu",
+      description:
+        "Mükemmel yüzeyler",
+      image_url: "/jotun/ic-cephe/gevim-mineral-seffaf-on.png?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/gevim-mineral-arka.png?height=300&width=300&text=Fenomastic+Detay",
+    },
+    {
+      id: 5,
+      category_id: 1,
+      name: "Fenomastic Güzel Evim Zengin Mat", 
+      slug: "fenomastic-guzel-evim-zengin-mat",
+      description:
+        "Uzun ömürlü koruma.",
+      image_url: "/jotun/ic-cephe/gevim-zengin-on.png?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/gevim-zengin-arka.png?height=300&width=300&text=Fenomastic+Detay",
+    },
+    {
+      id: 6,
+      category_id: 1,
+      name: "Fenomastic Primer", 
+      slug: "fenomastic-primer",
+      description:
+        "Usta Fırçaların Tercihi",
+      image_url: "/jotun/ic-cephe/feno-primer-on.png?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/feno-primer-arka.png?height=300&width=300&text=Fenomastic+Detay",
+    },
+    {
+      id: 7,
+      category_id: 1,
+      name: "Fenomastic Mat", 
+      slug: "fenomastic-mat",
+      description:
+        "Usta Fırçaların Tercihi",
+      image_url: "/jotun/ic-cephe/feno-mat-on.png?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/feno-mat-arka.png?height=300&width=300&text=Fenomastic+Detay",
+    },
+    {
+      id: 8,
+      category_id: 1,
+      name: "Fenomastic İpek Mat", 
+      slug: "fenomastic-ipek-mat",
+      description:
+        "Usta Fırçaların Tercihi",
+      image_url: "/jotun/ic-cephe/feno-ipek-mat-on.png?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/feno-ipek-mat-arka.png?height=300&width=300&text=Fenomastic+Detay",
+    },
+    {
+      id: 9,
+      category_id: 1,
+      name: "Fenomastic Macun", 
+      slug: "fenomastic-macun",
+      description:
+        "Usta Fırçaların Tercihi",
+      image_url: "/jotun/ic-cephe/feno-macun-on.webp?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/feno-macun-arka.png?height=300&width=300&text=Fenomastic+Detay",
+    },
+    {
+      id: 10,
+      category_id: 1,
+      name: "Fenomastic Macun (Hazırlık)", 
+      slug: "fenomastic-macun-hazirlik",
+      description:
+        "Benzersiz mat doku ile daha güzel renkler",
+      image_url: "/jotun/ic-cephe/feno-macun-on.webp?height=300&width=300&text=Fenomastic",
+      hover_image_url: "/jotun/ic-cephe/feno-macun-hazirlik-arka.png?height=300&width=300&text=Fenomastic+Detay",
     },
     // Jotun Dış Cephe Ürünleri
     {
@@ -197,6 +276,7 @@ export default function CategoryPageClient({ params }) {
       slug: "jotashield",
       description: "Dış cephe için yüksek dayanıklılığa sahip, UV korumalı boya. 15 yıl garanti.",
       image_url: "/placeholder.svg?height=300&width=300&text=Jotashield",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Jotashield+Detay",
     },
     {
       id: 5,
@@ -205,6 +285,7 @@ export default function CategoryPageClient({ params }) {
       slug: "facade",
       description: "Ekonomik dış cephe boyası. Hava koşullarına dayanıklı formül.",
       image_url: "/placeholder.svg?height=300&width=300&text=Facade",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Facade+Detay",
     },
     // Jotun Ahşap Ürünleri
     {
@@ -214,6 +295,7 @@ export default function CategoryPageClient({ params }) {
       slug: "trebitt",
       description: "Ahşap yüzeyler için koruyucu emprenye. Su itici ve mantar önleyici.",
       image_url: "/placeholder.svg?height=300&width=300&text=Trebitt",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Trebitt+Detay",
     },
     {
       id: 7,
@@ -222,6 +304,7 @@ export default function CategoryPageClient({ params }) {
       slug: "visir",
       description: "Şeffaf ahşap koruyucu. Doğal ahşap görünümünü korur.",
       image_url: "/placeholder.svg?height=300&width=300&text=Visir",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Visir+Detay",
     },
     // Jotun Metal Ürünleri
     {
@@ -231,6 +314,7 @@ export default function CategoryPageClient({ params }) {
       slug: "pilot-ii",
       description: "Metal yüzeyler için pas önleyici astar. Uzun ömürlü koruma.",
       image_url: "/placeholder.svg?height=300&width=300&text=Pilot+II",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Pilot+II+Detay",
     },
     // Filli Boya İç Cephe
     {
@@ -240,6 +324,7 @@ export default function CategoryPageClient({ params }) {
       slug: "momento",
       description: "Ekonomik iç cephe boyası. Kolay uygulama ve hızlı kuruma.",
       image_url: "/placeholder.svg?height=300&width=300&text=Momento",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Momento+Detay",
     },
     {
       id: 10,
@@ -248,6 +333,7 @@ export default function CategoryPageClient({ params }) {
       slug: "tempo",
       description: "Silinebilir iç cephe boyası. Geniş renk seçeneği.",
       image_url: "/placeholder.svg?height=300&width=300&text=Tempo",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Tempo+Detay",
     },
     {
       id: 11,
@@ -256,6 +342,7 @@ export default function CategoryPageClient({ params }) {
       slug: "clean",
       description: "Anti-bakteriyel iç cephe boyası. Hastane ve okul projeleri için ideal.",
       image_url: "/placeholder.svg?height=300&width=300&text=Clean",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Clean+Detay",
     },
     // Filli Boya Dış Cephe
     {
@@ -265,6 +352,7 @@ export default function CategoryPageClient({ params }) {
       slug: "exterior",
       description: "Dış cephe için dayanıklı boya. Türkiye iklim koşullarına uygun.",
       image_url: "/placeholder.svg?height=300&width=300&text=Exterior",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Exterior+Detay",
     },
     {
       id: 13,
@@ -273,6 +361,7 @@ export default function CategoryPageClient({ params }) {
       slug: "silikonlu",
       description: "Silikon katkılı dış cephe boyası. Su itici özellik.",
       image_url: "/placeholder.svg?height=300&width=300&text=Silikonlu",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Silikonlu+Detay",
     },
     // Marshall İç Cephe
     {
@@ -282,6 +371,7 @@ export default function CategoryPageClient({ params }) {
       slug: "maxima",
       description: "Yüksek kapatıcılığa sahip iç cephe boyası. Ekonomik çözüm.",
       image_url: "/placeholder.svg?height=300&width=300&text=Maxima",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Maxima+Detay",
     },
     {
       id: 15,
@@ -290,6 +380,7 @@ export default function CategoryPageClient({ params }) {
       slug: "prestij",
       description: "Premium iç cephe boyası. İpeksi mat görünüm.",
       image_url: "/placeholder.svg?height=300&width=300&text=Prestij",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Prestij+Detay",
     },
     // Marshall Dış Cephe
     {
@@ -299,6 +390,7 @@ export default function CategoryPageClient({ params }) {
       slug: "dis-cephe",
       description: "Standart dış cephe boyası. Hava koşullarına dayanıklı.",
       image_url: "/placeholder.svg?height=300&width=300&text=Dış+Cephe",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Dış+Cephe+Detay",
     },
     // Hekim Panel Ürünleri
     {
@@ -308,6 +400,7 @@ export default function CategoryPageClient({ params }) {
       slug: "cati-sandvic-panel",
       description: "Yalıtımlı çatı sandviç paneli. Enerji tasarrufu sağlar.",
       image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
     },
     {
       id: 18,
@@ -316,6 +409,7 @@ export default function CategoryPageClient({ params }) {
       slug: "cephe-sandvic-panel",
       description: "Modern cephe kaplama paneli. Hızlı montaj.",
       image_url: "/placeholder.svg?height=300&width=300&text=Cephe+Sandviç+Panel",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Cephe+Sandviç+Panel+Detay",
     },
     {
       id: 19,
@@ -324,8 +418,14 @@ export default function CategoryPageClient({ params }) {
       slug: "konteyner-panel",
       description: "Konteyner yapılar için özel panel. Modüler sistem.",
       image_url: "/placeholder.svg?height=300&width=300&text=Konteyner+Panel",
+      hover_image_url: "/placeholder.svg?height=300&width=300&text=Konteyner+Panel+Detay",
     },
   ]
+
+  const handleProductDelete = (productId) => {
+    const updatedProducts = products.filter((product) => product.id !== productId)
+    setProducts(updatedProducts)
+  }
 
   useEffect(() => {
     if (!brandId || !categoryId) {
@@ -407,28 +507,27 @@ export default function CategoryPageClient({ params }) {
               backgroundImage: `url('${brand.image_url || "/placeholder.svg?height=400&width=1200&text=Ürünlerimiz"}')`,
             }}
           ></div>
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-black/30"></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{brand.name}</h1>
             <h2 className="text-2xl md:text-3xl font-medium text-white">{category.name}</h2>
           </div>
         </div>
 
         {/* Breadcrumb */}
         <div className="flex items-center mb-8 text-sm">
-          <Link href="/" className="text-gray-500 hover:text-red-600">
+          <Link href="/" className="text-black hover:text-red-600 transition-all duration-200">
             Anasayfa
           </Link>
-          <span className="mx-2 text-gray-500">/</span>
-          <Link href="/urunler" className="text-gray-500 hover:text-red-600">
+          <ChevronRight className="h-4 w-4 mx-2 text-neutral-900" />
+          <Link href="/urunler" className="text-black hover:text-red-600 transition-all duration-200">
             Ürünler
           </Link>
-          <span className="mx-2 text-gray-500">/</span>
-          <Link href={`/urunler/${brandId}`} className="text-gray-500 hover:text-red-600">
+          <ChevronRight className="h-4 w-4 mx-2 text-neutral-900" />
+          <Link href={`/urunler/${brandId}`} className="text-black hover:text-red-600 transition-all duration-200">
             {brand.name}
           </Link>
-          <span className="mx-2 text-gray-500">/</span>
-          <span className="text-gray-800 font-medium">{category.name}</span>
+          <ChevronRight className="h-4 w-4 mx-2 text-neutral-900" />
+          <span className="text-red-600 font-medium">{category.name}</span>
         </div>
 
         {/* Brand Info */}
@@ -439,6 +538,7 @@ export default function CategoryPageClient({ params }) {
                 src={brand.image_url || "/placeholder.svg?height=200&width=200&text=" + encodeURIComponent(brand.name)}
                 alt={brand.name}
                 className="max-w-full h-auto"
+                draggable="false"
               />
             </div>
             <div className="w-full md:w-3/4">
@@ -456,7 +556,86 @@ export default function CategoryPageClient({ params }) {
 
         {/* Products Grid */}
         {products && products.length > 0 ? (
-          <ProductCardList initialProducts={products} brandId={brandId} categoryId={categoryId} />
+          (() => {
+            const totalPages = Math.ceil(products.length / productsPerPage)
+            const startIndex = (currentPage - 1) * productsPerPage
+            const endIndex = startIndex + productsPerPage
+            const currentProducts = products.slice(startIndex, endIndex)
+
+            return (
+              <div>
+                {/* Ürün sayısı bilgisi */}
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-xl font-semibold text-gray-800">Ürünler</h3>
+                  <p className="text-gray-600">
+                    {startIndex + 1}-{Math.min(endIndex, products.length)} / {products.length} ürün
+                  </p>
+                </div>
+
+                {/* Ürün kartları - ProductCard component'ini kullanarak */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                  {currentProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      brandId={brandId}
+                      categoryId={categoryId}
+                      isAdmin={false}
+                      onDelete={handleProductDelete}
+                    />
+                  ))}
+                </div>
+
+                {/* Sayfalandırma */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center items-center gap-4 bg-white rounded-lg shadow-md p-6">
+                    {/* Previous Button */}
+                    <button
+                      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1}
+                      className={`px-2 py-2 rounded-full font-medium transition-colors ${
+                        currentPage === 1
+                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                          : "bg-blue-600 text-white hover:bg-blue-700"
+                      }`}
+                    >
+                      <ArrowBigLeft />
+                    </button>
+
+                    {/* Sayfa numaraları */}
+                    <div className="flex gap-2">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`w-10 h-10 rounded-full font-medium transition-colors ${
+                            currentPage === page
+                              ? "bg-red-600 text-white"
+                              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Next Button */}
+                    <button
+                      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                      disabled={currentPage === totalPages}
+                      className={`px-2 py-2 rounded-full font-medium transition-colors ${
+                        currentPage === totalPages
+                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                          : "bg-blue-600 text-white hover:bg-blue-700"
+                      }`}
+                    >
+                      <ArrowBigRight />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
+          })()
         ) : (
           <div className="text-center py-12 bg-white rounded-lg shadow-md">
             <h3 className="text-xl font-semibold text-gray-700 mb-2">Bu kategoride henüz ürün bulunmamaktadır</h3>

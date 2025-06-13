@@ -9,10 +9,22 @@ const brands = [
     link: "/urunler/jotun",
   },
   {
+    id: "mapei",
+    name: "Mapei",
+    image: "/images/mapei-logo.png?height=80&width=150&text=MAPEI",
+    link: "/urunler/dyo",
+  },
+  {
     id: "tepe-betopan",
     name: "Tepe Betopan",
     image: "/images/tepe-betopan-logo.png?height=80&width=150&text=TEPE BETOPAN",
     link: "/urunler/filli-boya",
+  },
+  {
+    id: "tepepan",
+    name: "Tepepan",
+    image: "/images/tepepan-logo.png?height=80&width=150&text=TEPEPAN",
+    link: "/urunler/polisan",
   },
   {
     id: "bianca",
@@ -20,32 +32,23 @@ const brands = [
     image: "/images/bianca-logo.png?height=80&width=150&text=BIANCA",
     link: "/urunler/marshall",
   },
-  {
-    id: "mapei",
-    name: "Mapei",
-    image: "/images/mapei-logo.png?height=80&width=150&text=MAPEI",
-    link: "/urunler/dyo",
-  },
-  {
-    id: "tepepan",
-    name: "Tepepan",
-    image: "/images/tepepan-logo.jpg?height=80&width=150&text=TEPEPAN",
-    link: "/urunler/polisan",
-  },
 ]
 
 export default function BrandsSection() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-8 py-10">
+  <div className="w-full">
+     {/* Mobil: 2 sütun, Tablet: 3 sütun, Masaüstü: 5 sütun */}
+     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
       {brands.map((brand) => (
         <Link
           key={brand.id}
           href={brand.link}
-          className="bg-white rounded-xl flex items-center justify-center hover:shadow-lg transition-shadow duration-300 brand-card"
+          className="bg-neutral-300 rounded-xl flex items-center justify-center hover:shadow-lg transition-shadow duration-300 brand-card"
         >
           <img src={brand.image || "/placeholder.svg"} alt={brand.name} className="max-h-20 object-contain rounded-xl" />
         </Link>
       ))}
     </div>
+  </div>
   )
 }

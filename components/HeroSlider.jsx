@@ -6,7 +6,14 @@ import Image from "next/image"
 
 const slides = [
   {
-    image: "/images/dukkan-foto1.png?height=600&width=1600&text=Slide+1",
+    image: "/images/slide-1.jpg?height=600&width=1600&text=Slide+3",
+    title: "Uzman Kadro",
+    description: "Deneyimli ekibimiz ile tüm boya ihtiyaçlarınızda yanınızdayız",
+    cta: "İletişime Geç",
+    path: "/iletisim",
+  },
+  {
+    image: "/images/slide-2.jpg?height=600&width=1600&text=Slide+1",
     title: "Kaliteli Boya Çözümleri",
     description: "Profesyonel ve amatör kullanıcılar için en kaliteli boya ürünleri",
     cta: "Ürünleri Keşfet",
@@ -18,13 +25,6 @@ const slides = [
     description: "İç cephe, dış cephe, ahşap ve metal boyaları tek çatı altında",
     cta: "Katalog İncele",
     path: "/urunler",
-  },
-  {
-    image: "/images/?height=600&width=1600&text=Slide+3",
-    title: "Uzman Kadro",
-    description: "Deneyimli ekibimiz ile tüm boya ihtiyaçlarınızda yanınızdayız",
-    cta: "İletişime Geç",
-    path: "/iletisim",
   },
 ]
 

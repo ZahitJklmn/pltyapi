@@ -5,6 +5,7 @@ import { Trash2, Star, Eye, Heart } from "lucide-react"
 import { getSupabaseClient } from "@/lib/supabase"
 import { useAuth } from "@/components/auth/AuthProvider"
 import ImageEditModal from "./admin/ImageEditModal"
+import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 
 export default function ProductCard({ product, brandId, categoryId, onDelete }) {
   const { isAdmin, user } = useAuth()
@@ -14,6 +15,9 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
   const [isFeatured, setIsFeatured] = useState(false)
   const [isTogglingFeatured, setIsTogglingFeatured] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  // const [currentImage, setCurrentImage] = useState(product.image_url)
+
+  const [animationRef, isVisible] = useScrollAnimation()
 
   useEffect(() => {
     if (isAdmin && product?.slug && brandId && categoryId) {
@@ -41,6 +45,15 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
       checkFeaturedStatus()
     }
   }, [isAdmin, product?.slug, brandId, categoryId])
+
+  // Hover efekti için fotoğraf değiştirme
+  // useEffect(() => {
+  //   if (isHovered && product.hover_image_url) {
+  //     setCurrentImage(product.hover_image_url)
+  //   } else {
+  //     setCurrentImage(product.image_url)
+  //   }
+  // }, [isHovered, product.image_url, product.hover_image_url])
 
   const handleToggleFeatured = async (e) => {
     e.preventDefault()
@@ -120,17 +133,25 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
 
   return (
     <div
-      className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-black/10 hover:-translate-y-2"
+      ref={animationRef}
+      className={`group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-700 hover:shadow-2xl hover:shadow-black/10 hover:-translate-y-2 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Image Container */}
-      <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+    {/* Image Container */}
+      <div className="h-80 w-full overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <img
-          src={product.image_url || "/placeholder.svg"}
+          src={
+          isHovered && product.hover_image_url
+          ? product.hover_image_url
+          : product.image_url || "/placeholder.svg"
+          } 
           alt={product.name}
-          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-        />
+          className="max-h-full max-w-full object-contain transition-all duration-500 group-hover:scale-105"
+      />
+
 
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -158,13 +179,11 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
             </button>
           )}
 
-          <button className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/50 transition-all duration-300 flex items-center justify-center">
-            <Heart className="h-4 w-4" />
-          </button>
-
-          <button className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/50 transition-all duration-300 flex items-center justify-center">
+          <Link className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/50 transition-all duration-300 flex items-center justify-center"
+                href= {`/urunler/${brandId}/${categoryId}/${product.slug}`}
+          >
             <Eye className="h-4 w-4" />
-          </button>
+          </Link>
         </div>
 
         {/* Category Badge */}
@@ -192,9 +211,9 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
 
         {/* Action Bar */}
         <div className="flex items-center justify-between">
-          {/* Admin Controls */}
+          {/* Admin Controls hidden div */}
           {isAdmin && (
-            <div className="flex items-center space-x-2">
+            <div className="items-center space-x-2 hidden">
               <button
                 onClick={handleEditClick}
                 className="w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg transition-colors duration-200 flex items-center justify-center"

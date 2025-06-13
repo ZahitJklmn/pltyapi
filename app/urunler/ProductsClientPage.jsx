@@ -1,5 +1,6 @@
 "use client"
 import Link from "next/link"
+import { ChevronRight } from "lucide-react"
 
 export default function ProductsClientPage() {
   // Marka verileri direkt burada tanımlanıyor
@@ -10,31 +11,39 @@ export default function ProductsClientPage() {
       slug: "jotun",
       description:
         "Jotun, yüksek kaliteli iç ve dış cephe boyaları sunan dünya çapında bir markadır. 1926'dan beri faaliyet gösteren Norveç kökenli marka, denizcilik, koruyucu kaplamalar ve dekoratif boyalar alanında lider konumdadır.",
-      image_url: "/placeholder.svg?height=150&width=250&text=JOTUN",
+      image_url: "/marka-urun-karti/jotun.png?height=150&width=250&text=JOTUN",
     },
     {
       id: 2,
-      name: "Filli Boya",
-      slug: "filli-boya",
+      name: "Mapei",
+      slug: "mapei",
       description:
-        "Filli Boya, Türkiye'nin önde gelen boya markalarından biridir. 1962'den beri kaliteli ürünler üreten marka, iç ve dış cephe boyalarında geniş ürün yelpazesi sunar.",
-      image_url: "/placeholder.svg?height=150&width=250&text=FILLI+BOYA",
+        "Mapei, inşaat sektöründe yapıştırıcılar, harçlar ve kaplama malzemeleri üreten uluslararası bir markadır. 1937'de İtalya'da kurulan Mapei, yenilikçi ürünleri ve geniş ürün yelpazesi ile tanınır.",
+      image_url: "/marka-urun-karti/mapei.png?height=150&width=250&text=MAPEI",
     },
     {
       id: 3,
-      name: "Marshall",
-      slug: "marshall",
+      name: "Tepe Betopan",
+      slug: "tepe-betopan",
       description:
-        "Marshall, geniş renk seçenekleri ve kaliteli ürünleriyle tanınan bir boya markasıdır. İç ve dış cephe boyalarında uzman olan marka, dekoratif çözümler sunar.",
-      image_url: "/placeholder.svg?height=150&width=250&text=MARSHALL",
+        "Tepe Betopan, prefabrik yapı elemanları ve çatı sistemleri üreten Türkiye merkezli bir markadır. Yüksek kaliteli beton panelleri ile inşaat sektöründe önemli bir yere sahiptir.",
+      image_url: "/marka-urun-karti/tepe-betopan.png?height=150&width=250&text=TEPE+BETOPAN",
     },
     {
       id: 4,
-      name: "Hekim Panel",
-      slug: "hekim-panel",
+      name: "Tepepan",
+      slug: "tepepan",
       description:
-        "Hekim Panel, çatı ve cephe panelleri konusunda uzmanlaşmış bir markadır. Yalıtımlı panel sistemleri ve modern yapı çözümleri sunar.",
-      image_url: "/placeholder.svg?height=150&width=250&text=HEKIM+PANEL",
+        "Tepepan, prefabrik yapı elemanları ve inşaat malzemeleri üreten bir markadır. Tepe Grubu'nun bir parçası olarak, yüksek kaliteli ürünleri ile sektördeki yerini sağlamlaştırmıştır.",
+      image_url: "/marka-urun-karti/tepepan.png?height=150&width=250&text=TEPEPAN",
+    },
+    {
+      id: 5,
+      name: "Bianca Stella",
+      slug: "bianca",
+      description:
+        "Bianca Stella, iç cephe boyaları ve dekoratif kaplama ürünleri üreten bir markadır. Kaliteli ve estetik çözümleri ile ev dekorasyonunda tercih edilen markalardan biridir.",
+      image_url: "/marka-urun-karti/bianca.png?height=150&width=250&text=BIANCA+STELLA",
     },
   ]
 
@@ -45,7 +54,7 @@ export default function ProductsClientPage() {
         <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/placeholder.svg?height=400&width=1200&text=Ürünlerimiz')" }}
+            style={{ backgroundImage: "url('/stock/our-products.jpg?height=400&width=1200&text=Ürünlerimiz')" }}
           ></div>
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -55,11 +64,11 @@ export default function ProductsClientPage() {
 
         {/* Breadcrumb */}
         <div className="flex items-center mb-8 text-sm">
-          <Link href="/" className="text-gray-500 hover:text-red-600">
+          <Link href="/" className="text-black hover:text-red-600 transition-all duration-200">
             Anasayfa
           </Link>
-          <span className="mx-2 text-gray-500">/</span>
-          <span className="text-gray-800 font-medium">Ürünler</span>
+          <ChevronRight className="h-4 w-4 mx-2 text-neutral-900" />
+          <span className="text-red-600 font-medium">Ürünler</span>
         </div>
 
         {/* Intro */}
@@ -87,7 +96,7 @@ export default function ProductsClientPage() {
                 <img
                   src={brand.image_url || "/placeholder.svg"}
                   alt={brand.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover  transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
               <div className="p-6">

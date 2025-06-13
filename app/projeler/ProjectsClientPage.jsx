@@ -140,7 +140,7 @@ export default function ProjectsClientPage() {
           <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
             <div
               className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/placeholder.svg?height=400&width=1200&text=Projelerimiz')" }}
+              style={{ backgroundImage: "url('stock/our-projects.jpg?height=400&width=1200&text=Projelerimiz')" }}
             ></div>
             <div className="absolute inset-0 bg-black/50"></div>
             <div className="absolute inset-0 flex items-center justify-center">
@@ -150,11 +150,11 @@ export default function ProjectsClientPage() {
 
           {/* Breadcrumb */}
           <div className="flex items-center mb-8 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-red-600">
+            <Link href="/" className="text-black hover:text-red-600 transition-all duration-300">
               Anasayfa
             </Link>
-            <span className="mx-2 text-gray-500">/</span>
-            <span className="text-gray-800 font-medium">Projeler</span>
+            <span className="mx-2 text-black">/</span>
+            <span className="text-red-600 font-medium">Projeler</span>
           </div>
 
           {/* Intro Text ve Admin Buton */}
@@ -227,13 +227,19 @@ export default function ProjectsClientPage() {
                         <p className="text-gray-600">{project.location}</p>
                       </div>
                     </div>
-                    <div className="mt-6">
-                      <Link
-                        href={`/projeler/${project.slug}`}
-                        className="inline-block bg-red-600 text-white px-6 py-3 rounded font-medium transition-all duration-300 hover:bg-red-700"
-                      >
-                        Detayları Gör
-                      </Link>
+                    <div className="my-6 flex">
+                      <p className="text-lg text-black">
+                        Projelerinizi Bizimle Güzelleştirmek İçin →
+                        <Link
+            href={`/iletisim`}
+            className="flex text-center mt-4 items-center justify-center ml-auto group/btn relative px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
+          >
+            <span className="relative z-10 flex items-center ">
+              İletişime Geçin
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+          </Link>
+                      </p>
                     </div>
                   </div>
                 </div>

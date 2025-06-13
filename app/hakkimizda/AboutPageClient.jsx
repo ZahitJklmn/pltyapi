@@ -11,7 +11,7 @@ export default function AboutPageClient() {
         <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/placeholder.svg?height=400&width=1200&text=Hakkımızda')" }}
+            style={{ backgroundImage: "url('/stock/about-us.webp?height=400&width=1200&text=Hakkımızda')" }}
           ></div>
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="absolute inset-0 flex items-center justify-center">

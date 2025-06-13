@@ -138,8 +138,8 @@ export default function ContactPageClient() {
         {/* Hero Section */}
         <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
           <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/placeholder.svg?height=400&width=1200&text=İletişim')" }}
+            className="absolute inset-0 bg-cover bg-top"
+            style={{ backgroundImage: "url('/stock/contact.jpg?height=400&width=1200&text=İletişim')" }}
           ></div>
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -159,7 +159,7 @@ export default function ContactPageClient() {
                   <MapPin className="h-6 w-6 text-red-600 mr-4 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Adres</h3>
-                    <p className="text-gray-600">Örnek Mahallesi, Örnek Caddesi No:123, İstanbul, Türkiye</p>
+                    <p className="text-gray-600">Bosna Cd 27, Yeşilırmak Mh., Tokat, Türkiye</p>
                   </div>
                 </div>
 
@@ -167,8 +167,7 @@ export default function ContactPageClient() {
                   <Phone className="h-6 w-6 text-red-600 mr-4 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Telefon</h3>
-                    <p className="text-gray-600">0212 123 45 67</p>
-                    <p className="text-gray-600">0212 123 45 68</p>
+                    <p className="text-gray-600">(0356) 212 56 60</p>
                   </div>
                 </div>
 
@@ -176,8 +175,7 @@ export default function ContactPageClient() {
                   <Mail className="h-6 w-6 text-red-600 mr-4 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">E-posta</h3>
-                    <p className="text-gray-600">zahidjklmn@gmail.com</p>
-                    <p className="text-gray-600">info@boyamalzemeleri.com</p>
+                    <p className="text-gray-600">pltyapitokat@gmail.com</p>
                   </div>
                 </div>
 
@@ -185,8 +183,8 @@ export default function ContactPageClient() {
                   <Clock className="h-6 w-6 text-red-600 mr-4 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Çalışma Saatleri</h3>
-                    <p className="text-gray-600">Pazartesi - Cuma: 09:00 - 18:00</p>
-                    <p className="text-gray-600">Cumartesi: 09:00 - 14:00</p>
+                    <p className="text-gray-600">Pazartesi - Cuma: 09:00 - 17:00</p>
+                    <p className="text-gray-600">Cumartesi: 09:00 - 17:00</p>
                     <p className="text-gray-600">Pazar: Kapalı</p>
                   </div>
                 </div>
@@ -374,7 +372,7 @@ export default function ContactPageClient() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors duration-300 ${
+                  className={`flex text-center mt-4 items-center justify-center ml-auto group/btn relative px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105 ${
                     isSubmitting ? "opacity-70 cursor-not-allowed" : ""
                   }`}
                 >
@@ -389,15 +387,14 @@ export default function ContactPageClient() {
         <div className="bg-white rounded-lg shadow-lg p-4 overflow-hidden">
           <h2 className="text-2xl font-bold mb-4 text-gray-800 px-4 text-center">Dükkanımızın Konumu</h2>
           <div className="h-[800px] w-full">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.9533631421576!2d28.979697!3d41.037183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7650656bd63%3A0x8ca058b28c20b6c3!2zVGFrc2ltIE1leWRhbsSxLCBHw7xtw7zFn3N1eXUsIDM0NDM1IEJleW_En2x1L8Swc3RhbmJ1bA!5e0!3m2!1str!2str!4v1620000000000!5m2!1str!2str"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3041.4821996920773!2d36.5446746!3d40.331648!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407db75a72a89f95%3A0x69af5028f6bdacbd!2sPLT%20YAPI%20S%C4%B0STEMLER%C4%B0%20-%20JOTUN%20BOYA%20SATI%C5%9E%20MA%C4%9EAZASI!5e0!3m2!1str!2str!4v1749754342474!5m2!1str!2str" 
+          width="100%" 
+          height="100%" 
+          style={{ border: 0 }}
+          allowFullScreen="" 
+          loading="lazy" 
+          referrerPolicy="no-referrer-when-downgrade">
+          </iframe>
           </div>
         </div>
       </div>

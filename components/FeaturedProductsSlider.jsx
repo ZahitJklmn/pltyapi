@@ -129,25 +129,27 @@ export default function FeaturedProductsSlider() {
     )
   }
 
-  // Mobil slider görünümü
+  // Mobil slider görünümü - TAMAMEN YENİDEN DÜZENLENDİ
   return (
-    <div className="relative">
-      <div className="overflow-hidden">
+    <div className="w-full relative">
+      {/* Ana slider container - padding yok */}
+      <div className="w-full overflow-hidden">
+        {/* Slider track */}
         <div
-          className="flex transition-transform duration-500 ease-in-out"
+          className="flex w-full transition-transform duration-500 ease-in-out"
           style={{
             transform: `translateX(-${currentIndex * 100}%)`,
-            width: `${featuredProducts.length * 100}%`,
           }}
         >
+          {/* Her bir slide - tam genişlikte */}
           {featuredProducts.map((product) => (
-            <div key={product.id} className="w-full flex-shrink-0">
-              <div className="p-2">
+            <div key={product.id} className="w-full flex-shrink-0 flex justify-center">
+              <div className="w-[90%] mx-auto">
                 <Link
                   href={`/urunler/${product.brand_slug}/${product.category_slug}/${product.product_slug}`}
-                  className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl block h-full"
+                  className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl block w-full"
                 >
-                  <div className="p-4 flex flex-col h-full">
+                  <div className="p-4 flex flex-col">
                     <div className="mb-4 overflow-hidden rounded">
                       <img
                         src={product.product_image_url || "/placeholder.svg"}
@@ -175,18 +177,18 @@ export default function FeaturedProductsSlider() {
         <>
           <button
             onClick={goToPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10 -ml-3"
+            className="absolute left-1 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg z-10 backdrop-blur-sm"
             aria-label="Önceki ürün"
           >
-            <ChevronLeft className="h-6 w-6" />
+            <ChevronLeft className="h-5 w-5" />
           </button>
 
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10 -mr-3"
+            className="absolute right-1 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg z-10 backdrop-blur-sm"
             aria-label="Sonraki ürün"
           >
-            <ChevronRight className="h-6 w-6" />
+            <ChevronRight className="h-5 w-5" />
           </button>
 
           {/* Dots */}

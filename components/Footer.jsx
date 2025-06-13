@@ -16,6 +16,23 @@ export default function Footer() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const { user, isAdmin, signIn } = useAuth()
 
+  const [dropdownStates, setDropdownStates] = useState({
+    facebook: false,
+    instagram: false,
+  })
+
+  // Sosyal medya linkleri - Kodda sabit olarak tanımlanmış
+  const socialLinks = {
+    facebook: [
+      { title: "Kurumsal Sayfamız", url: "https://www.facebook.com/pltyapisistemleri/?locale=tr_TR" },
+      { title: "Jotun Sayfamız", url: "https://www.facebook.com/p/Jotun_tokatpltyap%C4%B1-100063632795286/" },
+    ],
+    instagram: [
+      { title: "Kurumsal Sayfamız", url: "https://instagram.com/yourprofile" },
+      { title: "Jotun Sayfamız", url: "https://www.instagram.com/jotuntokat/" },
+    ],
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 500)
@@ -23,6 +40,17 @@ export default function Footer() {
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".social-dropdown-container")) {
+        setDropdownStates({ facebook: false, instagram: false })
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside)
+    return () => document.removeEventListener("click", handleClickOutside)
   }, [])
 
   const handleLogin = async (e) => {
@@ -51,11 +79,20 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
+  const handleDropdownToggle = (platform) => {
+    setDropdownStates((prev) => ({
+      ...prev,
+      [platform]: !prev[platform],
+      // Diğer dropdown'ları kapat
+      ...(platform === "facebook" ? { instagram: false } : { facebook: false }),
+    }))
+  }
+
   return (
     <>
       <footer
         ref={footerRef}
-        className={`relative bg-gradient-to-br from-black via-gray-900 to-black text-white pt-20 pb-8 transition-all duration-1000 ${
+        className={`relative select-none bg-gradient-to-br from-black via-gray-900 to-black text-white pt-20 pb-8 transition-all duration-1000 ${
           isFooterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
@@ -81,31 +118,71 @@ export default function Footer() {
             <div className="space-y-6">
               <div className="group">
                 <img
-                  src="/images/plt-yapi-logo-arkaplanli.png?height=50&width=150&text=LOGO"
+                  src="/images/plt-yapi-logo-beyaz.png?height=50&width=150&text=LOGO"
                   alt="Logo"
-                  className="h-20 rounded-xl mb-6 transition-all duration-300 group-hover:scale-105"
+                  className="h-24 rounded-sm mb-6 transition-all duration-300 group-hover:scale-105"
                   draggable="false"
                 />
               </div>
 
-              <p className="text-gray-300 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed hidden"> {/* hidden div */}
                 Kaliteli boya ürünleri ve profesyonel çözümler için 20 yılı aşkın tecrübemizle hizmetinizdeyiz.
               </p>
 
               {/* Social Media - Gradient background hover */}
               <div className="flex space-x-4">
                 {[
-                  { icon: Facebook, href: "#" },
-                  { icon: Instagram, href: "#" },
-                  { icon: Twitter, href: "#" },
+                  {
+                    icon: Facebook,
+                    platform: "facebook",
+                    dropdownItems: socialLinks.facebook,
+                  },
+                  {
+                    icon: Instagram,
+                    platform: "instagram",
+                    dropdownItems: socialLinks.instagram,
+                  },
+                  { icon: Twitter, href: "https://x.com/pltyapi", platform: "twitter" },
                 ].map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl flex items-center justify-center text-gray-300 transition-all duration-300 hover:scale-110 hover:text-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-600 hover:border-orange-400"
-                  >
-                    <social.icon className="h-5 w-5" />
-                  </a>
+                  <div key={index} className="relative social-dropdown-container">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        if (social.dropdownItems) {
+                          handleDropdownToggle(social.platform)
+                        } else if (social.href) {
+                          window.open(social.href, "_blank")
+                        }
+                      }}
+                      className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl flex items-center justify-center text-gray-300 transition-all duration-300 hover:scale-110 hover:text-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-600 hover:border-orange-400"
+                    >
+                      <social.icon className="h-5 w-5" />
+                    </button>
+
+                    {/* Dropdown */}
+                    {social.dropdownItems && dropdownStates[social.platform] && (
+                      <div
+                        className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-neutral-700/95 backdrop-blur-sm border-2 border-orange-400 rounded-xl shadow-xl z-50 overflow-hidden"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {social.dropdownItems.map((item, itemIndex) => (
+                          <a
+                            key={itemIndex}
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block w-full px-4 py-3 text-white hover:scale-105 hover:bg-neutral-500 hover:text-orange-600 transition-all duration-200 border-b border-orange-100 last:border-b-0 text-left"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setDropdownStates({ facebook: false, instagram: false })
+                            }}
+                          >
+                            {item.title}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
@@ -116,7 +193,7 @@ export default function Footer() {
                 <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                   Hızlı Linkler
                 </span>
-                <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
+                <div className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
               </h3>
               <ul className="space-y-3">
                 {[
@@ -129,7 +206,7 @@ export default function Footer() {
                   <li key={index}>
                     <Link
                       href={link.href}
-                      className="text-gray-400 hover:text-white transition-all duration-300 inline-block relative group"
+                      className="text-gray-300 hover:text-white transition-all duration-300 inline-block relative group"
                     >
                       {link.name}
                       <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-300 group-hover:w-full"></span>
@@ -145,7 +222,7 @@ export default function Footer() {
                 <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                   Ürün Kategorileri
                 </span>
-                <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
+                <div className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
               </h3>
               <ul className="space-y-3">
                 {[
@@ -158,7 +235,7 @@ export default function Footer() {
                   <li key={index}>
                     <Link
                       href={link.href}
-                      className="text-gray-400 hover:text-white transition-all duration-300 text-sm inline-block relative group"
+                      className="text-gray-300 hover:text-white transition-all duration-300 text-sm inline-block relative group"
                     >
                       {link.name}
                       <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 transition-all duration-300 group-hover:w-full"></span>
@@ -174,26 +251,25 @@ export default function Footer() {
                 <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                   İletişim Bilgileri
                 </span>
-                <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
+                <div className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
               </h3>
               <ul className="space-y-4">
                 {[
                   {
                     icon: MapPin,
-                    text: "Örnek Mahallesi, Örnek Caddesi No:123, İstanbul, Türkiye",
+                    text: "Bosna Cd 27, Yeşilırmak Mh., Tokat, Türkiye",
                   },
                   {
                     icon: Phone,
-                    text: "0212 123 45 67",
+                    text: "(0356) 212 56 60",
                   },
                   {
                     icon: Mail,
-                    text: "info@boyamalzemeleri.com",
-                    clickable: false,
+                    text: "pltyapitokat@gmail.com",
                   },
                   {
                     icon: Clock,
-                    text: "Pazartesi - Cumartesi: 09:00 - 18:00",
+                    text: "Pazartesi - Cumartesi: 09:00 - 17:00",
                     clickable: true,
                   },
                 ].map((item, index) => (
@@ -204,39 +280,16 @@ export default function Footer() {
                     {item.clickable ? (
                       <button
                         onClick={() => setShowLoginModal(true)}
-                        className="text-gray-400 hover:text-gray-400 hover:cursor-text transition-colors duration-300 text-left"
+                        className="text-gray-300 transition-colors duration-300 text-left"
                       >
                         {item.text}
                       </button>
                     ) : (
-                      <span className="text-gray-400">{item.text}</span>
+                      <span className="text-gray-300">{item.text}</span>
                     )}
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
-
-          {/* Newsletter Section  hidden div gereksiz diye*/}
-          <div
-            className={`border-t hidden border-white/10 pt-8 mb-8 transition-all duration-1000 delay-500 ${
-              isFooterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <div className="max-w-md mx-auto text-center">
-              <h4 className="text-lg font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-                Haberlerden Haberdar Olun
-              </h4>
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Email adresiniz"
-                  className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-l-xl text-white placeholder-gray-400 focus:outline-none focus:border-orange-400 transition-colors duration-300"
-                />
-                <button className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-r-xl hover:from-orange-600 hover:to-red-700 transition-all duration-300 hover:scale-105">
-                  Abone Ol
-                </button>
-              </div>
             </div>
           </div>
 
@@ -247,20 +300,21 @@ export default function Footer() {
             }`}
           >
             <p className="text-gray-400 text-sm">
-              © {new Date().getFullYear()} PLT YAPI | Tüm hakları saklıdır
-              <span className="text-orange-400 ml-1 hidden">Modern tasarım ile güçlendirilmiştir.</span> {/* bu div hidden */}
+              © {new Date().getFullYear()} PLT YAPI Sistemleri | Tüm hakları saklıdır
             </p>
           </div>
         </div>
 
-        {/* Scroll to Top Button */}
+        {/* Scroll to Top Button */} {/* layoutta button var o yüzden bu div hidden */}
         {showScrollTop && (
+          <div className="hidden">
           <button
             onClick={scrollToTop}
             className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-full shadow-lg hover:shadow-orange-500/25 transition-all duration-300 hover:scale-110 z-50 flex items-center justify-center"
           >
             <ArrowUp className="h-5 w-5" />
           </button>
+        </div>
         )}
 
         {/* Login Modal */}
@@ -293,7 +347,7 @@ export default function Footer() {
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-gray-900"
                     placeholder="admin@example.com"
                     required
                   />
@@ -309,7 +363,7 @@ export default function Footer() {
                       id="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-gray-900"
                       required
                     />
                     <button
