@@ -1,66 +1,16 @@
-"use client"
-import { useEffect } from "react"
-import HeroSlider from "@/components/HeroSlider"
-import ProductGroups from "@/components/ProductGroups"
-import FeaturedProductsSlider from "@/components/FeaturedProductsSlider"
-import AboutSection from "@/components/AboutSection"
-import BrandsSection from "@/components/BrandsSection"
+import ClientPage from "./ClientPage"
+
+export const metadata = {
+  title: "Plt Yapı Tokat | Jotun Boya Ürünleri ve Yapı Malzemeleri",
+  description:
+    "Plt Yapı Tokat'ta Jotun boya ürünleri, Tepe Betopan, yapı malzemeleri ve profesyonel boya çözümleri. Tokat'ın güvenilir boya malzemeleri tedarikçisi.",
+  keywords:
+    "Plt Yapı, Plt Yapı Tokat, Tokat Jotun, Tokat Boya Ürünleri, Tokat Boya Malzemeleri, Tokat Boya, Jotun Tokat, Tokat Tepe Betopan",
+  alternates: {
+    canonical: "https://pltyapitokat.com",
+  },
+}
 
 export default function Home() {
-  useEffect(() => {
-    // Animation for sections when they come into view
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in")
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-
-    document.querySelectorAll(".animate-on-scroll").forEach((section) => {
-      observer.observe(section)
-    })
-
-    return () => {
-      document.querySelectorAll(".animate-on-scroll").forEach((section) => {
-        observer.unobserve(section)
-      })
-    }
-  }, [])
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
-      <HeroSlider />
-
-      <section className="animate-on-scroll py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Öne Çıkan Ürünlerimiz</h2>
-          <FeaturedProductsSlider />
-        </div>
-      </section>
-
-      <section className="animate-on-scroll py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Ürün Gruplarımız</h2>
-          <ProductGroups />
-        </div>
-      </section>
-
-      <section className="animate-on-scroll py-48">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Markalarımız</h2>
-          <BrandsSection />
-        </div>
-      </section>
-
-      <section className="animate-on-scroll py-16">
-        <div className="container mx-auto px-4">
-          <AboutSection />
-        </div>
-      </section>
-    </div>
-  )
+  return <ClientPage />
 }
