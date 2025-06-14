@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { ChevronRight } from "lucide-react"
+import { ChevronRight, ExternalLink, ArrowRight } from "lucide-react"
 
 export default function ProductsClientPage() {
   // Marka verileri direkt burada tanımlanıyor
@@ -20,6 +20,7 @@ export default function ProductsClientPage() {
       description:
         "Mapei, inşaat sektöründe yapıştırıcılar, harçlar ve kaplama malzemeleri üreten uluslararası bir markadır. 1937'de İtalya'da kurulan Mapei, yenilikçi ürünleri ve geniş ürün yelpazesi ile tanınır.",
       image_url: "/marka-urun-karti/mapei.png?height=150&width=250&text=MAPEI",
+      external_link: "https://www.mapei.com/tr/tr/urunler-ve-cozumler",
     },
     {
       id: 3,
@@ -46,6 +47,14 @@ export default function ProductsClientPage() {
       image_url: "/marka-urun-karti/bianca.png?height=150&width=250&text=BIANCA+STELLA",
     },
   ]
+
+  const handleExternalLinkClick = (e, url) => {
+    e.preventDefault()
+    const confirmed = window.confirm(`${url} adresine gitmek istediğinizden emin misiniz?`)
+    if (confirmed) {
+      window.open(url, "_blank", "noopener,noreferrer")
+    }
+  }
 
   return (
     <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
@@ -86,19 +95,40 @@ export default function ProductsClientPage() {
 
         {/* Brands Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {brands.map((brand) => (
-            <Link
+        {brands.map((brand) => {
+            // External link kontrolü
+            const hasExternalLink = brand.external_link?.trim()
+            const LinkComponent = hasExternalLink ? "a" : Link
+            const linkProps = hasExternalLink
+              ? {
+                  href: brand.external_link,
+                  onClick: (e) => handleExternalLinkClick(e, brand.external_link),
+                }
+              : {
+                  href: `/urunler/${brand.slug}`,
+                }
+
+            return (
+              <LinkComponent
               key={brand.id}
-              href={`/urunler/${brand.slug}`}
+              {...linkProps}
               className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg group"
             >
-              <div className="h-48 overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={brand.image_url || "/placeholder.svg"}
                   alt={brand.name}
                   className="w-full h-full object-cover  transition-transform duration-500 group-hover:scale-110"
                 />
+                {/* External Link Badge */}
+                {hasExternalLink && (
+                    <div className="absolute top-3 right-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center shadow-lg">
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      Dış Bağlantı
+                    </div>
+                  )}
               </div>
+
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-2 text-gray-800 group-hover:text-red-600 transition-colors duration-300">
                   {brand.name}
@@ -106,24 +136,23 @@ export default function ProductsClientPage() {
                 <p className="text-gray-600 mb-4">{brand.description}</p>
                 <div className="flex justify-end">
                   <span className="inline-flex items-center text-red-600 font-medium group-hover:translate-x-2 transition-transform duration-300">
+                  {hasExternalLink ? (
+                        <>
+                          <ExternalLink className="w-5 h-5 mr-1" />
+                          Siteye Git
+                        </>
+                      ) : (
+                        <>
                     Ürünleri İncele
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 ml-1"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <ArrowRight className="w-5 h-5 ml-1" />
+                        </>
+                      )}
                   </span>
                 </div>
               </div>
-            </Link>
-          ))}
+              </LinkComponent>
+            )
+          })}
         </div>
       </div>
     </div>

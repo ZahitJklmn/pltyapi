@@ -154,13 +154,13 @@ export default function FeaturedProductsSlider() {
                       <img
                         src={product.product_image_url || "/placeholder.svg"}
                         alt={product.product_name}
-                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-76 object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
                     <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
                     <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
-                    <div className="flex justify-end items-center mt-auto">
-                      <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-medium transition-all duration-300 group-hover:bg-red-700">
+                    <div className="flex justify-center items-center mt-auto">
+                      <span className="bg-red-600 text-white px-10 py-1 rounded text-md font-medium transition-all duration-300 group-hover:bg-red-700">
                         İncele
                       </span>
                     </div>
@@ -177,7 +177,7 @@ export default function FeaturedProductsSlider() {
         <>
           <button
             onClick={goToPrev}
-            className="absolute left-1 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg z-10 backdrop-blur-sm"
+            className="absolute left-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-white text-red-600 rounded-full p-2 shadow-lg z-10 backdrop-blur-sm"
             aria-label="Önceki ürün"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -185,7 +185,7 @@ export default function FeaturedProductsSlider() {
 
           <button
             onClick={goToNext}
-            className="absolute right-1 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg z-10 backdrop-blur-sm"
+            className="absolute right-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-white text-red-600 rounded-full p-2 shadow-lg z-10 backdrop-blur-sm"
             aria-label="Sonraki ürün"
           >
             <ChevronRight className="h-5 w-5" />

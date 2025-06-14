@@ -115,6 +115,7 @@ export default function ColorCollectionClient({ params }) {
                       height={965}
                       className="object-cover"
                       priority={index === 0}
+                      draggable="false"
                     />
                   </div>
                 </div>

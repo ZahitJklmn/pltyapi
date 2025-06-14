@@ -27,6 +27,7 @@ export default function BrandPageClient({ params }) {
       description:
         "Mapei, inşaat sektöründe yapıştırıcılar, harçlar ve kaplama malzemeleri üreten uluslararası bir markadır. 1937'de İtalya'da kurulan Mapei, yenilikçi ürünleri ve geniş ürün yelpazesi ile tanınır.",
       image_url: "/images/?height=150&width=250&text=MAPEI",
+      external_link: "https://www.mapei.com/tr/tr/urunler-ve-cozumler", // External link örneği
     },
     {
       id: 3,
@@ -50,11 +51,11 @@ export default function BrandPageClient({ params }) {
       slug: "bianca",
       description:
         "Bianca Stella, iç cephe boyaları ve dekoratif kaplama ürünleri üreten bir markadır. Kaliteli ve estetik çözümleri ile ev dekorasyonunda tercih edilen markalardan biridir.",
-      image_url: "/images/?height=150&width=250&text=BIANCA+STELLA",
+      image_url: "/images/bianca-logo.png?height=150&width=250&text=BIANCA+STELLA",
     },
   ]
 
-  // Tüm kategoriler
+  // Tüm kategoriler - external_link ile  
   const allCategories = [
     // Jotun kategorileri
     {
@@ -64,7 +65,7 @@ export default function BrandPageClient({ params }) {
       slug: "ic-cephe-urunleri",
       description:
         "Evinizin iç mekanları için yüksek kaliteli boyalar ve kaplamalar. Silinebilir, kokusuz ve çevre dostu formüller.",
-      image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Ürünleri",
+      image_url: "/jotun/ic-cephe/kart-foto.png?height=200&width=300&text=İç+Cephe+Ürünleri",
     },
     {
       id: 2,
@@ -73,7 +74,7 @@ export default function BrandPageClient({ params }) {
       slug: "dis-cephe-urunleri",
       description:
         "Binanızın dış cephesi için dayanıklı ve uzun ömürlü boyalar. UV koruması ve hava koşullarına dayanıklılık.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Dış+Cephe+Ürünleri",
+      image_url: "/jotun/dis-cephe/kart-foto.png?height=200&width=300&text=Dış+Cephe+Ürünleri",
     },
     {
       id: 3,
@@ -81,84 +82,65 @@ export default function BrandPageClient({ params }) {
       name: "Dış Cephe Renk Koleksiyonları",
       slug: "renk-koleksiyonlari",
       description: "Jotun'un dış cepheler için özel olarak geliştirdiği renk koleksiyonları. Estetik ve modern tasarımlar.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Metal+Ürünleri",
+      image_url: "/jotun/dis-cephe/renk-koleksiyonlari.webp?height=200&width=300&text=Metal+Ürünleri",
     },
-    // Filli Boya kategorileri
+    // Mapei kategorileri
+
+          // şuanlık mapeinin external linki var
+
+    // Tepe Betopan kategorileri
+    {
+      id: 4,
+      brand_id: 3,
+      name: "Çimentolu Yonga Levhalar",
+      slug: "cimentolu-yonga-levhalar",
+      description: "Tepe Betopan'ın iç ve dış cepheler için sunduğu dayanıklı ve estetik çözümler. Yüksek ses ve ısı yalıtımı sağlar.",
+      image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Boyaları",
+      external_link: "", 
+    },
+    // Tepepan kategorileri
     {
       id: 5,
-      brand_id: 2,
-      name: "İç Cephe Boyaları",
-      slug: "ic-cephe-boyalari",
-      description: "İç mekanlar için su bazlı, silinebilir ve anti-bakteriyel boyalar. Geniş renk seçenekleri.",
-      image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Boyaları",
+      brand_id: 4,
+      name: "Elyaf Takviyeli Çimentolu Levhalar",
+      slug: "elyaf-takviyeli-levhalar",
+      description: "Tepepan'ın hafif ve dayanıklı levhaları, inşaat projelerinizde mükemmel bir çözüm sunar. Yüksek yangın dayanıklılığı ve su itici özellikler.",
+      image_url: "/placeholder.svg?height=200&width=300&text=Çatı+Panelleri",
     },
+    // Bianca kategorileri
     {
       id: 6,
-      brand_id: 2,
-      name: "Dış Cephe Boyaları",
-      slug: "dis-cephe-boyalari",
-      description: "Dış cepheler için su ve nem dayanımlı, uzun ömürlü boyalar. Türkiye iklim koşullarına uygun.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Dış+Cephe+Boyaları",
-    },
-    {
-      id: 7,
-      brand_id: 2,
-      name: "Metal Boyaları",
-      slug: "metal-boyalari",
-      description: "Metal yüzeyler için özel formülasyonlu boyalar. Pas önleyici ve koruyucu özellikler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Metal+Boyaları",
-    },
-    // Marshall kategorileri
-    {
-      id: 8,
-      brand_id: 3,
-      name: "İç Cephe Boyaları",
-      slug: "ic-cephe-boyalari",
-      description: "İç mekanlar için yüksek kapatıcılığa sahip boyalar. Ekonomik ve kaliteli çözümler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Boyaları",
-    },
-    {
-      id: 9,
-      brand_id: 3,
-      name: "Dış Cephe Boyaları",
-      slug: "dis-cephe-boyalari",
-      description: "Dış cepheler için hava koşullarına dayanıklı boyalar. Uzun ömürlü koruma.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Dış+Cephe+Boyaları",
-    },
-    {
-      id: 10,
-      brand_id: 3,
-      name: "Ahşap Boyaları",
-      slug: "ahsap-boyalari",
-      description: "Ahşap yüzeyler için vernik ve koruyucu boyalar. Doğal ahşap görünümü.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Ahşap+Boyaları",
-    },
-    // Hekim Panel kategorileri
-    {
-      id: 11,
-      brand_id: 4,
-      name: "Çatı Panelleri",
-      slug: "cati-panelleri",
-      description: "Dayanıklı ve yalıtımlı çatı panel sistemleri. Enerji tasarrufu sağlayan çözümler.",
+      brand_id: 5,
+      name: "Boyalar",
+      slug: "boyalar",
+      description: "Bianca'nın iç ve dış cepheler için sunduğu boya yelpazesi. Estetik ve dayanıklı çözümler.",
       image_url: "/placeholder.svg?height=200&width=300&text=Çatı+Panelleri",
     },
     {
-      id: 12,
-      brand_id: 4,
-      name: "Cephe Panelleri",
-      slug: "cephe-panelleri",
-      description: "Modern ve estetik cephe kaplama panelleri. Hızlı montaj ve uzun ömür.",
+      id: 7,
+      brand_id: 5,
+      name: "Koruyucu Ürünler",
+      slug: "koruyucu-urunler",
+      description: "Yapı elemanlarınızı korumak için özel formüle edilmiş ürünler. Su itici ve leke önleyici özellikler.",
       image_url: "/placeholder.svg?height=200&width=300&text=Cephe+Panelleri",
     },
     {
-      id: 13,
-      brand_id: 4,
-      name: "Konteyner Paneli",
-      slug: "konteyner-paneli",
-      description: "Konteyner yapılar için özel üretilmiş panel sistemleri. Modüler çözümler.",
+      id: 8,
+      brand_id: 5,
+      name: "Diğer Ürünler",
+      slug: "diger-urunler",
+      description: "Bianca'nın sunduğu diğer yapı malzemeleri. Yüksek kaliteli ve güvenilir çözümler.",
       image_url: "/placeholder.svg?height=200&width=300&text=Konteyner+Paneli",
     },
   ]
+
+  const handleExternalLinkClick = (e, url) => {
+    e.preventDefault()
+    const confirmed = window.confirm(`${url} adresine gitmek istediğinizden emin misiniz?`)
+    if (confirmed) {
+      window.open(url, "_blank", "noopener,noreferrer")
+    }
+  }
 
   useEffect(() => {
     if (!brandId) {
@@ -219,21 +201,23 @@ export default function BrandPageClient({ params }) {
   }
 
   return (
+    
     <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
       <div className="container mx-auto px-4">
-{/* Hero Section */}
-<div className="relative md:h-[400px] rounded-lg overflow-hidden mb-12">
+        {/* Hero Section */}
+      <div className="relative md:h-[400px] rounded-lg overflow-hidden mb-12">
   <div
-    className="absolute inset-0 bg-cover bg-center"
+    className="absolute inset-0 bg-contain bg-no-repeat bg-center"
     style={{
       backgroundImage: `url('${brand.image_url || "/placeholder.svg?height=400&width=1200&text=Ürünlerimiz"}')`,
     }}
   ></div>
-  <div className="absolute inset-0 bg-black/10"></div>
+  <div className="absolute inset-0 bg-black/0"></div>
   <div className="absolute inset-0 flex items-center justify-center">
-    {/* İstersen içerik de ekleyebilirsin */}
+    {/* içerik buraya */}
   </div>
 </div>
+
 
 
         {/* Breadcrumb */}
@@ -276,18 +260,36 @@ export default function BrandPageClient({ params }) {
         {/* Categories Grid */}
         {categories && categories.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((category) => (
-              <Link
+            {categories.map((category) => {
+              // External link kontrolü
+              const CategoryWrapper = category.external_link?.trim() ? "a" : Link
+              const linkProps = category.external_link?.trim()
+                ? {
+                    href: category.external_link,
+                    onClick: (e) => handleExternalLinkClick(e, category.external_link),
+                  }
+                : {
+                    href: `/urunler/${brandId}/${category.slug}`,
+                  }
+
+              return (
+                <CategoryWrapper
                 key={category.id}
-                href={`/urunler/${brandId}/${category.slug}`}
+                {...linkProps}
                 className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg group"
               >
-                <div className="h-48 overflow-hidden">
+                <div className="h-48 overflow-hidden relative">
                   <img
                     src={category.image_url || "/placeholder.svg"}
                     alt={category.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  {/* External link badge */}
+                  {category.external_link?.trim() && (
+                      <div className="absolute top-3 right-3 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-medium">
+                        Dış Bağlantı
+                      </div>
+                    )}  
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2 text-gray-800 group-hover:text-red-600 transition-colors duration-300">
@@ -296,24 +298,35 @@ export default function BrandPageClient({ params }) {
                   <p className="text-gray-600 text-sm mb-4">{category.description}</p>
                   <div className="flex justify-end">
                     <span className="inline-flex items-center text-red-600 font-medium group-hover:translate-x-2 transition-transform duration-300">
-                      Ürünleri İncele
+                    {category.external_link?.trim() ? "Siteye Git" : "Ürünleri İncele"}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 ml-1"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
+                        {category.external_link ? (
+                            // External link icon
+                            <path
+                              fillRule="evenodd"
+                              d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
+                              clipRule="evenodd"
+                            />
+                          ) : (
+                            // Arrow right icon
                         <path
                           fillRule="evenodd"
                           d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
                           clipRule="evenodd"
                         />
+                      )}
                       </svg>
                     </span>
                   </div>
                 </div>
-              </Link>
-            ))}
+                </CategoryWrapper>
+              )
+            })}
           </div>
         ) : (
           <div className="text-center py-12 bg-white rounded-lg shadow-md">

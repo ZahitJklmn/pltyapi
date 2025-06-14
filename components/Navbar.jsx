@@ -53,9 +53,9 @@ const productCategories = [
     image: "/images/bianca-logo.png?height=80&width=150&text=BIANCA+STELLA",
     link: "/urunler/bianca",
     items: [
-      { name: "Çatı Panelleri", link: "/urunler/hekim-panel/cati-panelleri" },
-      { name: "Cephe Panelleri", link: "/urunler/hekim-panel/cephe-panelleri" },
-      { name: "Konteyner Paneli", link: "/urunler/hekim-panel/konteyner-paneli" },
+      { name: "Boyalar", link: "/urunler/bianca/boyalar" },
+      { name: "Koruyucu Ürünler", link: "/urunler/bianca/koruyucu-urunler" },
+      { name: "Diğer Ürünler", link: "/urunler/bianca/diger-urunler" },
     ],
   },
 ]
@@ -206,7 +206,7 @@ export default function Navbar() {
               <div>
                 <div className="text-xs text-gray-300 font-medium">7/24 Bizi Arayın</div>
                 <div className="text-lg font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-                  0212 123 45 67
+                (0356) 212 56 60
                 </div>
               </div>
             </div>

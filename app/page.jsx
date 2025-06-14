@@ -49,8 +49,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Markalar bölümü - mx-50 kaldırıldı ve responsive margin eklendi */}
-      <section className="animate-on-scroll py-16 mx-4 sm:mx-8 lg:mx-16 xl:mx-32 rounded-2xl bg-neutral-200">
+      <section className="animate-on-scroll py-48">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Markalarımız</h2>
           <BrandsSection />

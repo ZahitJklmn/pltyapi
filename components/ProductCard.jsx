@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Trash2, Star, Eye, Heart } from "lucide-react"
+import { Trash2, Star, Eye, ExternalLink } from "lucide-react"
 import { getSupabaseClient } from "@/lib/supabase"
 import { useAuth } from "@/components/auth/AuthProvider"
 import ImageEditModal from "./admin/ImageEditModal"
@@ -15,7 +15,6 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
   const [isFeatured, setIsFeatured] = useState(false)
   const [isTogglingFeatured, setIsTogglingFeatured] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
-  // const [currentImage, setCurrentImage] = useState(product.image_url)
 
   const [animationRef, isVisible] = useScrollAnimation()
 
@@ -45,15 +44,6 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
       checkFeaturedStatus()
     }
   }, [isAdmin, product?.slug, brandId, categoryId])
-
-  // Hover efekti için fotoğraf değiştirme
-  // useEffect(() => {
-  //   if (isHovered && product.hover_image_url) {
-  //     setCurrentImage(product.hover_image_url)
-  //   } else {
-  //     setCurrentImage(product.image_url)
-  //   }
-  // }, [isHovered, product.image_url, product.hover_image_url])
 
   const handleToggleFeatured = async (e) => {
     e.preventDefault()
@@ -131,6 +121,18 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
     }
   }
 
+  // External link kontrolü için component seçimi
+  const LinkComponent = product.external_link ? "a" : Link
+  const linkProps = product.external_link
+    ? {
+        href: product.external_link,
+        target: "_blank",
+        rel: "noopener noreferrer",
+      }
+    : {
+        href: `/urunler/${brandId}/${categoryId}/${product.slug}`,
+  }
+
   return (
     <div
       ref={animationRef}
@@ -192,6 +194,16 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
             {brandId?.toUpperCase()}
           </span>
         </div>
+        
+        {/* External Link Badge */}
+        {product.external_link && (
+          <div className="absolute bottom-4 left-4">
+            <span className="px-2 py-1 bg-blue-500/90 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/20 flex items-center">
+              <ExternalLink className="h-3 w-3 mr-1" />
+              Dış Bağlantı
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -240,16 +252,20 @@ export default function ProductCard({ product, brandId, categoryId, onDelete }) 
           )}
 
           {/* View Product Button */}
-          <Link
-            href={`/urunler/${brandId}/${categoryId}/${product.slug}`}
+          <LinkComponent
+            {...linkProps}
             className="ml-auto group/btn relative px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
           >
             <span className="relative z-10 flex items-center">
-              İncele
+            {product.external_link ? "Siteye Git" : "İncele"}
+              {product.external_link ? (
+                <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+              ) : (
               <Eye className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+            )}
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-          </Link>
+            </LinkComponent>
         </div>
       </div>
 

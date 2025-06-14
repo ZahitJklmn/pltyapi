@@ -932,15 +932,24 @@ export default function ProductDetailClient({ params }) {
 
         {/* Related Products */}
         {relatedProducts && relatedProducts.length > 0 && (
-          <div className="bg-white rounded-lg shadow-md p-8">
+          <div className="bg-neutral-200 rounded-lg shadow-md p-8">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">İlgili Ürünler</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedProducts.map((relatedProduct) => (
-                <Link
-                  key={relatedProduct.id}
-                  href={`/urunler/${brandId}/${categoryId}/${relatedProduct.slug}`}
-                  className="group"
-                >
+            {relatedProducts.map((relatedProduct) => {
+                // External link kontrolü
+                const ProductLink = relatedProduct.external_link ? "a" : Link
+                const linkProps = relatedProduct.external_link
+                  ? {
+                      href: relatedProduct.external_link,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
+                  : {
+                      href: `/urunler/${brandId}/${categoryId}/${relatedProduct.slug}`,
+                    }
+
+                return (
+                  <ProductLink key={relatedProduct.id} {...linkProps} className="group">
                   <div className="bg-gray-50 rounded-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg">
                   <div className="h-48 w-full flex items-center justify-center overflow-hidden bg-white">
                     <img
@@ -954,10 +963,16 @@ export default function ProductDetailClient({ params }) {
                         {relatedProduct.name}
                       </h3>
                       <p className="text-sm text-gray-600 mt-2">{relatedProduct.description}</p>
+                      {relatedProduct.external_link && (
+                          <span className="inline-block mt-2 text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
+                            Dış Bağlantı
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+              </ProductLink>
+            )
+          })}
             </div>
           </div>
         )}
