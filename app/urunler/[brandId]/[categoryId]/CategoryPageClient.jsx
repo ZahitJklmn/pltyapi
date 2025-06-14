@@ -11,7 +11,6 @@ export default function CategoryPageClient({ params }) {
   const [brand, setBrand] = useState(null)
   const [category, setCategory] = useState(null)
   const [products, setProducts] = useState([])
-
   const [currentPage, setCurrentPage] = useState(1)
   const productsPerPage = 9
 
@@ -90,7 +89,7 @@ export default function CategoryPageClient({ params }) {
     },
     // Filli Boya kategorileri
     {
-      id: 5,
+      id: 4,
       brand_id: 2,
       name: "İç Cephe Boyaları",
       slug: "ic-cephe-boyalari",
@@ -98,7 +97,7 @@ export default function CategoryPageClient({ params }) {
       image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Boyaları",
     },
     {
-      id: 6,
+      id: 5,
       brand_id: 2,
       name: "Dış Cephe Boyaları",
       slug: "dis-cephe-boyalari",
@@ -270,51 +269,13 @@ export default function CategoryPageClient({ params }) {
     },
     // Jotun Dış Cephe Ürünleri
     {
-      id: 4,
+      id: 11,
       category_id: 2,
-      name: "Jotashield",
-      slug: "jotashield",
-      description: "Dış cephe için yüksek dayanıklılığa sahip, UV korumalı boya. 15 yıl garanti.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Jotashield",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Jotashield+Detay",
-    },
-    {
-      id: 5,
-      category_id: 2,
-      name: "Facade",
-      slug: "facade",
-      description: "Ekonomik dış cephe boyası. Hava koşullarına dayanıklı formül.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Facade",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Facade+Detay",
-    },
-    // Jotun Ahşap Ürünleri
-    {
-      id: 6,
-      category_id: 3,
-      name: "Trebitt",
-      slug: "trebitt",
-      description: "Ahşap yüzeyler için koruyucu emprenye. Su itici ve mantar önleyici.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Trebitt",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Trebitt+Detay",
-    },
-    {
-      id: 7,
-      category_id: 3,
-      name: "Visir",
-      slug: "visir",
-      description: "Şeffaf ahşap koruyucu. Doğal ahşap görünümünü korur.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Visir",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Visir+Detay",
-    },
-    // Jotun Metal Ürünleri
-    {
-      id: 8,
-      category_id: 4,
-      name: "Pilot II",
-      slug: "pilot-ii",
-      description: "Metal yüzeyler için pas önleyici astar. Uzun ömürlü koruma.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Pilot+II",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Pilot+II+Detay",
+      name: "Jotashield Real Matt",
+      slug: "jotashield-real-matt",
+      description: "Mükemmel dış cephe koruması​",
+      image_url: "/jotun/dis-cephe/jota-real-matt-on.png?height=300&width=300&text=Jotashield",
+      hover_image_url: "/jotun/dis-cephe/jota-real-matt-arka.png?height=300&width=300&text=Jotashield+Detay",
     },
     // Filli Boya İç Cephe
     {
@@ -500,7 +461,7 @@ export default function CategoryPageClient({ params }) {
     <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
-        <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
+        <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden hidden md:block mb-12">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -533,11 +494,11 @@ export default function CategoryPageClient({ params }) {
         {/* Brand Info */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-12">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-            <div className="w-full md:w-1/4 flex justify-center">
+            <div className="w-full md:w-1/4 flex justify-center md:hidden">
               <img
                 src={brand.image_url || "/placeholder.svg?height=200&width=200&text=" + encodeURIComponent(brand.name)}
                 alt={brand.name}
-                className="max-w-full h-auto"
+                className="max-w-full h-auto rounded-sm"
                 draggable="false"
               />
             </div>

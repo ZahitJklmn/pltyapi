@@ -8,47 +8,47 @@ const colorCollections = [
   {
     id: 1,
     title: "Koleksiyon 1",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+1",
+    image: "/jotun/renk-koleksiyonu/s1.png?height=600&width=800&text=Renk+Koleksiyonu+1",
   },
   {
     id: 2,
     title: "Koleksiyon 2",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+2",
+    image: "/jotun/renk-koleksiyonu/s2.png?height=600&width=800&text=Renk+Koleksiyonu+2",
   },
   {
     id: 3,
     title: "Koleksiyon 3",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+3",
+    image: "/jotun/renk-koleksiyonu/s3.png?height=600&width=800&text=Renk+Koleksiyonu+3",
   },
   {
     id: 4,
     title: "Koleksiyon 4",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+4",
+    image: "/jotun/renk-koleksiyonu/s4.png?height=600&width=800&text=Renk+Koleksiyonu+4",
   },
   {
     id: 5,
     title: "Koleksiyon 5",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+5",
+    image: "/jotun/renk-koleksiyonu/s5.png?height=600&width=800&text=Renk+Koleksiyonu+5",
   },
   {
     id: 6,
     title: "Koleksiyon 6",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+6",
+    image: "/jotun/renk-koleksiyonu/s6.png?height=600&width=800&text=Renk+Koleksiyonu+6",
   },
   {
     id: 7,
     title: "Koleksiyon 7",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+7",
+    image: "/jotun/renk-koleksiyonu/s7.png?height=600&width=800&text=Renk+Koleksiyonu+7",
   },
   {
     id: 8,
     title: "Koleksiyon 8",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+8",
+    image: "/jotun/renk-koleksiyonu/s8.png?height=600&width=800&text=Renk+Koleksiyonu+8",
   },
   {
     id: 9,
     title: "Koleksiyon 9",
-    image: "/placeholder.svg?height=600&width=800&text=Renk+Koleksiyonu+9",
+    image: "/jotun/renk-koleksiyonu/s9.png?height=600&width=800&text=Renk+Koleksiyonu+9",
   },
 ]
 
@@ -80,7 +80,7 @@ export default function ColorCollectionClient({ params }) {
           <div className="flex items-center space-x-4">
             <Link
               href={`/urunler/${brandId}`}
-              className="flex items-center text-gray-600 hover:text-orange-600 transition-colors"
+              className="flex items-center text-gray-600 hover:text-orange-600 transition-colors duration-300"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Geri Dön
@@ -106,12 +106,13 @@ export default function ColorCollectionClient({ params }) {
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {colorCollections.map((collection, index) => (
-                <div key={collection.id} className="w-full flex-shrink-0">
-                  <div className="relative h-[500px] md:h-[600px]">
+                <div key={collection.id} className="w-[1147px] h-[887px] flex-shrink-0">
+                  <div className="relative h-[965px] max-w-[1243px] md:h-[600px]">
                     <Image
                       src={collection.image || "/placeholder.svg"}
                       alt={collection.title}
-                      fill
+                      width={1243}
+                      height={965}
                       className="object-cover"
                       priority={index === 0}
                     />
@@ -125,7 +126,7 @@ export default function ColorCollectionClient({ params }) {
           {currentSlide > 0 && (
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-gray-700 hover:text-orange-600 z-10"
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/30 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white hover:text-orange-600 z-10"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
@@ -134,7 +135,7 @@ export default function ColorCollectionClient({ params }) {
           {currentSlide < colorCollections.length - 1 && (
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-gray-700 hover:text-orange-600 z-10"
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/30 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white hover:text-orange-600 z-10"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
@@ -155,7 +156,7 @@ export default function ColorCollectionClient({ params }) {
 
           {/* Slide Counter */}
           <div className="text-center mt-4">
-            <span className="text-sm text-gray-500">
+            <span className="text-lg text-black">
               {currentSlide + 1} / {colorCollections.length}
             </span>
           </div>

@@ -9,7 +9,7 @@ import { useAuth } from "./auth/AuthProvider"
 // Ürünler menüsünü markalar şeklinde değiştirmek için productCategories değişkenini güncelliyorum
 const productCategories = [
   {
-    title: "",
+    title: "Jotun",
     image: "/images/jotun-logo.png?height=80&width=150&text=JOTUN",
     link: "/urunler/jotun",
     items: [
@@ -19,7 +19,7 @@ const productCategories = [
     ],
   },
   {
-    title: "",
+    title: "Mapei",
     image: "/images/mapei-logo.png?height=80&width=150&text=MAPEI",
     link: "/urunler/mapei",
     items: [
@@ -49,7 +49,7 @@ const productCategories = [
     ],
   },
   {
-    title: "",
+    title: "Bianca Stella",
     image: "/images/bianca-logo.png?height=80&width=150&text=BIANCA+STELLA",
     link: "/urunler/bianca",
     items: [

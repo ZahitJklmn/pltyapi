@@ -221,18 +221,20 @@ export default function BrandPageClient({ params }) {
   return (
     <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
       <div className="container mx-auto px-4">
-        {/* Hero Section */}
-        <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url('${brand.image_url || "/placeholder.svg?height=400&width=1200&text=Ürünlerimiz"}')`,
-            }}
-          ></div>
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-          </div>
-        </div>
+{/* Hero Section */}
+<div className="relative md:h-[400px] rounded-lg overflow-hidden mb-12">
+  <div
+    className="absolute inset-0 bg-cover bg-center"
+    style={{
+      backgroundImage: `url('${brand.image_url || "/placeholder.svg?height=400&width=1200&text=Ürünlerimiz"}')`,
+    }}
+  ></div>
+  <div className="absolute inset-0 bg-black/10"></div>
+  <div className="absolute inset-0 flex items-center justify-center">
+    {/* İstersen içerik de ekleyebilirsin */}
+  </div>
+</div>
+
 
         {/* Breadcrumb */}
         <div className="flex items-center mb-8 text-sm">
@@ -250,7 +252,7 @@ export default function BrandPageClient({ params }) {
         {/* Brand Info */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-12">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-            <div className="w-full md:w-1/4 flex justify-center">
+            <div className="w-full md:w-1/4 flex justify-center md:hidden">
               <img
                 src={brand.image_url || "/placeholder.svg?height=200&width=200&text=" + encodeURIComponent(brand.name)}
                 alt={brand.name}

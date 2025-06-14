@@ -299,27 +299,15 @@ export default function ProductDetailClient({ params }) {
     },
     // Jotun Dış Cephe Ürünleri
     {
-      id: 4,
+      id: 11,
       category_id: 2,
-      name: "Jotashield",
-      slug: "jotashield",
-      description: "Dış cephe için yüksek dayanıklılığa sahip, UV korumalı boya. 15 yıl garanti.",
-      image_url: "/?height=300&width=300&text=Jotashield",
+      name: "Jotashield Real Matt",
+      slug: "jotashield-real-matt",
+      description: "Mükemmel dış cephe koruması",
+      image_url: "/jotun/dis-cephe/jota-real-matt-on.png?height=300&width=300&text=Jotashield",
       gallery: [
-        "/?height=600&width=600&text=Jotashield+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Jotashield+Detay",
-      ],
-    },
-    {
-      id: 5,
-      category_id: 2,
-      name: "Facade",
-      slug: "facade",
-      description: "Ekonomik dış cephe boyası. Hava koşullarına dayanıklı formül.",
-      image_url: "/jotun/ic-cephe/?height=300&width=300&text=Facade",
-      gallery: [
-        "/jotun/ic-cephe/?height=600&width=600&text=Facade+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Facade+Detay",
+        "/jotun/dis-cephe/jota-real-matt-on.png?height=600&width=600&text=Jotashield+Ana+Görsel",
+        "/jotun/dis-cephe/jota-real-matt-arka.png?height=600&width=600&text=Jotashield+Detay",
       ],
     },
     // Jotun Ahşap Ürünleri
