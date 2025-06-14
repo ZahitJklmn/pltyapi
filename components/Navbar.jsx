@@ -30,7 +30,7 @@ const productCategories = [
   },
   {
     title: "Tepe Betopan",
-    image: "/images/tepe-betopan-logo.png?height=80&width=150&text=TEPE+BETOPAN",
+    image: "/images/tepe-betopan-logo-nav.png?height=80&width=150&text=TEPE+BETOPAN",
     link: "/urunler/tepe-betopan",
     items: [
       { name: "İç Cephe Boyaları", link: "/urunler/marshall/ic-cephe-boyalari" },
@@ -40,7 +40,7 @@ const productCategories = [
   },
   {
     title: "Tepepan",
-    image: "/images/tepepan-logo.png?height=80&width=150&text=TEPEPAN",
+    image: "/images/tepepan-logo-nav.png?height=80&width=150&text=TEPEPAN",
     link: "/urunler/tepepan",
     items: [
       { name: "Çatı Panelleri", link: "/urunler/hekim-panel/cati-panelleri" },
@@ -158,7 +158,6 @@ export default function Navbar() {
                             alt={category.title}
                             className="h-8 object-contain mr-3"
                           />
-                          <h3 className="text-white font-bold text-lg">{category.title}</h3>
                         </div>
                       </Link>
                         <div className="space-y-2 ml-4">
