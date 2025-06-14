@@ -4,13 +4,13 @@ const productGroups = [
   {
     id: 1,
     title: "İç Cephe Ürünleri",
-    image: "/placeholder.svg?height=300&width=400&text=İç Cephe",
+    image: "/images/ic-cephe-kart.jpg?height=300&width=400&text=İç Cephe",
     link: "/urunler/ic-cephe-urunleri",
   },
   {
     id: 2,
     title: "Dış Cephe Ürünleri",
-    image: "/placeholder.svg?height=300&width=400&text=Dış Cephe",
+    image: "/images/dis-cephe-kart.png?height=300&width=400&text=Dış Cephe",
     link: "/urunler/dis-cephe-urunleri",
   },
   {

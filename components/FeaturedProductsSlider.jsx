@@ -107,12 +107,12 @@ export default function FeaturedProductsSlider() {
             href={`/urunler/${product.brand_slug}/${product.category_slug}/${product.product_slug}`}
             className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl"
           >
-            <div className="p-4">
-              <div className="mb-4 overflow-hidden rounded">
+            <div className="p-6">
+              <div className="mb-8 overflow-hidden rounded">
                 <img
                   src={product.product_image_url || "/placeholder.svg"}
                   alt={product.product_name}
-                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-76 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
