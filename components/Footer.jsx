@@ -115,22 +115,23 @@ export default function Footer() {
             }`}
           >
             {/* Company Info */}
-            <div className="space-y-6">
-              <div className="group">
+            <div className="sm:items-center justify-center grid">
+              <div className="space-y-6">
+                <div className="group">
                 <img
                   src="/images/plt-yapi-logo-beyaz.png?height=50&width=150&text=LOGO"
                   alt="Logo"
                   className="h-24 rounded-sm mb-6 transition-all duration-300 group-hover:scale-105"
                   draggable="false"
                 />
-              </div>
+            </div>
 
               <p className="text-gray-300 mb-6 leading-relaxed hidden"> {/* hidden div */}
                 Kaliteli boya ürünleri ve profesyonel çözümler için 20 yılı aşkın tecrübemizle hizmetinizdeyiz.
               </p>
-
+            </div>
               {/* Social Media - Gradient background hover */}
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 ml-3">
                 {[
                   {
                     icon: Facebook,
