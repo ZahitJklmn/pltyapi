@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const { brandId } = resolvedParams
 
   return {
-    title: `${brandId?.charAt(0).toUpperCase() + brandId?.slice(1) || "Marka"} | Boya ve Yapı Malzemeleri`,
+    title: `${brandId?.charAt(0).toUpperCase() + brandId?.slice(1) || "Marka"} | Plt Yapı Tokat`,
     description: `${brandId?.charAt(0).toUpperCase() + brandId?.slice(1) || "Marka"} markasının kaliteli ve güvenilir ürünlerini keşfedin.`,
   }
 }

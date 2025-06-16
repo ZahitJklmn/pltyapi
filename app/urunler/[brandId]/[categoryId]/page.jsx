@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const { brandId, categoryId } = resolvedParams
 
   return {
-    title: `${brandId?.charAt(0).toUpperCase() + brandId?.slice(1) || "Kategori"} ${categoryId?.replace(/-/g, " ") || ""} | Boya ve Yapı Malzemeleri`,
+    title: `${brandId?.charAt(0).toUpperCase() + brandId?.slice(1) || "Kategori"} ${categoryId?.replace(/-/g, " ") || ""} | Plt Yapı Tokat`,
     description: `${brandId?.charAt(0).toUpperCase() + brandId?.slice(1) || "Kategori"} markasının ${categoryId?.replace(/-/g, " ") || ""} kategorisindeki ürünlerini keşfedin.`,
   }
 }

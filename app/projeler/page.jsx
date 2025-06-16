@@ -1,7 +1,7 @@
 import ProjectsClientPage from "./ProjectsClientPage"
 
 export const metadata = {
-  title: "Projeler | Boya Malzemeleri",
+  title: "Projeler | Plt Yapı Tokat",
   description: "Tamamladığımız projeler ve referanslarımız. Büyük ölçekli boya ve kaplama projelerimiz.",
 }
 

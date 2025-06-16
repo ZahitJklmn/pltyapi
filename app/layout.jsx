@@ -19,6 +19,9 @@ export const metadata = {
     type: "website",
     locale: "tr_TR",
   },
+  icons: {
+    icon: "/favicon.png", // bu satır favicon'u ekler
+  }
 }
 
 export default function RootLayout({ children }) {

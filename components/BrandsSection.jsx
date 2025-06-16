@@ -68,11 +68,11 @@ export default function BrandsSection() {
             <Wrapper
               key={brand.id}
               {...props}
-              className="bg-neutral-300 relative rounded-xl flex items-center justify-center hover:shadow-lg transition-shadow duration-300 brand-card"
+              className="bg-neutral-300 py-2 relative rounded-xl flex items-center justify-center hover:shadow-lg transition-shadow duration-300 brand-card"
             >
               {/* External Link Badge */}
               {isExternal && (
-                <div className="absolute top-3 right-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center shadow-lg">
+                <div className="absolute top-1 right-1 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center shadow-lg">
                   <ExternalLink className="w-3 h-3 mr-1" />
                   Dış Bağlantı
                 </div>
