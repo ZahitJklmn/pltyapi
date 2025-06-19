@@ -135,7 +135,7 @@ export default function BrandPageClient({ params }) {
       slug: "cimentolu-yonga-levhalar",
       description:
         "Tepe Betopan'ın iç ve dış cepheler için sunduğu dayanıklı ve estetik çözümler. Yüksek ses ve ısı yalıtımı sağlar.",
-      image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Boyaları",
+      image_url: "/betopan/cimento-yonga-levha.png?height=200&width=300&text=İç+Cephe+Boyaları",
     },
     // Tepepan kategorileri
     {
@@ -145,7 +145,7 @@ export default function BrandPageClient({ params }) {
       slug: "elyaf-takviyeli-levhalar",
       description:
         "Tepepan'ın hafif ve dayanıklı levhaları, inşaat projelerinizde mükemmel bir çözüm sunar. Yüksek yangın dayanıklılığı ve su itici özellikler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Çatı+Panelleri",
+      image_url: "/tepepan/elyaf-takviyeli-levha.jpg?height=200&width=300&text=Çatı+Panelleri",
     },
     // Bianca kategorileri
     {
@@ -154,7 +154,7 @@ export default function BrandPageClient({ params }) {
       name: "Boyalar",
       slug: "boyalar",
       description: "Bianca'nın iç ve dış cepheler için sunduğu boya yelpazesi. Estetik ve dayanıklı çözümler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Çatı+Panelleri",
+      image_url: "/bianca/boyalar.webp?height=200&width=300&text=Çatı+Panelleri",
     },
     {
       id: 7,
@@ -163,7 +163,7 @@ export default function BrandPageClient({ params }) {
       slug: "koruyucu-urunler",
       description:
         "Yapı elemanlarınızı korumak için özel formüle edilmiş ürünler. Su itici ve leke önleyici özellikler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Cephe+Panelleri",
+      image_url: "/bianca/su-sivicam.png?height=200&width=300&text=Cephe+Panelleri",
     },
     {
       id: 8,
@@ -171,7 +171,7 @@ export default function BrandPageClient({ params }) {
       name: "Diğer Ürünler",
       slug: "diger-urunler",
       description: "Bianca'nın sunduğu diğer yapı malzemeleri. Yüksek kaliteli ve güvenilir çözümler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Konteyner+Paneli",
+      image_url: "/bianca/diger.jpg?height=200&width=300&text=Konteyner+Paneli",
     },
   ]
 

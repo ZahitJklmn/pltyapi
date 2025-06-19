@@ -71,7 +71,7 @@ export default function ClientPage() {
 
       <section className="animate-on-scroll py-16 ">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4">Tokat Boya Ürünleri Kategorilerimiz</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">Boya ve Boya Ürünleri Kategorilerimiz</h2>
           <p className="text-center mb-12 text-gray-600">
             Plt Yapı Tokat olarak geniş ürün yelpazemizle tüm boya ve yapı malzemesi ihtiyaçlarınızı karşılıyoruz.
           </p>

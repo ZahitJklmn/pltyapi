@@ -406,8 +406,8 @@ export default function CategoryPageClient({ params }) {
       slug: "betopan",
       description:
         "Betopan®, yapılarda temelden çatıya kullanılabilen, düz ve doğal gri yüzeyli, fonksiyonel bir çimentolu yonga levhadır.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/betopan/betopan.png?height=300&width=300&text=",
+      hover_image_url: "/betopan/betopan.png?height=300&width=300&text=+Detay",
     },
     {
       id: 29,
@@ -416,8 +416,8 @@ export default function CategoryPageClient({ params }) {
       slug: "betopan-plus",
       description:
         "Betopanplus® her iki yüzeyi doğal minerallerle güçlendirilmiş düz yüzeyli çimentolu yonga levhadır. Çimento ve ahşap karışımından oluşan orta katmana sahiptir.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/betopan/betopan.png?height=300&width=300&text=",
+      hover_image_url: "/betopan/betopan.png?height=300&width=300&text=+Detay",
     },
     {
       id: 30,
@@ -426,8 +426,8 @@ export default function CategoryPageClient({ params }) {
       slug: "yalipan",
       description:
         "Yalıpan® her iki yüzeyi doğal minerallerle güçlendirilmiş ahşap desenli çimentolu yonga levhadır. Çimento ve ahşap karışımından oluşan orta katmana sahiptir.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/betopan/yalipan.png?height=300&width=300&text=",
+      hover_image_url: "/betopan/yalipan.png?height=300&width=300&text=+Detay",
     },
     {
       id: 31,
@@ -436,8 +436,8 @@ export default function CategoryPageClient({ params }) {
       slug: "tasonit",
       description:
         "Taşonit® her iki yüzeyi doğal minerallerle güçlendirilmiş taş desenli çimentolu yonga levhadır. Çimento ve ahşap karışımından oluşan orta katmana sahiptir.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/betopan/tasonit.png?height=300&width=300&text=",
+      hover_image_url: "/betopan/tasonit.png?height=300&width=300&text=+Detay",
     },
 
     // Tepepan Elyaf Takviyeli Çimentolu Levhalar
@@ -447,8 +447,8 @@ export default function CategoryPageClient({ params }) {
       name: "Tepepan",
       slug: "tepepan",
       description: "tepePAN, çimento ve elyaf karışımından oluşan düz yüzeyli, çok amaçlı bir yapı levhasıdır.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/tepepan/tepepan.png?height=300&width=300&text=",
+      hover_image_url: "/tepepan/tepepan.png?height=300&width=300&text=+Detay",
     },
     {
       id: 33,
@@ -457,8 +457,8 @@ export default function CategoryPageClient({ params }) {
       slug: "tepepan-pro",
       description:
         "Presli ve üstün dayanım özellikleriyle dış cephe ve iç mekan uygulamaları için  kullanıcılara kalınlık skalası sunan düz yüzeyli, çok amaçlı elyaf takviyeli çimento esaslı yapı levhasıdır.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/tepepan/tepepan.png?height=300&width=300&text=",
+      hover_image_url: "/tepepan/tepepan.png?height=300&width=300&text=+Detay",
     },
     {
       id: 34,
@@ -466,8 +466,8 @@ export default function CategoryPageClient({ params }) {
       name: "Tepepan Wood",
       slug: "tepepan-wood",
       description: "tepePAN Wood®, çimento ve elyaf karışımından oluşan ahşap desenli, çok amaçlı bir yapı levhasıdır.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/tepepan/tepepan-wood.png?height=300&width=300&text=",
+      hover_image_url: "/tepepan/tepepan-wood.png?height=300&width=300&text=+Detay",
     },
     {
       id: 35,
@@ -475,8 +475,8 @@ export default function CategoryPageClient({ params }) {
       name: "Tepepan Stone",
       slug: "tepepan-stone",
       description: "tepePAN Stone®, çimento ve elyaf karışımından oluşan taş desenli, çok amaçlı bir yapı levhasıdır.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/tepepan/tepepan-stone.png?height=300&width=300&text=",
+      hover_image_url: "/tepepan/tepepan-stone.png?height=300&width=300&text=+Detay",
     },
 
     // Bianca Ürünleri
@@ -487,8 +487,8 @@ export default function CategoryPageClient({ params }) {
       slug: "bianca-stella-su-bazli-saf-akrilik-boya",
       description:
         "Tüm yüzeylere mükemmel yapışma özelliğine sahip, su bazlı, saf akrilik esaslı yeni nesil dönüşüm boyasıdır.",
-      image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/bianca/saf-akrilik.png?height=300&width=300&text=saf+akrilik+boya",
+      hover_image_url: "/bianca/saf-akrilik.png?height=300&width=300&text=saf+akrilik+boya+Detay",
     },
     {
       id: 37,
@@ -497,8 +497,8 @@ export default function CategoryPageClient({ params }) {
       slug: "bianca-stella-su-bazli-saf-akrilik-boya-ahsap-renkler",
       description:
         "Bianca Stella boya uygulaması sonrası yüzeylere ahşap desen görünüm vermek için geliştirilmiş özel bir boyadır",
-      image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/bianca/saf-akrilik-ahsap.png?height=300&width=300&text=saf+akrilik+ahsap+boya",
+      hover_image_url: "/bianca/saf-akrilik-ahsap.png?height=300&width=300&text=saf+akrilik+ahsap+boya+Detay",
     },
     {
       id: 38,
@@ -507,8 +507,8 @@ export default function CategoryPageClient({ params }) {
       slug: "bianca-stella-su-bazli-saf-akrilik-boya-metal-renkler",
       description:
         "Bianca Stella boya uygulaması sonrası yüzeylere metal görünümü vermek için geliştirilmiş özel bir boyadır.",
-      image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/bianca/saf-akrilik-metal.png?height=300&width=300&text=",
+      hover_image_url: "/bianca/saf-akrilik-metal.png?height=300&width=300&text=+Detay",
     },
     {
       id: 39,
@@ -517,8 +517,8 @@ export default function CategoryPageClient({ params }) {
       slug: "bianca-stella-su-bazli-sivi-cam",
       description:
         "Tüm yüzeylere mükemmel yapışma özelliğine sahip, su bazlı, kokusuz, kullanıma hazır yeni nesil bir koruyucudur.",
-      image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/bianca/su-sivicam.png?height=300&width=300&text=",
+      hover_image_url: "/bianca/su-sivicam.png?height=300&width=300&text=+Detay",
     },
     {
       id: 40,
@@ -527,8 +527,8 @@ export default function CategoryPageClient({ params }) {
       slug: "bianca-maximo-solvent-bazli-sivi-cam",
       description:
         "Yüksek su direncinin yanı sıra, kimyasal ve fiziksel dirence sahip, 4 kat daha güçlü, dekoratif ve su yalıtım amaçlı kullanılan çift bileşenli yeni nesil bir koruyucudur.",
-      image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/bianca/solvent-sivicam.png?height=300&width=300&text=",
+      hover_image_url: "/bianca/solvent-sivicam.png?height=300&width=300&text=+Detay",
     },
     {
       id: 41,
@@ -537,8 +537,8 @@ export default function CategoryPageClient({ params }) {
       slug: "bianca-silfex-silikon-sokucu",
       description:
         "üzey üzerinden, sertleşmiş silikon, reçine, yapıştırıcı, tutkal, poliüretan, köpük gibi malzemelerin yumuşatarak kolayca sökülmesinde kullanılan bir üründür.",
-      image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/bianca/silfex.png?height=300&width=300&text=",
+      hover_image_url: "/bianca/silfex.png?height=300&width=300&text=+Detay",
     },
     {
       id: 42,
@@ -547,8 +547,8 @@ export default function CategoryPageClient({ params }) {
       slug: "bianca-stella-mermer-efekt-spreyi",
       description:
         "Kağıt, karton, astarlı kanvas, ahşap, cam, metal, seramik, porselen, taş, akrilik ve diğer boyanabilir malzemeler gibi farklı yüzeylerde kullanılabilir. ",
-      image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/bianca/mermer-sprey.png?height=300&width=300&text=",
+      hover_image_url: "/bianca/mermer-sprey.png?height=300&width=300&text=+Detay",
     },
     {
       id: 43,
@@ -556,8 +556,8 @@ export default function CategoryPageClient({ params }) {
       name: "Bianca Stella İpek Fırça",
       slug: "bianca-stella-ipek-firca",
       description: "No: 1 – 25 mm | No: 1,5 – 40 mm",
-      image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel",
-      hover_image_url: "/?height=300&width=300&text=Çatı+Sandviç+Panel+Detay",
+      image_url: "/bianca/ipek-firca.png?height=300&width=300&text=",
+      hover_image_url: "/bianca/ipek-firca.png?height=300&width=300&text=+Detay",
     },
   ]
 

@@ -87,81 +87,54 @@ export default function ProductDetailClient({ params }) {
       image_url: "/placeholder.svg?height=200&width=300&text=Dış+Cephe+Renk+Kolleksiyonları",
     },
 
-    // Filli Boya kategorileri
-    {
-      id: 5,
-      brand_id: 2,
-      name: "İç Cephe Boyaları",
-      slug: "ic-cephe-boyalari",
-      description: "İç mekanlar için su bazlı, silinebilir ve anti-bakteriyel boyalar. Geniş renk seçenekleri.",
-      image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Boyaları",
-    },
-    {
-      id: 6,
-      brand_id: 2,
-      name: "Dış Cephe Boyaları",
-      slug: "dis-cephe-boyalari",
-      description: "Dış cepheler için su ve nem dayanımlı, uzun ömürlü boyalar. Türkiye iklim koşullarına uygun.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Dış+Cephe+Boyaları",
-    },
-    {
-      id: 7,
-      brand_id: 2,
-      name: "Metal Boyaları",
-      slug: "metal-boyalari",
-      description: "Metal yüzeyler için özel formülasyonlu boyalar. Pas önleyici ve koruyucu özellikler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Metal+Boyaları",
-    },
-    // Marshall kategorileri
-    {
-      id: 8,
-      brand_id: 3,
-      name: "İç Cephe Boyaları",
-      slug: "ic-cephe-boyalari",
-      description: "İç mekanlar için yüksek kapatıcılığa sahip boyalar. Ekonomik ve kaliteli çözümler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Boyaları",
-    },
-    {
-      id: 9,
-      brand_id: 3,
-      name: "Dış Cephe Boyaları",
-      slug: "dis-cephe-boyalari",
-      description: "Dış cepheler için hava koşullarına dayanıklı boyalar. Uzun ömürlü koruma.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Dış+Cephe+Boyaları",
-    },
-    {
-      id: 10,
-      brand_id: 3,
-      name: "Ahşap Boyaları",
-      slug: "ahsap-boyalari",
-      description: "Ahşap yüzeyler için vernik ve koruyucu boyalar. Doğal ahşap görünümü.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Ahşap+Boyaları",
-    },
-    // Hekim Panel kategorileri
-    {
-      id: 11,
-      brand_id: 4,
-      name: "Çatı Panelleri",
-      slug: "cati-panelleri",
-      description: "Dayanıklı ve yalıtımlı çatı panel sistemleri. Enerji tasarrufu sağlayan çözümler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Çatı+Panelleri",
-    },
-    {
-      id: 12,
-      brand_id: 4,
-      name: "Cephe Panelleri",
-      slug: "cephe-panelleri",
-      description: "Modern ve estetik cephe kaplama panelleri. Hızlı montaj ve uzun ömür.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Cephe+Panelleri",
-    },
-    {
-      id: 13,
-      brand_id: 4,
-      name: "Konteyner Paneli",
-      slug: "konteyner-paneli",
-      description: "Konteyner yapılar için özel üretilmiş panel sistemleri. Modüler çözümler.",
-      image_url: "/placeholder.svg?height=200&width=300&text=Konteyner+Paneli",
-    },
+    // Mapei ama dış bağlantı var ondan kategori yok
+
+      // Tepe Betopan kategorileri
+      {
+        id: 4,
+        brand_id: 3,
+        name: "Çimentolu Yonga Levhalar",
+        slug: "cimentolu-yonga-levhalar",
+        description:
+          "Tepe Betopan'ın iç ve dış cepheler için sunduğu dayanıklı ve estetik çözümler. Yüksek ses ve ısı yalıtımı sağlar.",
+        image_url: "/placeholder.svg?height=200&width=300&text=İç+Cephe+Boyaları",
+        external_link: "",
+      },
+      // Tepepan kategorileri
+      {
+        id: 5,
+        brand_id: 4,
+        name: "Elyaf Takviyeli Çimentolu Levhalar",
+        slug: "elyaf-takviyeli-levhalar",
+        description:
+          "Tepepan'ın hafif ve dayanıklı levhaları, inşaat projelerinizde mükemmel bir çözüm sunar. Yüksek yangın dayanıklılığı ve su itici özellikler.",
+        image_url: "/placeholder.svg?height=200&width=300&text=Çatı+Panelleri",
+      },
+      // Bianca kategorileri
+      {
+        id: 6,
+        brand_id: 5,
+        name: "Boyalar",
+        slug: "boyalar",
+        description: "Bianca'nın iç ve dış cepheler için sunduğu ürün yelpazesi. Kaliteli ve estetik çözümler.",
+        image_url: "/placeholder.svg?height=200&width=300&text=Çatı+Panelleri",
+      },
+      {
+        id: 7,
+        brand_id: 5,
+        name: "Koruyucu Ürünler",
+        slug: "koruyucu-urunler",
+        description: "Yapı elemanlarınızı korumak için özel formüller. Su itici ve UV korumalı kaplamalar.",
+        image_url: "/placeholder.svg?height=200&width=300&text=Cephe+Panelleri",
+      },
+      {
+        id: 8,
+        brand_id: 5,
+        name: "Diğer Ürünler",
+        slug: "diger-urunler",
+        description: "Bianca'nın sunduğu diğer yapı malzemeleri. Estetik ve kaliteli çözümler.",
+        image_url: "/placeholder.svg?height=200&width=300&text=Konteyner+Paneli",
+      },
   ]
 
   // Tüm ürünler - 2'şer fotoğraf ile
@@ -503,179 +476,213 @@ export default function ProductDetailClient({ params }) {
       ],
     },
 
-    // Jotun Ahşap Ürünleri
+    // mapei external link var
+
+    // Tepe Betopan çimentolu yonga levha ürünleri
     {
-      id: 6,
-      category_id: 3,
-      name: "Trebitt",
-      slug: "trebitt",
-      description: "Ahşap yüzeyler için koruyucu emprenye. Su itici ve mantar önleyici.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Trebitt",
-      gallery: [
-        "/placeholder.svg?height=600&width=600&text=Trebitt+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Trebitt+Detay",
-      ],
-    },
-    {
-      id: 7,
-      category_id: 3,
-      name: "Visir",
-      slug: "visir",
-      description: "Şeffaf ahşap koruyucu. Doğal ahşap görünümünü korur.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Visir",
-      gallery: [
-        "/placeholder.svg?height=600&width=600&text=Visir+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Visir+Detay",
-      ],
-    },
-    // Jotun Metal Ürünleri
-    {
-      id: 8,
+      id: 28,
       category_id: 4,
-      name: "Pilot II",
-      slug: "pilot-ii",
-      description: "Metal yüzeyler için pas önleyici astar. Uzun ömürlü koruma.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Pilot+II",
+      name: "Betopan",
+      slug: "betopan",
+      description:
+        "Betopan®, yapılarda temelden çatıya kullanılabilen, düz ve doğal gri yüzeyli, fonksiyonel bir çimentolu yonga levhadır.",
+      image_url: "/betopan/betopan.png?height=300&width=300&text=",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Pilot+II+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Pilot+II+Detay",
+        "/betopan/betopan.png?height=600&width=600&text=+Ana+Görsel",
+        "/betopan/betopan.png?height=600&width=600&text=+Detay",
       ],
     },
-    // Filli Boya İç Cephe
     {
-      id: 9,
+      id: 29,
+      category_id: 4,
+      name: "Betopan Plus",
+      slug: "betopan-plus",
+      description:
+        "Betopanplus® her iki yüzeyi doğal minerallerle güçlendirilmiş düz yüzeyli çimentolu yonga levhadır. Çimento ve ahşap karışımından oluşan orta katmana sahiptir.",
+      image_url: "/betopan/betopan.png?height=300&width=300&text=",
+      gallery: [
+        "/betopan/betopan.png?height=600&width=600&text=+Ana+Görsel",
+        "/betopan/betopan.png?height=600&width=600&text=+Detay",
+      ],
+    },
+    {
+      id: 30,
+      category_id: 4,
+      name: "Yalıpan",
+      slug: "yalipan",
+      description:
+        "Yalıpan® her iki yüzeyi doğal minerallerle güçlendirilmiş ahşap desenli çimentolu yonga levhadır. Çimento ve ahşap karışımından oluşan orta katmana sahiptir.",
+      image_url: "/betopan/yalipan.png?height=300&width=300&text=",
+      gallery: [
+        "/betopan/yalipan.png?height=600&width=600&text=+Ana+Görsel",
+        "/betopan/yalipan.png?height=600&width=600&text=+Detay",
+      ],
+    },
+    {
+      id: 31,
+      category_id: 4,
+      name: "Taşonit",
+      slug: "tasonit",
+      description:
+        "Taşonit® her iki yüzeyi doğal minerallerle güçlendirilmiş taş desenli çimentolu yonga levhadır. Çimento ve ahşap karışımından oluşan orta katmana sahiptir.",
+      image_url: "/betopan/tasonit.png?height=300&width=300&text=",
+      gallery: [
+        "/betopan/tasonit.png?height=600&width=600&text=+Ana+Görsel",
+        "/betopan/tasonit.png?height=600&width=600&text=+Detay",
+      ],
+    },
+    // Tepepan elyaf takviyeli levha ürünleri
+    {
+      id: 32,
       category_id: 5,
-      name: "Momento",
-      slug: "momento",
-      description: "Ekonomik iç cephe boyası. Kolay uygulama ve hızlı kuruma.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Momento",
+      name: "Tepepan",
+      slug: "tepepan",
+      description: "tepePAN, çimento ve elyaf karışımından oluşan düz yüzeyli, çok amaçlı bir yapı levhasıdır.",
+      image_url: "/tepepan/tepepan.png?height=300&width=300&text=",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Momento+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Momento+Detay",
+        "/tepepan/tepepan.png?height=600&width=600&text=+Ana+Görsel",
+        "/tepepan/tepepan.png?height=600&width=600&text=+Detay",
       ],
     },
     {
-      id: 10,
+      id: 33,
       category_id: 5,
-      name: "Tempo",
-      slug: "tempo",
-      description: "Silinebilir iç cephe boyası. Geniş renk seçeneği.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Tempo",
+      name: "Tepepan Pro",
+      slug: "tepepan-pro",
+      description:
+        "Presli ve üstün dayanım özellikleriyle dış cephe ve iç mekan uygulamaları için  kullanıcılara kalınlık skalası sunan düz yüzeyli, çok amaçlı elyaf takviyeli çimento esaslı yapı levhasıdır.",
+      image_url: "/tepepan/tepepan.png?height=300&width=300&text=",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Tempo+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Tempo+Detay",
+        "/tepepan/tepepan.png?height=600&width=600&text=+Ana+Görsel",
+        "/tepepan/tepepan.png?height=600&width=600&text=+Detay",
       ],
     },
     {
-      id: 11,
+      id: 34,
       category_id: 5,
-      name: "Clean",
-      slug: "clean",
-      description: "Anti-bakteriyel iç cephe boyası. Hastane ve okul projeleri için ideal.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Clean",
+      name: "Tepepan Wood",
+      slug: "tepepan-wood",
+      description: "tepePAN Wood®, çimento ve elyaf karışımından oluşan ahşap desenli, çok amaçlı bir yapı levhasıdır.",
+      image_url: "/tepepan/tepepan-wood.png?height=300&width=300&text=",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Clean+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Clean+Detay",
+        "/tepepan/tepepan-wood.png?height=600&width=600&text=+Ana+Görsel",
+        "/tepepan/tepepan-wood.png?height=600&width=600&text=+Detay",
       ],
     },
-    // Filli Boya Dış Cephe
     {
-      id: 12,
+      id: 35,
+      category_id: 5,
+      name: "Tepepan Stone",
+      slug: "tepepan-stone",
+      description: "tepePAN Stone®, çimento ve elyaf karışımından oluşan taş desenli, çok amaçlı bir yapı levhasıdır.",
+      image_url: "/tepepan/tepepan-stone.png?height=300&width=300&text=",
+      gallery: [
+        "/tepepan/tepepan-stone.png?height=600&width=600&text=+Ana+Görsel",
+        "/tepepan/tepepan-stone.png?height=600&width=600&text=+Detay",
+      ],
+    },
+    // Bianca Ürünleri
+    {
+      id: 36,
       category_id: 6,
-      name: "Exterior",
-      slug: "exterior",
-      description: "Dış cephe için dayanıklı boya. Türkiye iklim koşullarına uygun.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Exterior",
+      name: "Bianca Stella Su Bazlı Saf Akrilik Boya",
+      slug: "bianca-stella-su-bazli-saf-akrilik-boya",
+      description:
+        "Tüm yüzeylere mükemmel yapışma özelliğine sahip, su bazlı, saf akrilik esaslı yeni nesil dönüşüm boyasıdır.",
+      image_url: "/bianca/saf-akrilik.png?height=300&width=300&text=saf+akrilik+boya",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Exterior+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Exterior+Detay",
+        "/bianca/saf-akrilik.png?height=600&width=600&text=Prestij+Ana+Görsel",
+        "/bianca/saf-akrilik.png?height=600&width=600&text=Prestij+Detay",
       ],
     },
     {
-      id: 13,
+      id: 37,
       category_id: 6,
-      name: "Silikonlu",
-      slug: "silikonlu",
-      description: "Silikon katkılı dış cephe boyası. Su itici özellik.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Silikonlu",
+      name: "Bianca Stella Su Bazlı Saf Akrilik Boya (Ahşap Renkler)",
+      slug: "bianca-stella-su-bazli-saf-akrilik-boya-ahsap-renkler",
+      description:
+        "Bianca Stella boya uygulaması sonrası yüzeylere ahşap desen görünüm vermek için geliştirilmiş özel bir boyadır",
+      image_url: "/bianca/saf-akrilik-ahsap.png?height=300&width=300&text=saf+akrilik+ahsap+boya",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Silikonlu+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Silikonlu+Detay",
+        "/bianca/saf-akrilik-ahsap.png?height=600&width=600&text=Prestij+Ana+Görsel",
+        "/bianca/saf-akrilik-ahsap.png?height=600&width=600&text=Prestij+Detay",
       ],
     },
-    // Marshall İç Cephe
     {
-      id: 14,
+      id: 38,
+      category_id: 6,
+      name: "Bianca Stella Su Bazlı Saf Akrilik Boya (Metal Renkler)",
+      slug: "bianca-stella-su-bazli-saf-akrilik-boya-metal-renkler",
+      description:
+        "Bianca Stella boya uygulaması sonrası yüzeylere metal görünümü vermek için geliştirilmiş özel bir boyadır.",
+      image_url: "/bianca/saf-akrilik-metal.png?height=300&width=300&text=",
+      gallery: [
+        "/bianca/saf-akrilik-metal.png?height=600&width=600&text=Prestij+Ana+Görsel",
+        "/bianca/saf-akrilik-metal.png?height=600&width=600&text=Prestij+Detay",
+      ],
+    },
+    {
+      id: 39,
+      category_id: 7,
+      name: "Bianca Stella Su Bazlı Sıvı Cam",
+      slug: "bianca-stella-su-bazli-sivi-cam",
+      description:
+        "Tüm yüzeylere mükemmel yapışma özelliğine sahip, su bazlı, kokusuz, kullanıma hazır yeni nesil bir koruyucudur.",
+      image_url: "/bianca/su-sivicam.png?height=300&width=300&text=",
+      gallery: [
+        "/bianca/su-sivicam.png?height=600&width=600&text=Prestij+Ana+Görsel",
+        "/bianca/su-sivicam.png?height=600&width=600&text=Prestij+Detay",
+      ],
+    },
+    {
+      id: 40,
+      category_id: 7,
+      name: "Bianca Maximo Solvent Bazlı Sıvı Cam",
+      slug: "bianca-maximo-solvent-bazli-sivi-cam",
+      description:
+        "Yüksek su direncinin yanı sıra, kimyasal ve fiziksel dirence sahip, 4 kat daha güçlü, dekoratif ve su yalıtım amaçlı kullanılan çift bileşenli yeni nesil bir koruyucudur.",
+      image_url: "/bianca/solvent-sivicam.png?height=300&width=300&text=",
+      gallery: [
+        "/bianca/solvent-sivicam.png?height=600&width=600&text=Prestij+Ana+Görsel",
+        "/bianca/solvent-sivicam.png?height=600&width=600&text=Prestij+Detay",
+      ],
+    },
+    {
+      id: 41,
       category_id: 8,
-      name: "Maxima",
-      slug: "maxima",
-      description: "Yüksek kapatıcılığa sahip iç cephe boyası. Ekonomik çözüm.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Maxima",
+      name: "Bianca Silfex Silikon Sökücü",
+      slug: "bianca-silfex-silikon-sokucu",
+      description:
+        "üzey üzerinden, sertleşmiş silikon, reçine, yapıştırıcı, tutkal, poliüretan, köpük gibi malzemelerin yumuşatarak kolayca sökülmesinde kullanılan bir üründür.",
+      image_url: "/bianca/silfex.png?height=300&width=300&text=",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Maxima+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Maxima+Detay",
+        "/bianca/silfex.png?height=600&width=600&text=Prestij+Ana+Görsel",
+        "/bianca/silfex.png?height=600&width=600&text=Prestij+Detay",
       ],
     },
     {
-      id: 15,
+      id: 42,   
       category_id: 8,
-      name: "Prestij",
-      slug: "prestij",
-      description: "Premium iç cephe boyası. İpeksi mat görünüm.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Prestij",
+      name: "Bianca Stella Mermer Efekt Spreyi",
+      slug: "bianca-stella-mermer-efekt-spreyi",
+      description:
+        "Kağıt, karton, astarlı kanvas, ahşap, cam, metal, seramik, porselen, taş, akrilik ve diğer boyanabilir malzemeler gibi farklı yüzeylerde kullanılabilir. ",
+      image_url: "/bianca/mermer-sprey.png?height=300&width=300&text=",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Prestij+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Prestij+Detay",
-      ],
-    },
-    // Marshall Dış Cephe
-    {
-      id: 16,
-      category_id: 9,
-      name: "Dış Cephe",
-      slug: "dis-cephe",
-      description: "Standart dış cephe boyası. Hava koşullarına dayanıklı.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Dış+Cephe",
-      gallery: [
-        "/placeholder.svg?height=600&width=600&text=Dış+Cephe+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Dış+Cephe+Detay",
-      ],
-    },
-    // Hekim Panel Ürünleri
-    {
-      id: 17,
-      category_id: 11,
-      name: "Çatı Sandviç Panel",
-      slug: "cati-sandvic-panel",
-      description: "Yalıtımlı çatı sandviç paneli. Enerji tasarrufu sağlar.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Çatı+Sandviç+Panel",
-      gallery: [
-        "/placeholder.svg?height=600&width=600&text=Çatı+Sandviç+Panel+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Çatı+Sandviç+Panel+Detay",
+        "/bianca/mermer-sprey.png?height=600&width=600&text=Prestij+Ana+Görsel",
+        "/bianca/mermer-sprey.png?height=600&width=600&text=Prestij+Detay",
       ],
     },
     {
-      id: 18,
-      category_id: 12,
-      name: "Cephe Sandviç Panel",
-      slug: "cephe-sandvic-panel",
-      description: "Modern cephe kaplama paneli. Hızlı montaj.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Cephe+Sandviç+Panel",
+      id: 43,
+      category_id: 8,
+      name: "Bianca Stella İpek Fırça",
+      slug: "bianca-stella-ipek-firca",
+      description: "No: 1 – 25 mm | No: 1,5 – 40 mm",
+      image_url: "/bianca/ipek-firca.png?height=300&width=300&text=",
       gallery: [
-        "/placeholder.svg?height=600&width=600&text=Cephe+Sandviç+Panel+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Cephe+Sandviç+Panel+Detay",
-      ],
-    },
-    {
-      id: 19,
-      category_id: 13,
-      name: "Konteyner Panel",
-      slug: "konteyner-panel",
-      description: "Konteyner yapılar için özel panel. Modüler sistem.",
-      image_url: "/placeholder.svg?height=300&width=300&text=Konteyner+Panel",
-      gallery: [
-        "/placeholder.svg?height=600&width=600&text=Konteyner+Panel+Ana+Görsel",
-        "/placeholder.svg?height=600&width=600&text=Konteyner+Panel+Detay",
+        "/bianca/ipek-firca.png?height=600&width=600&text=Prestij+Ana+Görsel",
+        "/bianca/ipek-firca.png?height=600&width=600&text=Prestij+Detay",
       ],
     },
   ]
@@ -835,87 +842,98 @@ export default function ProductDetailClient({ params }) {
               <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{product.name}</h1>
               <p className="text-gray-600 mb-6 text-lg leading-relaxed">{product.description}</p>
 
-              {/* Product Features */}
-              <div className="border-t border-gray-200 pt-6">
-                <h3 className="text-xl font-semibold mb-6 text-gray-800">Ürün Özellikleri</h3>
+{/* Product Features */}
+<div className="border-t border-gray-200 pt-6">
+  <h3 className="text-xl font-semibold mb-6 text-gray-800">Ürün Özellikleri</h3>
 
-                {/* Ürün özelliklerini const olarak tanımla */}
-                {(() => {
-                  const productFeatures = {
-                    1: [
-                      // Fenomastic
-                      "Yüksek kapatıcılık",
-                      "Silinebilir yüzey",
-                      "Kokusuz formül",
-                      "Anti-bakteriyel",
-                      "Hızlı kuruma",
-                      "UV dayanımı",
-                      "Çevre dostu",
-                      "Kolay uygulama",
-                      "Uzun ömürlü",
-                      "Renk haslığı",
-                    ],
-                    2: [
-                      // Majestic
-                      "İpeksi mat görünüm",
-                      "Leke tutmaz",
-                      "Anti-bakteriyel",
-                      "Silinebilir",
-                      "Yüksek kapatıcılık",
-                      "Kokusuz",
-                      "Hızlı kuruma",
-                      "Çevre dostu",
-                      "UV koruması",
-                      "Renk stabilitesi",
-                    ],
-                    // Varsayılan özellikler
-                    default: [
-                      "Yüksek kalite",
-                      "Uzun ömürlü",
-                      "Kolay uygulama",
-                      "Çevre dostu",
-                      "UV koruması",
-                      "Hızlı kuruma",
-                      "Renk haslığı",
-                      "Ekonomik",
-                      "Dayanıklı",
-                      "Güvenli formül",
-                    ],
-                  }
+  {(() => {
+    const productFeatures = {
+      1: [
+        "Yüksek kapatıcılık",
+        "Silinebilir yüzey",
+        "Kokusuz formül",
+        "Anti-bakteriyel",
+        "Hızlı kuruma",
+        "UV dayanımı",
+        "Çevre dostu",
+        "Kolay uygulama",
+        "Uzun ömürlü",
+        "Renk haslığı",
+        "Ekstra dayanıklılık",
+        "Nefes alabilir yapı",
+        "Kolay temizlenebilir",
+        "Solmaz renkler",
+        "Düşük VOC",
+        "Yüksek örtücülük",
+        "Parlak yüzey seçeneği",
+        "Aşınmaya dayanıklı",
+        "İç/dış mekan uyumu",
+        "Antistatik özellik",
+      ],
+      2: [
+        "İpeksi mat görünüm",
+        "Leke tutmaz",
+        "Anti-bakteriyel",
+        "Silinebilir",
+        "Yüksek kapatıcılık",
+        "Kokusuz",
+        "Hızlı kuruma",
+        "Çevre dostu",
+        "UV koruması",
+        "Renk stabilitesi",
+        "Kolay uygulanabilir",
+        "Yüksek yoğunluk",
+      ],
+      default: [
+        "Yüksek kalite",
+        "Uzun ömürlü",
+        "Kolay uygulama",
+        "Çevre dostu",
+        "UV koruması",
+        "Hızlı kuruma",
+        "Renk haslığı",
+        "Ekonomik",
+        "Dayanıklı",
+        "Güvenli formül",
+      ],
+    }
 
-                  const features = productFeatures[product.id] || productFeatures.default
-                  const leftFeatures = features.slice(0, 5)
-                  const rightFeatures = features.slice(5, 10)
+    const features = productFeatures[product.id] || productFeatures.default
 
-                  return (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {/* Sol sütun */}
-                      <div>
-                        <ul className="space-y-3">
-                          {leftFeatures.map((feature, index) => (
-                            <li key={index} className="flex items-center text-gray-600">
-                              <span className="w-2 h-2 bg-red-600 rounded-full mr-3 flex-shrink-0"></span>
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+    const col1 = features.slice(0, 5)
+    const col2 = features.slice(5, 10)
+    const col3 = features.slice(10, 15)
+    const col4 = features.slice(15, 20)
 
-                      {/* Sağ sütun */}
-                      <div>
-                        <ul className="space-y-3">
-                          {rightFeatures.map((feature, index) => (
-                            <li key={index} className="flex items-center text-gray-600">
-                              <span className="w-2 h-2 bg-red-600 rounded-full mr-3 flex-shrink-0"></span>
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )
-                })()}
-              </div>
+    const renderList = (list) => (
+      <ul className="space-y-3">
+        {list.map((feature, index) => (
+          <li key={index} className="flex items-center text-gray-600">
+            <span className="w-2 h-2 bg-red-600 rounded-full mr-3 flex-shrink-0"></span>
+            {feature}
+          </li>
+        ))}
+      </ul>
+    )
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Üst satır */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>{renderList(col1)}</div>
+          <div>{renderList(col2)}</div>
+        </div>
+
+        {/* Alt satır */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>{renderList(col3)}</div>
+          <div>{renderList(col4)}</div>
+        </div>
+      </div>
+    )
+  })()}
+</div>
+
 
               {/* Contact Button */}
               <div className="mt-8">

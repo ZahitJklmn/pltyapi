@@ -2,7 +2,7 @@ import "./globals.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import SocialFixedIcons from "@/components/SocialFixedIcons"
-import LoadingScreen from "@/components/LoadingScreen"
+import ScrollToTopButton from "@/components/ScrollToTopButton"
 import { AuthProvider } from "@/components/auth/AuthProvider"
 
 export const metadata = {
@@ -35,10 +35,10 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-screen flex flex-col">
         <AuthProvider>
-          <LoadingScreen />
           <Navbar />
           <main className="flex-grow pt-20">{children}</main>
           <SocialFixedIcons />
+          <ScrollToTopButton />
           <Footer />
         </AuthProvider>
       </body>

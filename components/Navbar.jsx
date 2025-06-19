@@ -48,9 +48,7 @@ const productCategories = [
     link: "/urunler/tepe-betopan",
     externalLink: null,
     items: [
-      { name: "İç Cephe Boyaları", link: "/urunler/marshall/ic-cephe-boyalari", externalLink: null },
-      { name: "Dış Cephe Boyaları", link: "/urunler/marshall/dis-cephe-boyalari", externalLink: null },
-      { name: "Ahşap Boyaları", link: "/urunler/marshall/ahsap-boyalari", externalLink: null },
+      { name: "Çimentolu Yonga Levhalar", link: "/urunler/tepe-betopan/cimentolu-yonga-levhalar", externalLink: null },
     ],
   },
   {
@@ -59,9 +57,7 @@ const productCategories = [
     link: "/urunler/tepepan",
     externalLink: null,
     items: [
-      { name: "Çatı Panelleri", link: "/urunler/hekim-panel/cati-panelleri", externalLink: null },
-      { name: "Cephe Panelleri", link: "/urunler/hekim-panel/cephe-panelleri", externalLink: null },
-      { name: "Konteyner Paneli", link: "/urunler/hekim-panel/konteyner-paneli", externalLink: null },
+      { name: "Elyaf Takviyeli Çimentolu Levhalar", link: "/urunler/tepepan/elyaf-takviyeli-levhalar", externalLink: null },
     ],
   },
   {
