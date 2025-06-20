@@ -163,7 +163,7 @@ export default function ProductDetailClient({ params }) {
       image_url: "/jotun/ic-cephe/gevim-saf-ipek-on.png?height=300&width=300&text=Fenomastic",
       gallery: [
         "/jotun/ic-cephe/gevim-saf-ipek-on.png?height=600&width=600&text=Fenomastic+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Detay",
+        "/jotun/ic-cephe/gevim-saf-ipek-arka.png?height=600&width=600&text=Fenomastic+Detay",
       ],
     },
     {
@@ -175,8 +175,8 @@ export default function ProductDetailClient({ params }) {
         "Yüksek kapatıcılığa sahip, silinebilir iç cephe boyası. Kokusuz formülü ile sağlıklı yaşam alanları.",
       image_url: "/jotun/ic-cephe/gevim-mineral-on.png?height=300&width=300&text=Fenomastic",
       gallery: [
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Detay",
+        "/jotun/ic-cephe/gevim-mineral-on.png?height=600&width=600&text=Fenomastic+Ana+Görsel",
+        "/jotun/ic-cephe/gevim-mineral-arka.png?height=600&width=600&text=Fenomastic+Detay",
       ],
     },
     {
@@ -188,8 +188,8 @@ export default function ProductDetailClient({ params }) {
         "Yüksek kapatıcılığa sahip, silinebilir iç cephe boyası. Kokusuz formülü ile sağlıklı yaşam alanları.",
       image_url: "/jotun/ic-cephe/gevim-zengin-on.png?height=300&width=300&text=Fenomastic",
       gallery: [
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Detay",
+        "/jotun/ic-cephe/gevim-zengin-on.png?height=600&width=600&text=Fenomastic+Ana+Görsel",
+        "/jotun/ic-cephe/gevim-zengin-arka.png?height=600&width=600&text=Fenomastic+Detay",
       ],
     },
     {
@@ -201,8 +201,8 @@ export default function ProductDetailClient({ params }) {
         "Yüksek kapatıcılığa sahip, silinebilir iç cephe boyası. Kokusuz formülü ile sağlıklı yaşam alanları.",
       image_url: "/jotun/ic-cephe/gevim-mineral-seffaf-on.png?height=300&width=300&text=Fenomastic",
       gallery: [
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Detay",
+        "/jotun/ic-cephe/gevim-mineral-seffaf-on.png?height=600&width=600&text=Fenomastic+Ana+Görsel",
+        "/jotun/ic-cephe/gevim-mineral-seffaf-arka.png?height=600&width=600&text=Fenomastic+Detay",
       ],
     },
     {
@@ -214,8 +214,8 @@ export default function ProductDetailClient({ params }) {
         "Yüksek kapatıcılığa sahip, silinebilir iç cephe boyası. Kokusuz formülü ile sağlıklı yaşam alanları.",
       image_url: "/jotun/ic-cephe/feno-primer-on.png?height=300&width=300&text=Fenomastic",
       gallery: [
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Detay",
+        "/jotun/ic-cephe/feno-primer-on.png?height=600&width=600&text=Fenomastic+Ana+Görsel",
+        "/jotun/ic-cephe/feno-primer-arka.png?height=600&width=600&text=Fenomastic+Detay",
       ],
     },
     {
@@ -227,8 +227,8 @@ export default function ProductDetailClient({ params }) {
         "Yüksek kapatıcılığa sahip, silinebilir iç cephe boyası. Kokusuz formülü ile sağlıklı yaşam alanları.",
       image_url: "/jotun/ic-cephe/feno-mat-on.png?height=300&width=300&text=Fenomastic",
       gallery: [
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Detay",
+        "/jotun/ic-cephe/feno-mat-on.png?height=600&width=600&text=Fenomastic+Ana+Görsel",
+        "/jotun/ic-cephe/feno-mat-arka.png?height=600&width=600&text=Fenomastic+Detay",
       ],
     },
     {
@@ -251,10 +251,10 @@ export default function ProductDetailClient({ params }) {
       slug: "fenomastic-macun",
       description:
         "Yüksek kapatıcılığa sahip, silinebilir iç cephe boyası. Kokusuz formülü ile sağlıklı yaşam alanları.",
-      image_url: "/jotun/ic-cephe/?height=300&width=300&text=Fenomastic",
+      image_url: "/jotun/ic-cephe/feno-macun-on.webp?height=300&width=300&text=Fenomastic",
       gallery: [
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Detay",
+        "/jotun/ic-cephe/feno-macun-on.webp?height=600&width=600&text=Fenomastic+Ana+Görsel",
+        "/jotun/ic-cephe/feno-macun-arka.png?height=600&width=600&text=Fenomastic+Detay",
       ],
     },
     {
@@ -264,10 +264,10 @@ export default function ProductDetailClient({ params }) {
       slug: "fenomastic-macun-hazirlik",
       description:
         "Yüksek kapatıcılığa sahip, silinebilir iç cephe boyası. Kokusuz formülü ile sağlıklı yaşam alanları.",
-      image_url: "/?height=300&width=300&text=Fenomastic",
+      image_url: "/jotun/ic-cephe/feno-macun-on.webp?height=300&width=300&text=Fenomastic",
       gallery: [
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Ana+Görsel",
-        "/jotun/ic-cephe/?height=600&width=600&text=Fenomastic+Detay",
+        "/jotun/ic-cephe/feno-macun-on.webp?height=600&width=600&text=Fenomastic+Ana+Görsel",
+        "/jotun/ic-cephe/feno-macun-hazirlik-arka.png?height=600&width=600&text=Fenomastic+Detay",
       ],
     },
     // Jotun Dış Cephe Ürünleri
@@ -884,6 +884,10 @@ export default function ProductDetailClient({ params }) {
         "Kolay uygulanabilir",
         "Yüksek yoğunluk",
       ],
+      3:[
+        "Yüksek kapatıcılık",
+      ],
+      
       default: [
         "Yüksek kalite",
         "Uzun ömürlü",

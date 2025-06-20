@@ -194,6 +194,7 @@ export default function ProjectsClientPage() {
                       alt={project.title}
                       className="w-full h-full object-cover"
                       loading="lazy" // Lazy loading ekle
+                      draggable="false" // Resimlerin sürüklenmesini engelle
                     />
 
                     {/* Admin silme butonu - sadece Supabase projeler için */}
@@ -228,18 +229,19 @@ export default function ProjectsClientPage() {
                       </div>
                     </div>
                     <div className="my-6 flex">
-                      <p className="text-lg text-black">
-                        Projelerinizi Bizimle Güzelleştirmek İçin →
-                        <Link
-            href={`/iletisim`}
-            className="flex text-center mt-4 items-center justify-center ml-auto group/btn relative px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
-          >
-            <span className="relative z-10 flex items-center ">
-              İletişime Geçin
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-          </Link>
-                      </p>
+                    <div className="text-lg text-black">
+  <p>Projelerinizi Bizimle Güzelleştirmek İçin →</p>
+  <Link
+    href={`/iletisim`}
+    className="flex text-center mt-4 items-center justify-center ml-auto group/btn relative px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
+  >
+    <span className="relative z-10 flex items-center ">
+      İletişime Geçin
+    </span>
+    <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+  </Link>
+</div>
+
                     </div>
                   </div>
                 </div>

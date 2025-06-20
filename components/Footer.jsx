@@ -92,7 +92,7 @@ export default function Footer() {
     <>
       <footer
         ref={footerRef}
-        className={`relative select-none bg-gradient-to-br from-black via-gray-900 to-black text-white pt-20 pb-8 transition-all duration-1000 ${
+        className={`relative select-none bg-gradient-to-br from-black via-gray-900 to-black text-white pt-10 pb-8 transition-all duration-1000 ${
           isFooterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
@@ -110,7 +110,7 @@ export default function Footer() {
         <div className="container mx-auto px-4 relative z-10">
           {/* Top Section */}
           <div
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 transition-all duration-1000 delay-300 ${
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24 transition-all duration-1000 delay-300 ${
               isFooterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
@@ -121,7 +121,7 @@ export default function Footer() {
                 <img
                   src="/images/plt-yapi-logo-beyaz.png?height=50&width=150&text=LOGO"
                   alt="Logo"
-                  className="h-24 rounded-sm mb-6 transition-all duration-300 group-hover:scale-105"
+                  className="h-24 rounded-sm mb-2 transition-all duration-300 group-hover:scale-105"
                   draggable="false"
                 />
             </div>
@@ -163,7 +163,7 @@ export default function Footer() {
                     {/* Dropdown */}
                     {social.dropdownItems && dropdownStates[social.platform] && (
                       <div
-                        className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-neutral-700/95 backdrop-blur-sm border-2 border-orange-400 rounded-xl shadow-xl z-50 overflow-hidden"
+                        className="absolute top-full left-1/2 transform z-50 -translate-x-1/2 mt-2 w-48 bg-neutral-700/95 backdrop-blur-sm border-2 border-orange-400 rounded-xl shadow-xl overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {social.dropdownItems.map((item, itemIndex) => (

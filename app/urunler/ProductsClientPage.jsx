@@ -92,6 +92,53 @@ export default function ProductsClientPage() {
     },
   ]
 
+  // Marka verilerinin hemen altına eklenmeli
+const categories = [
+  {
+    id: 1,
+    name: "İç Cephe Ürünleri",
+    image_url: "/images/ic-cephe-kart.jpg?height=300&width=400&text=İç Cephe",
+    slug: "ic-cephe-urunleri",
+    description: "İç mekanlar için kaliteli boya ve kaplama çözümleri.",
+  },
+  {
+    id: 2,
+    name: "Dış Cephe Ürünleri",
+    image_url: "/images/dis-cephe-kart.png?height=300&width=400&text=Dış Cephe",
+    slug: "dis-cephe-urunleri",
+    description: "Dış cephelerde uzun ömürlü dayanıklılık ve estetik sağlayan ürünler.",
+  },
+  {
+    id: 3,
+    name: "Çimentolu Levhalar",
+    image_url: "/stock/cimentolu-levhalar.jpg?height=300&width=400&text=Çimentolu Levhalar",
+    slug: "cimentolu-levhalar",
+    description: "Çimentolu levhalar, dayanıklı ve çok yönlü yapı malzemeleri.",
+  },
+  {
+    id: 4,
+    name: "Boya Ekipmanları",
+    image_url: "/stock/boya-ekipmanlari.webp?height=300&width=400&text=Ekipman",
+    slug: "boya-ekipmanlari",
+    description: "Boya uygulamaları için gerekli tüm ekipmanlar ve araçlar.",
+  },
+  {
+    id: 5,
+    name: "Özel Efekt Boyaları",
+    image_url: "/stock/ozel-efekt-boyasi.jpg?height=300&width=400&text=Özel Efekt",
+    slug: "ozel-efekt-boyalari",
+    description: "Özel efekt boyaları, dekoratif ve estetik çözümler sunar. Bu boyalar, iç mekanlarda farklı dokular ve görünümler elde etmek için kullanılır.",
+  },
+  {
+    id: 6,
+    name: "Diğer Ürünler",
+    image_url: "/stock/diger-urunler.jpg?height=300&width=400&text=Diğer Ürünler",
+    slug: "diger-urunler",
+    description: "Diğer ürünler, markalarımızın sunduğu çeşitli yapı malzemeleri ve dekorasyon çözümlerini içerir. Bu kategoride, farklı ihtiyaçlara yönelik ürünler bulabilirsiniz.",
+  },
+]
+
+
   const handleExternalRedirect = (url) => {
     window.open(url, "_blank", "noopener,noreferrer")
     setConfirmModal({ isOpen: false, url: "", title: "" })
@@ -192,6 +239,47 @@ export default function ProductsClientPage() {
               )
             })}
           </div>
+{/* Kategoriler Bölümü */}
+<div className="mt-20">
+  <div className="bg-white rounded-lg shadow-md p-8 mb-12">
+    <h2 className="text-3xl font-bold mb-4 text-gray-800">Ürün Kategorilerimiz</h2>
+    <p className="text-gray-600">
+      Aşağıdaki ürün kategorilerimizi keşfedin. Her biri farklı ihtiyaçlara uygun özel çözümler sunar.
+    </p>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {categories.map((cat) => (
+      <Link
+        key={cat.id}
+        href={`/urunler/${cat.slug}`}
+        className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg group"
+      >
+        <div className="relative h-48 overflow-hidden">
+          <img
+            src={cat.image_url || "/placeholder.svg"}
+            alt={cat.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+
+        <div className="p-6">
+          <h3 className="text-2xl font-bold mb-2 text-gray-800 group-hover:text-red-600 transition-colors duration-300">
+            {cat.name}
+          </h3>
+          <p className="text-gray-600">{cat.description}</p>
+          <div className="flex justify-end">
+          <span className="inline-flex items-center text-red-600 font-medium group-hover:translate-x-2 transition-transform duration-300">
+                    Ürünleri İncele
+                    <ArrowRight className="w-5 h-5 ml-1" />
+          </span>
+          </div>
+        </div>
+      </Link>
+    ))}
+  </div>
+</div>
+
         </div>
       </div>
 

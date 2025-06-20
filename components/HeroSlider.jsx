@@ -20,7 +20,7 @@ const slides = [
     path: "/urunler",
   },
   {
-    image: "/images/?height=600&width=1600&text=Slide+2",
+    image: "/images/genis-urun-yelpazesi.jpg?height=600&width=1600&text=Slide+2",
     title: "Geniş Ürün Yelpazesi",
     description: "İç cephe, dış cephe, ahşap ve metal boyaları tek çatı altında",
     cta: "Katalog İncele",
@@ -102,7 +102,7 @@ export default function HeroSlider() {
             {/* Image with Parallax Effect */}
             <div className="absolute inset-0 w-full h-full overflow-hidden">
               <div
-                className={`w-full h-full transition-all duration-12000 ease-out ${
+                className={`relative w-full h-full transition-all duration-12000 ease-out ${
                   currentSlide === index ? "scale-110" : "scale-100"
                 }`}
               >

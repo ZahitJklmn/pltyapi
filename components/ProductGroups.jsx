@@ -15,27 +15,27 @@ const productGroups = [
   },
   {
     id: 3,
-    title: "Ahşap Ürünleri",
-    image: "/placeholder.svg?height=300&width=400&text=Ahşap",
-    link: "/urunler/ahsap-urunleri",
+    title: "Çimentolu Levhalar",
+    image: "/stock/cimentolu-levhalar.jpg?height=300&width=400&text=Çimentolu Levhalar",
+    link: "/urunler/cimentolu-levhalar",
   },
   {
     id: 4,
-    title: "Metal Ürünleri",
-    image: "/placeholder.svg?height=300&width=400&text=Metal",
-    link: "/urunler/metal-urunleri",
-  },
-  {
-    id: 5,
     title: "Boya Ekipmanları",
-    image: "/placeholder.svg?height=300&width=400&text=Ekipman",
+    image: "/stock/boya-ekipmanlari.webp?height=300&width=400&text=Ekipman",
     link: "/urunler/boya-ekipmanlari",
   },
   {
-    id: 6,
+    id: 5,
     title: "Özel Efekt Boyaları",
-    image: "/placeholder.svg?height=300&width=400&text=Özel Efekt",
+    image: "/stock/ozel-efekt-boyasi.jpg?height=300&width=400&text=Özel Efekt",
     link: "/urunler/ozel-efekt-boyalari",
+  },
+  {
+    id: 6,
+    title: "Diğer Ürünler",
+    image: "/stock/diger-urunler.jpg?height=300&width=400&text=Diğer Ürünler",
+    link: "/urunler/diger-urunler",
   },
 ]
 

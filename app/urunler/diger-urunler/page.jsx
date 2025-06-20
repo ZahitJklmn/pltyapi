@@ -7,110 +7,30 @@ import { ChevronRight } from "lucide-react"
 const allInteriorProducts = [
   {
     id: 1,
-    brandId: 1,
-    name: "Fenomastic Zen",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-zen",
-    description: "Daima Güzel ve Temiz Duvarlar",
-    image: "/jotun/ic-cephe/feno-zen-on.png?height=300&width=300&text=Fenomastic",
-  },
-  {
+    brandId: 2,
+    name: "Bianca Stella Su Bazlı Sıvı Cam",
+    link: "/urunler/bianca/koruyucu-urunler/bianca-stella-su-bazli-sivi-cam",
+    description:
+      "Tüm yüzeylere mükemmel yapışma özelliğine sahip, su bazlı, kokusuz, kullanıma hazır yeni nesil bir koruyucudur.",
+    image: "/bianca/su-sivicam.png?height=300&width=300&text=",
+},
+{
     id: 2,
-    brandId: 1,
-    name: "Fenomastic Güzel Evim Saf İpek",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-guzel-evim-saf-ipek",
-    description: "Yumuşak görünüm ile doğal doku",
-    image: "/jotun/ic-cephe/gevim-saf-ipek-on.png?height=300&width=300&text=Fenomastic",
-  },
-  {
+    brandId: 2,
+    name: "Bianca Maximo Solvent Bazlı Sıvı Cam",
+    link: "/urunler/bianca/koruyucu-urunler/bianca-maximo-solvent-bazli-sivi-cam",
+    description:
+      "kimyasal ve fiziksel dirence sahip, 4 kat daha güçlü, dekoratif ve su yalıtım amaçlı kullanılan yeni nesil bir koruyucudur.",
+    image: "/bianca/solvent-sivicam.png?height=300&width=300&text=",  },
+{
     id: 3,
-    brandId: 1,
-    name: "Fenomastic Güzel Evim Mineral",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-guzel-evim-mineral",
-    description: "Benzersiz renk oyunu",
-    image: "/jotun/ic-cephe/gevim-mineral-on.png?height=300&width=300&text=Fenomastic",
-  },
-  {
-    id: 4,
-    brandId: 1,
-    name: "Fenomastic Güzel Evim Mineral Şeffaf Koruyucu",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-guzel-evim-mineral-seffaf-koruyucu",
-    description: "Mükemmel yüzeyler",
-    image: "/jotun/ic-cephe/gevim-mineral-seffaf-on.png?height=300&width=300&text=Fenomastic",
-  },
-  {
-    id: 5,
-    brandId: 1,
-    name: "Fenomastic Güzel Evim Zengin Mat",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-guzel-evim-zengin-mat",
-    description: "Uzun ömürlü koruma.",
-    image: "/jotun/ic-cephe/gevim-zengin-on.png?height=300&width=300&text=Fenomastic",
-  },
-  {
-    id: 6,
-    brandId: 1,
-    name: "Fenomastic Primer",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-primer",
-    description: "Usta Fırçaların Tercihi",
-    image: "/jotun/ic-cephe/feno-primer-on.png?height=300&width=300&text=Fenomastic",  },
-  {
-    id: 7,
-    brandId: 1,
-    name: "Fenomastic Mat",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-mat",
-    description: "Usta Fırçaların Tercihi",
-    image: "/jotun/ic-cephe/feno-mat-on.png?height=300&width=300&text=Fenomastic",
-  },
-  {
-    id: 8,
-    brandId: 1,
-    name: "Fenomastic İpek Mat",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-ipek-mat",
-    description: "Usta Fırçaların Tercihi",
-    image: "/jotun/ic-cephe/feno-ipek-mat-on.png?height=300&width=300&text=Fenomastic",
-  },
-  {
-    id: 9,
-    brandId: 1,
-    name: "Fenomastic Macun",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-macun",
-    description: "Usta Fırçaların Tercihi",
-    image: "/jotun/ic-cephe/feno-macun-on.webp?height=300&width=300&text=Fenomastic",
-  },
-  {
-    id: 10,
-    brandId: 1,
-    name: "Fenomastic Macun (Hazırlık)",
-    link: "/urunler/jotun/ic-cephe-urunleri/fenomastic-macun-hazirlik",
-    description: "Benzersiz mat doku ile daha güzel renkler",
-    image: "/jotun/ic-cephe/feno-macun-on.webp?height=300&width=300&text=Fenomastic",
-  },
-  {
-      id: 36,
-      brandId: 2,
-      name: "Bianca Stella Su Bazlı Saf Akrilik Boya",
-      link: "bianca-stella-su-bazli-saf-akrilik-boya",
-      description:
-        "Tüm yüzeylere mükemmel yapışma özelliğine sahip, su bazlı, saf akrilik esaslı yeni nesil dönüşüm boyasıdır.",
-      image: "/bianca/saf-akrilik.png?height=300&width=300&text=saf+akrilik+boya",
-  },
-  {
-      id: 37,
-      brandId: 2,
-      name: "Bianca Stella Su Bazlı Saf Akrilik Boya (Ahşap Renkler)",
-      link: "bianca-stella-su-bazli-saf-akrilik-boya-ahsap-renkler",
-      description:
-        "Bianca Stella boya uygulaması sonrası yüzeylere ahşap desen görünüm vermek için geliştirilmiş özel bir boyadır",
-      image: "/bianca/saf-akrilik-ahsap.png?height=300&width=300&text=saf+akrilik+ahsap+boya",
-  },
-  {
-      id: 38,
-      brandId: 2,
-      name: "Bianca Stella Su Bazlı Saf Akrilik Boya (Metal Renkler)",
-      link: "bianca-stella-su-bazli-saf-akrilik-boya-metal-renkler",
-      description:
-        "Bianca Stella boya uygulaması sonrası yüzeylere metal görünümü vermek için geliştirilmiş özel bir boyadır.",
-      image: "/bianca/saf-akrilik-metal.png?height=300&width=300&text=",
-  },
+    brandId: 2,
+    name: "Bianca Silfex Silikon Sökücü",
+    link: "/urunler/bianca/koruyucu-urunler/bianca-silfex-silikon-sokucu",
+    description:
+      "sertleşmiş silikon, reçine, yapıştırıcı, poliüretan gibileri yumuşatarak kolayca sökülmesinde kullanılır",
+    image: "/bianca/silfex.png?height=300&width=300&text=",
+},
 ]
 
 export default function InteriorProductsPage() {
@@ -178,14 +98,6 @@ export default function InteriorProductsPage() {
 >
   Tüm Markalar
 </button>
-
-<button
-  className={`px-4 py-2 ${selectedBrand === 1 ? "bg-red-600 text-white" : "bg-gray-100 text-gray-700 border border-black/20"} rounded-md`}
-  onClick={() => setSelectedBrand(1)}
->
-  Jotun
-</button>
-
 <button
   className={`px-4 py-2 ${selectedBrand === 2 ? "bg-red-600 text-white" : "bg-gray-100 text-gray-700 border border-black/20"} rounded-md`}
   onClick={() => setSelectedBrand(2)}
