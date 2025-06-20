@@ -172,7 +172,7 @@ export default function InteriorProductsPage() {
           ></div>
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white">İç Cephe Ürünleri</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-white">Dış Cephe Ürünleri</h1>
           </div>
         </div>
 
