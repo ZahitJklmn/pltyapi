@@ -118,7 +118,7 @@ export default function FeaturedProductsSlider() {
               <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
               <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
               <div className="flex justify-end items-center mt-auto">
-                <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-medium transition-all duration-300 group-hover:bg-red-700">
+                <span className="bg-orange-500 text-white px-7 py-1 rounded text-md font-medium transition-all duration-300 group-hover:bg-orange-600">
                   İncele
                 </span>
               </div>
@@ -160,7 +160,7 @@ export default function FeaturedProductsSlider() {
                     <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
                     <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
                     <div className="flex justify-center items-center mt-auto">
-                      <span className="bg-red-600 text-white px-10 py-1 rounded text-md font-medium transition-all duration-300 group-hover:bg-red-700">
+                      <span className="bg-orange-600 text-white px-10 py-1 rounded text-md font-medium transition-all duration-300 group-hover:bg-orange-700">
                         İncele
                       </span>
                     </div>
@@ -198,7 +198,7 @@ export default function FeaturedProductsSlider() {
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  currentIndex === index ? "bg-red-600 w-4" : "bg-gray-300"
+                  currentIndex === index ? "bg-orange-600 w-4" : "bg-gray-300"
                 }`}
                 aria-label={`Ürün ${index + 1}`}
               />

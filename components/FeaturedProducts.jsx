@@ -124,7 +124,7 @@ export default function FeaturedProducts() {
             <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.title}</h3>
             <p className="text-sm text-gray-600 mb-3">{product.description}</p>
             <div className="flex justify-between items-center">
-              {product.price && <span className="text-xl font-bold text-red-600">{product.price} TL</span>}
+              {product.price && <span className="text-xl font-bold text-orange-400">{product.price} TL</span>}
               <span className="bg-orange-600 text-white px-3 py-1 rounded text-sm font-medium transition-all duration-300 group-hover:bg-range-700 ml-auto">
                 İncele
               </span>

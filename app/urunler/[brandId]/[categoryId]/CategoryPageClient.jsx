@@ -319,7 +319,7 @@ export default function CategoryPageClient({ params }) {
       category_id: 2,
       name: "Jotashield Extreme",
       slug: "jota-extreme",
-      description: "Mükemmel dış cephe koruması���",
+      description: "Mükemmel dış cephe koruması",
       image_url: "/jotun/dis-cephe/jota-extreme-on.png?height=300&width=300&text=Jotashield",
       hover_image_url: "/jotun/dis-cephe/jota-extreme-arka.png?height=300&width=300&text=Jotashield+Detay",
     },
