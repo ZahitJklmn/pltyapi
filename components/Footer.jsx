@@ -28,7 +28,7 @@ export default function Footer() {
       { title: "Jotun Sayfamız", url: "https://www.facebook.com/p/Jotun_tokatpltyap%C4%B1-100063632795286/" },
     ],
     instagram: [
-      { title: "Kurumsal Sayfamız", url: "https://instagram.com/yourprofile" },
+      { title: "Kurumsal Sayfamız", url: "https://instagram.com/pltyapitokat" },
       { title: "Jotun Sayfamız", url: "https://www.instagram.com/jotuntokat/" },
     ],
   }

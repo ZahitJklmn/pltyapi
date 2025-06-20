@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect, useMemo } from "react"
 import Link from "next/link"
-import { Plus, Trash2 } from "lucide-react"
+import { Plus, Trash2, ChevronRight } from "lucide-react"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { getSupabaseClient } from "@/lib/supabase"
 import ProjectAddModal from "@/components/admin/ProjectAddModal"
@@ -153,7 +153,7 @@ export default function ProjectsClientPage() {
             <Link href="/" className="text-black hover:text-red-600 transition-all duration-300">
               Anasayfa
             </Link>
-            <span className="mx-2 text-black">/</span>
+            <ChevronRight className="h-4 w-4 mx-2 text-neutral-900" />
             <span className="text-red-600 font-medium">Projeler</span>
           </div>
 
