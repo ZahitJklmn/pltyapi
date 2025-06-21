@@ -1,0 +1,12 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /app/debug
+Disallow: /app/api
+Disallow: /app/test-storage
+
+# Host
+Host: https://www.pltyapitokat.com
+
+# Sitemaps
+Sitemap: https://www.pltyapitokat.com/sitemap.xml
