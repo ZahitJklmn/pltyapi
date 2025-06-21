@@ -849,45 +849,359 @@ export default function ProductDetailClient({ params }) {
   {(() => {
     const productFeatures = {
       1: [
-        "Yüksek kapatıcılık",
-        "Silinebilir yüzey",
-        "Kokusuz formül",
+        // Fenomastic
+        "Mat iç cephe boyası",
+        "Leke tutmaz",
+        "Yıkanabilir",
         "Anti-bakteriyel",
-        "Hızlı kuruma",
-        "UV dayanımı",
-        "Çevre dostu",
-        "Kolay uygulama",
-        "Uzun ömürlü",
-        "Renk haslığı",
-        "Ekstra dayanıklılık",
-        "Nefes alabilir yapı",
-        "Kolay temizlenebilir",
-        "Solmaz renkler",
-        "Düşük VOC",
-        "Yüksek örtücülük",
-        "Parlak yüzey seçeneği",
-        "Aşınmaya dayanıklı",
-        "İç/dış mekan uyumu",
-        "Antistatik özellik",
+        "Eşsiz mat ve doğal görünüm",
       ],
       2: [
-        "İpeksi mat görünüm",
-        "Leke tutmaz",
-        "Anti-bakteriyel",
+        // Majestic
+        "Zengşn mat iç cephe boyası",
+        "Mükemmel renk deneyimi",
+        "Benzersiz mat doku",
         "Silinebilir",
-        "Yüksek kapatıcılık",
+      ],
+        3: [
+        // Majestic
+        "Yüksek İpek mat iç cephe boyası",
+        "Uzun Mükemmel renk deneyimi",
+        "Doğal doku",
+        "Silinebilir",
+      ],
+
+          4: [
+        // Majestic
+        "Kolay uygulanır",
         "Kokusuz",
+        "Mükemmel doku",
+        "Sıçramaz",
+        "Mat",
+      ],
+
+           5: [
+        // Majestic
+        "Şeffaf mat görünüm",
+        "Su iticilik özelliği",
+        "Uzun ömürlü koruma",
+      ],
+           6: [
+        // Majestic
+        "Kolay uygulanır",
+        "Kokusuz",
+        "Mükemmel doku",
+        "Sıçramaz",
+        "Mat",
+      ],
+           7: [
+        // Majestic
+        "İç cephe astarı",
+        "Düşük VOC oranı",
+        "Mükemmel nüfuz özelliği",
+      ],
+             8: [
+        // Majestic
+        "Kolay uygulanır",
+        "Kokusuz",
+        "Mükemmel doku",
+        "İpek mat",
+      ],
+             9: [
+        // Majestic
+        "Astar ve macun bir arada",
+        "Zaman tasarrufu sağlar",
+        "Pürüzsüz bir yüzey oluşturur",
+        "Kolay uygulanır",
+        "Dolgu özelliği",
+      ],
+             10: [
+        // Majestic
+        "Astar ve macun bir arada",
+        "Kolay uygulanır",
+        "Mükemmel bitiş",
+        "Zaman tasarrufu",
+        "Kullanıma hazır",
+        "Dolgu özelliği",
         "Hızlı kuruma",
-        "Çevre dostu",
-        "UV koruması",
-        "Renk stabilitesi",
-        "Kolay uygulanabilir",
-        "Yüksek yoğunluk",
+        "Tozumaz",
       ],
-      3:[
+             11: [
+        // Majestic
+        "Mat ve düz bitişli",
+        "Düşük kir tutma özelliği",
+        "Mükemmel koruma",
         "Yüksek kapatıcılık",
+        "Yüksek UV dayanımı",
       ],
-      
+              12: [
+        // Majestic
+        "Orta tekstürlü dış cephe boyası",
+        "%100 saf akrilik",
+        "Çatlak köprüleme özelliği",
+        "Karbondioksit difüzyonu",
+        "Su geçirimsizlik özelliği",
+        "Mükemmel beton koruması",
+        "Su buharı geçirgenliği",
+      ],
+               13: [
+        // Majestic
+        "Su bazlı dış cephe astarı",
+        "Akrilik kopolimer reçineli",
+        "Yüzeye mükemmel nüfuz özelliği",
+      ],
+               14: [
+        // Majestic
+        "Solvent bazlı dış cephe astarı",
+        "Yüzeye mükemmel nüfuz özelliği",
+      ],
+               14: [
+        // Majestic
+        "Kolay uygulanır",
+        "Kokusuz",
+        "Korozyon direnci",
+        "Su bazlı üstün koruma teknolojisi",
+        "Geniş renk seçeneği",
+      ],
+               15: [
+        // Majestic
+        "Parlak-şeffaf koruyucu sonkat",
+        "Silikon modifiye akrilik",
+        "Yüksek nem dayanımı ve mükemmel koruma",
+      ],
+               16: [
+        // Majestic
+        "Ahşap dokusu oluşturur",
+        "%100 saf akrilik",
+        "Antik görünüm sunar",
+        "Yüksek UV dayanımı ve düşük kir tutma özelliği",
+        "Zorlu iklim şartlarına karşı mükemmel koruma",
+      ],
+               17: [
+        // Majestic
+        "Ahşap dokusu oluşturur",
+        "%100 saf akrilik",
+        "Antik görünüm sunar",
+        "Yüksek UV dayanımı ve düşük kir tutma özelliği",
+        "Zorlu iklim şartlarına karşı mükemmel koruma",
+      ],
+               18: [
+        // Majestic
+        "İpek mat düz dış cephe boyası",
+        "Özel hibrid silikon bağlayıcılı",
+        "20 yıla kadar mükemmel koruma",
+        "Bakım tutum maliyetlerinde avantaj",
+        "Mükemmel su, nem ve alkali dayanımı",
+      ],
+               19: [
+        // Majestic
+        "İpek mat düz dış cephe boyası",
+        "2 kat ısı yansıtma özelliği",
+        "%100 saf akrilik",
+        "10 yıla kadar mükemmel koruma",
+        "Yüksek UV dayanımı",
+      ],
+               20: [
+        // Majestic
+        "Düz bitiş sunan dış cephe boyası",
+        "%100 saf akrilik",
+        "Yüksek UV dayanımı ve düşük kir tutma özelliği",
+        "Mükemmel beton koruması",
+        "Zorlu iklim şartlarına karşı mükemmel koruma",
+      ],
+               21: [
+        // Majestic
+        "Portakal kabuğu desenli dış cephe boyası",
+        "%100 saf akrilik",
+        "Çatlak köprüleme özelliği",
+        "Karbondioksit difüzyonu",
+        "Su geçirimsizlik özelliği",
+      ],
+               22: [
+        // Majestic
+        "Yarı şeffaf, transparan ahşap koruyucu",
+        "Küf ve mantar oluşumuna karşı dayanımlı",
+        "UV ışınlarına karşı koruma",
+        "Astar gerektirmez",
+        "Su itici",
+      ],
+               23: [
+        // Majestic
+        "Mat ve düz bitişli dış cephe boyası",
+        "%100 saf akrilik",
+        "Yüksek UV dayanımı ve düşük kir tutma özelliği",
+        "Mükemmel beton koruması",
+        "Zorlu iklim şartlarına karşı mükemmel koruma",
+      ],
+               24: [
+        // Majestic
+        "Su bazlı dış cephe astarı",
+        "Akrilik kopolimer reçineli",
+        "Yüzeye mükemmel nüfuz özelliği", 
+      ],
+               25: [
+        // Majestic
+        "Şeffaf astar",
+        "Küf ve mantara karşı dirençli",
+        "Yüksek su direnci",
+      ],
+               26: [
+        // Majestic
+        "Alkid modifiye akrilik bağlayıcılı",
+        "Mükemmel opaklık ve renk dayanımı",
+        "Kolay uygulama",
+      ],
+                27: [
+        // Majestic
+        "Infinity teknolojisi",
+        "Alkid modifiye akrilik bağlayıcılı",
+        "Mükemmel parlaklık ve renk dayanımı",
+        "Üstün düşük kir tutma",
+        "Hızlı kuruma",
+      ],
+                28: [
+        // Majestic
+        "Yapıları farklı hava koşullarından korur.",
+        "Isı ve ses yalıtımına katkı sağlar.",
+        "Mevsim değişimlerine dayanıklıdır.",
+        "Güneş ışınlarının etkilerine dayanıklıdır.",
+        "Su ve neme karşı dayanıklıdır.",
+        "Darbelere dayanıklıdır.",
+        "Biyolojik hayvansal atıklara karşı dayanıklıdır.",
+        "Çevre dostudur, asbest içermez.",
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Böceklenmez, çürümez, küflenmez.",
+      ],
+                29: [
+        // Majestic
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Böceklenmez, çürümez, küflenmez.",
+        "Isı ve ses yalıtımına katkı sağlar.",
+        "Mevsim değişimlerine dayanıklıdır.",
+        "Su ve neme karşı dayanıklıdır.",
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Kolay montaj ve yenileme.",
+        "Hafif ve taşıması kolay.",
+        "İç mekanlarda dekoratif amaçlı kullanılabilir.",
+        "Binaların enerji verimliliğine katkı sağlar.",
+      ], 
+               30: [
+        // Majestic
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Böceklenmez, çürümez, küflenmez.",
+        "Isı ve ses yalıtımına katkı sağlar.",
+        "Mevsim değişimlerine dayanıklıdır.",
+        "Su ve neme karşı dayanıklıdır.",
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Kolay montaj ve yenileme.",
+        "Hafif ve taşıması kolay.",
+        "İç mekanlarda dekoratif amaçlı kullanılabilir.",
+        "Binaların enerji verimliliğine katkı sağlar.",
+      ], 
+               31: [
+        // Majestic
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Böceklenmez, çürümez, küflenmez.",
+        "Isı ve ses yalıtımına katkı sağlar.",
+        "Mevsim değişimlerine dayanıklıdır.",
+        "Su ve neme karşı dayanıklıdır.",
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Kolay montaj ve yenileme.",
+        "Hafif ve taşıması kolay.",
+        "İç mekanlarda dekoratif amaçlı kullanılabilir.",
+        "Binaların enerji verimliliğine katkı sağlar.",
+      ],  
+              32: [
+        // Majestic
+        "Farklı dekoratif dokuları mevcuttur. “ Taş, Ahşap, Tuğla, Kabartma taş dokulu tuğla…”",
+        "Hafif ve uzun ömürlü olması nedeniyle renevasyon projelerinde rahatlıkla  kullanılabilir.",
+        "Kolay kesim ve delme.",
+        "Islak yüzeylerde seramik kaplama altı levhası olarak kullanılabilir.",
+        "Alçı içerikli levhalara göre yüksek darbe dayanımına sahiptir.",
+        "Darbelere dayanıklıdır.",
+        "Isı ve ses yalıtımına katkı sağlar.",
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Mevsim değişimlerine dayanıklıdır.",
+        "Hafif ve taşıması kolay.",
+      ], 
+               33: [
+        // Majestic
+        "Görünümü ve yapısal özellikleriyle yapılarda temelden çatıya farklı mimari ve yapısal çözümler sunar.",
+        "Hafif ve uzun ömürlü olması nedeniyle renevasyon projelerinde rahatlıkla  kullanılabilir.",
+        "Çeşitli yapı projelerinde ” Konut, villa, kamu binaları, endüstriyel yapılar, prefabrik yapılar…” kullanılabilir.",
+        "Havalandırmalı giydirme cephe sistemi prensibinde mekanik montajla uygulanır.",
+        "Su ve neme karşı dayanıklıdır.",
+        "Darbelere dayanıklıdır.",
+        "Çevre dostudur, asbest içermez",
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Böceklenmez, çürümez, küflenmez.",
+        "İç ve dış kaplama malzemelerinin alt levhası olarak kullanılabilir.",
+      ], 
+               34: [
+        // Majestic
+        "Dekoratif taş desene sahiptir.",
+        "İç mekanlarda dekoratif amaçlı kullanılabilir.",
+        "Hafif ve uzun ömürlü olması nedeniyle renevasyon projelerinde rahatlıkla  kullanılabilir.",
+        "Kolay kesim ve delme.",
+        "Kolay montaj ve yenileme.",
+        "Darbelere dayanıklıdır.",
+        "Çevre dostudur, asbest içermez",
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Böceklenmez, çürümez, küflenmez.",
+        "İç ve dış kaplama malzemelerinin alt levhası olarak kullanılabilir.",
+      ],          35: [
+        // Majestic
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Böceklenmez, çürümez, küflenmez.",
+        "Isı ve ses yalıtımına katkı sağlar.",
+        "Mevsim değişimlerine dayanıklıdır.",
+        "Su ve neme karşı dayanıklıdır.",
+        "Kokusuzdur ve zararlı gaz salınımı yoktur.",
+        "Kolay montaj ve yenileme.",
+        "Hafif ve taşıması kolay.",
+        "İç mekanlarda dekoratif amaçlı kullanılabilir.",
+        "Binaların enerji verimliliğine katkı sağlar.",
+      ], 
+               36: [
+        // Majestic
+        "Benzersiz formulü ile mükemmel bir örtücülüğe sahiptir.",
+        "Üstün yayılma özelliği ile fırça ve rulo izi bırakmaz.",
+        "Mükemmel su dayanaımına sahiptir, yüzeylerde su yalıtımı sağlar.",
+        "Yüksek kimyasal dirence sahiptir. (sabun, bulaşık deterjanı vb)",
+        "Yüksek dayanımı sayesinde, çatlama, kabarma ve dökülme yapmaz.",
+        "Parlak görünüm sayesinde ilave bir vernik uygulaması gerektirmez.",
+        "Su ile temasın yüksek olduğu yerler hariç astar ve koruyucu vernik gerektirmez.",
+        "Yüksek yapışma mukavemetine sahiptir, herhangi bir astar gerektirmez.",
+        "Kir ve leke tutmaz, ıslak ve sabunlu bez ile rahatlıkla temizlenebilir.",
+        "Parfümlüdür, rahatsız edici bir kokusu yoktur.",
+        "İç ve dış tüm mekanlarda kullanıma uygundur.",
+        "Colorate Renklendirme Sistemi ile sınırsız renk seçeneğine sahiptir.",
+      ],  
+              37: [
+        // Majestic
+        "Üstün yayılma özelliği ile fırça ve rulo izi bırakmaz.",
+        "Mükemmel su dayanaımına sahiptir, yüzeylerde su yalıtımı sağlar.",
+        "Yüksek kimyasal dirence sahiptir. (sabun, bulaşık deterjanı vb)",
+        "Kir ve leke tutmaz, ıslak ve sabunlu bez ile rahatlıkla temizlenebilir.",
+        "Rahatsız edici bir kokusu yoktur.",
+        "Yüksek dayanımı sayesinde, çatlama, kabarma ve dökülme yapmaz.",
+      ],  
+               40: [
+        // Majestic
+        "Üstün yayılma özelliği ile fırça ve rulo izi bırakmaz.",
+        "Mükemmel su dayanaımına sahiptir, yüzeylerde su yalıtımı sağlar.",
+        "Yüksek kimyasal dirence sahiptir. (sabun, bulaşık deterjanı vb)",
+        "Kir ve leke tutmaz, ıslak ve sabunlu bez ile rahatlıkla temizlenebilir.",
+        "Yüksek dayanımı sayesinde, çatlama, kabarma ve dökülme yapmaz.",
+      ], 
+               41: [
+        // Majestic
+        "Üstün yayılma özelliği ile fırça ve rulo izi bırakmaz.",
+        "Mükemmel su dayanaımına sahiptir, yüzeylerde su yalıtımı sağlar.",
+        "Yüksek kimyasal dirence sahiptir. (sabun, bulaşık deterjanı vb)",
+        "Kir ve leke tutmaz, ıslak ve sabunlu bez ile rahatlıkla temizlenebilir.",
+        "Yüksek dayanımı sayesinde, çatlama, kabarma ve dökülme yapmaz.",
+      ], 
       default: [
         "Yüksek kalite",
         "Uzun ömürlü",

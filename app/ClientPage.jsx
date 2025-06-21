@@ -60,18 +60,18 @@ export default function ClientPage() {
           <h1 className="text-4xl font-bold text-center mb-4 text-gray-800">
             Plt Yapı Tokat - Jotun Boya Ürünleri ve Yapı Malzemeleri
           </h1>
-          <p className="text-lg text-center mb-12 text-gray-600 max-w-4xl mx-auto">
+          <p className="text-lg text-center mb-12 text-gray-700 max-w-4xl mx-auto">
             Tokat'ın güvenilir boya malzemeleri tedarikçisi Plt Yapı'da Jotun boya ürünleri, Tepe Betopan, yapı
             malzemeleri ve profesyonel boya çözümlerini keşfedin. Kaliteli ürünler ve uzman hizmetiyle yanınızdayız.
           </p>
-          <h2 className="text-3xl font-bold text-center mb-12">Öne Çıkan Ürünlerimiz</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Öne Çıkan Ürünlerimiz</h2>
           <FeaturedProductsSlider />
         </div>
       </section>
 
       <section className="animate-on-scroll py-16 ">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4">Boya ve Boya Ürünleri Kategorilerimiz</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Boya ve Boya Ürünleri Kategorilerimiz</h2>
           <p className="text-center mb-12 text-gray-600">
             Plt Yapı Tokat olarak geniş ürün yelpazemizle tüm boya ve yapı malzemesi ihtiyaçlarınızı karşılıyoruz.
           </p>
@@ -81,7 +81,7 @@ export default function ClientPage() {
 
       <section className="animate-on-scroll py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4">Jotun Tokat ve Diğer Markalarımız</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Jotun Tokat ve Diğer Markalarımız</h2>
           <p className="text-center mb-12 text-gray-600">
             Jotun başta olmak üzere dünya çapında tanınmış markaların Tokat'taki yetkili satış noktasıyız.
           </p>
@@ -99,7 +99,7 @@ export default function ClientPage() {
       <section className="animate-on-scroll py-16 bg-gradient-to-br from-neutral-800 via-gray-600 to-neutral-800">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Neden PLT YAPI Tokat?</h2>
+            <h2 className="text-3xl font-bold mb-6 text-gray-300">Neden PLT YAPI Tokat?</h2>
             <div className="grid md:grid-cols-3 gap-8 mt-12">
               <div className="text-center">
                 <h3 className="text-xl font-semibold mb-4">Jotun Yetkili Satıcısı</h3>

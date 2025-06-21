@@ -4,7 +4,7 @@ export default function AboutSection() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div>
-        <h2 className="text-3xl font-bold mb-6">Hakkımızda</h2>
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">Hakkımızda</h2>
         <p className="text-gray-700 mb-4">
           Firmamız, 20 yılı aşkın süredir boya sektöründe faaliyet göstermektedir. Müşterilerimize en kaliteli ürünleri
           sunmak ve profesyonel çözümler üretmek için çalışıyoruz.
