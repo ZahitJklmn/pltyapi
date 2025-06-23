@@ -180,7 +180,7 @@ export default function Navbar() {
   className={`select-none fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ease-in-out ${
     isScrolled
       ? "bg-gradient-to-b from-black to-black/5"
-      : "bg-neutral-500"
+      : "bg-neutral-900"
   }`}
 >
       <div className="container mx-auto px-4">
@@ -318,6 +318,12 @@ export default function Navbar() {
             )}
 
             {/* Mobile Menu Button - Orijinal yapı korundu */}
+            <div className="flex items-center gap-2 lg:hidden mr-2">
+  {isAdmin && (
+    <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full font-semibold text-md shadow">
+      ADMIN
+    </div>
+  )}
             <button
               className="text-white w-10 h-10 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -326,6 +332,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Mobile Menu - Modern tasarım */}

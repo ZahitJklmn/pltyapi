@@ -1,15 +1,18 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Trash2 } from "lucide-react"
 import { getSupabaseClient } from "@/lib/supabase"
+import { useAuth } from "@/components/auth/AuthProvider"
 
 export default function FeaturedProductsSlider() {
   const [featuredProducts, setFeaturedProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  const [deletingProductId, setDeletingProductId] = useState(null)
   const autoPlayRef = useRef(null)
+  const { isAdmin } = useAuth()
 
   // Öne çıkan ürünleri yükle - sadece component mount olduğunda
   useEffect(() => {
@@ -76,6 +79,41 @@ export default function FeaturedProductsSlider() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % featuredProducts.length)
   }
 
+  // Öne çıkan ürünü kaldır
+  const handleRemoveFeatured = async (e, productId, productName) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (!window.confirm(`"${productName}" ürününü öne çıkanlardan kaldırmak istediğinizden emin misiniz?`)) {
+      return
+    }
+
+    setDeletingProductId(productId)
+    try {
+      const supabase = getSupabaseClient()
+      const { error } = await supabase.from("featured_products").delete().eq("id", productId)
+
+      if (error) {
+        console.error("Featured product silme hatası:", error)
+        alert("Ürün kaldırılırken bir hata oluştu: " + error.message)
+        return
+      }
+
+      // State'den kaldır
+      setFeaturedProducts((prev) => prev.filter((product) => product.id !== productId))
+
+      // Eğer silinen ürün şu anki index'teyse, index'i ayarla
+      if (currentIndex >= featuredProducts.length - 1) {
+        setCurrentIndex(Math.max(0, featuredProducts.length - 2))
+      }
+    } catch (error) {
+      console.error("Featured product silme genel hatası:", error)
+      alert("Ürün kaldırılırken bir hata oluştu.")
+    } finally {
+      setDeletingProductId(null)
+    }
+  }
+
   // Loading durumu
   if (loading) {
     return (
@@ -100,25 +138,41 @@ export default function FeaturedProductsSlider() {
   // Masaüstü görünümü
   if (!isMobile) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="flex flex-wrap justify-center gap-8">
         {featuredProducts.map((product) => (
           <Link
             key={product.id}
             href={`/urunler/${product.brand_slug}/${product.category_slug}/${product.product_slug}`}
-            className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl"
+            className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl relative"
           >
-            <div className="p-6">
-              <div className="mb-8 overflow-hidden rounded">
+            {/* Admin Delete Button */}
+            {isAdmin && (
+              <button
+                onClick={(e) => handleRemoveFeatured(e, product.id, product.product_name)}
+                disabled={deletingProductId === product.id}
+                className="absolute top-3 right-3 z-10 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg"
+                title="Öne çıkanlardan kaldır"
+              >
+                {deletingProductId === product.id ? (
+                  <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                ) : (
+                  <Trash2 className="h-4 w-4" />
+                )}
+              </button>
+            )}
+
+            <div className="p-4">
+              <div className="mb-4 overflow-hidden rounded">
                 <img
                   src={product.product_image_url || "/placeholder.svg"}
                   alt={product.product_name}
-                  className="w-full h-76 object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-74 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
               <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
               <div className="flex justify-end items-center mt-auto">
-                <span className="bg-orange-500 text-white px-7 py-1 rounded text-md font-medium transition-all duration-300 group-hover:bg-orange-600">
+                <span className="bg-orange-600 text-white px-7 py-1 rounded-md text-md font-medium transition-all duration-300 group-hover:bg-orange-700">
                   İncele
                 </span>
               </div>
@@ -129,7 +183,7 @@ export default function FeaturedProductsSlider() {
     )
   }
 
-  // Mobil slider görünümü - TAMAMEN YENİDEN DÜZENLENDİ
+  // Mobil slider görünümü
   return (
     <div className="w-full relative">
       {/* Ana slider container - padding yok */}
@@ -147,20 +201,36 @@ export default function FeaturedProductsSlider() {
               <div className="w-[90%] mx-auto">
                 <Link
                   href={`/urunler/${product.brand_slug}/${product.category_slug}/${product.product_slug}`}
-                  className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl block w-full"
+                  className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl block w-full relative"
                 >
+                  {/* Admin Delete Button - Mobile */}
+                  {isAdmin && (
+                    <button
+                      onClick={(e) => handleRemoveFeatured(e, product.id, product.product_name)}
+                      disabled={deletingProductId === product.id}
+                      className="absolute top-3 right-3 z-10 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition-all duration-300 shadow-lg"
+                      title="Öne çıkanlardan kaldır"
+                    >
+                      {deletingProductId === product.id ? (
+                        <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                      ) : (
+                        <Trash2 className="h-4 w-4" />
+                      )}
+                    </button>
+                  )}
+
                   <div className="p-4 flex flex-col">
                     <div className="mb-4 overflow-hidden rounded">
                       <img
                         src={product.product_image_url || "/placeholder.svg"}
                         alt={product.product_name}
-                        className="w-full h-76 object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-74 object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
                     <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
                     <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
-                    <div className="flex justify-center items-center mt-auto">
-                      <span className="bg-orange-600 text-white px-10 py-1 rounded text-md font-medium transition-all duration-300 group-hover:bg-orange-700">
+                    <div className="flex justify-end items-center mt-auto">
+                      <span className="bg-orange-600 text-white px-7 py-1 rounded-md text-md font-medium transition-all duration-300 group-hover:bg-orange-700">
                         İncele
                       </span>
                     </div>
