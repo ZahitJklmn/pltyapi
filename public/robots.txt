@@ -6,7 +6,7 @@ Disallow: /app/api
 Disallow: /app/test-storage
 
 # Host
-Host: https://www.pltyapitokat.com
+Host: https://pltyapitokat.com
 
 # Sitemaps
-Sitemap: https://www.pltyapitokat.com/sitemap.xml
+Sitemap: https://pltyapitokat.com/sitemap.xml
