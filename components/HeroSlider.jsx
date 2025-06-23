@@ -54,10 +54,18 @@ export default function HeroSlider() {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
   }
 
-  const handleCTAClick = (path) => {
-    router.push(path)
+  const handleCTAClick = (path, index) => {
+    if (index === 2) {
+      // 3. slayttaki buton
+      const element = document.getElementById("product-groups-section")
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      router.push(path)
+    }
   }
-
+  
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX
   }
@@ -161,7 +169,7 @@ export default function HeroSlider() {
                     }`}
                   >
                     <button
-                      onClick={() => handleCTAClick(slide.path)}
+                      onClick={() => handleCTAClick(slide.path, index)}
                       className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-lg rounded-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/25 hover:scale-105"
                     >
                       <span className="relative z-10 flex items-center">

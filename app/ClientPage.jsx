@@ -69,7 +69,7 @@ export default function ClientPage() {
         </div>
       </section>
 
-      <section className="animate-on-scroll py-16 ">
+      <section id="product-groups-section" className="animate-on-scroll py-16 ">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Boya ve Boya Ürünleri Kategorilerimiz</h2>
           <p className="text-center mb-12 text-gray-800">
