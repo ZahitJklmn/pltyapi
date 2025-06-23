@@ -176,11 +176,11 @@ const categories = [
           {/* Intro */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-12">
             <h2 className="text-3xl font-bold mb-4 text-gray-800">Markalarımız</h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-800 mb-4">
               Aşağıda yer alan markalarımızın ürünlerini inceleyebilir, detaylı bilgi alabilirsiniz. Kalite ve güvenin
               adresi olan firmamız, en uygun fiyatlarla en iyi ürünleri sizlere sunmaktadır.
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-800">
               Herhangi bir marka hakkında daha fazla bilgi almak veya ürünlerimizi incelemek için aşağıdaki markalardan
               birini seçebilirsiniz.
             </p>
@@ -243,7 +243,7 @@ const categories = [
 <div className="mt-20">
   <div className="bg-white rounded-lg shadow-md p-8 mb-12">
     <h2 className="text-3xl font-bold mb-4 text-gray-800">Ürün Kategorilerimiz</h2>
-    <p className="text-gray-600">
+    <p className="text-gray-800">
       Aşağıdaki ürün kategorilerimizi keşfedin. Her biri farklı ihtiyaçlara uygun özel çözümler sunar.
     </p>
   </div>

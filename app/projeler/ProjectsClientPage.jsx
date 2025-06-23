@@ -160,7 +160,7 @@ export default function ProjectsClientPage() {
           {/* Intro Text ve Admin Buton */}
           <div className="mb-12 relative">
             <h2 className="text-3xl font-bold mb-4 text-gray-800">Tamamladığımız Projeler</h2>
-            <p className="text-gray-600 max-w-3xl">
+            <p className="text-gray-800 max-w-3xl">
               Firmamız, yılların verdiği tecrübe ve profesyonel ekibiyle birçok büyük ölçekli projeyi başarıyla
               tamamlamıştır. Konut projelerinden ticari binalara, tarihi yapılardan modern yapılara kadar geniş bir
               yelpazede hizmet vermekteyiz.
@@ -210,7 +210,7 @@ export default function ProjectsClientPage() {
                   </div>
                   <div className="p-8">
                     <h3 className="text-2xl font-bold mb-4 text-gray-800">{project.title}</h3>
-                    <p className="text-gray-600 mb-6">{project.description}</p>
+                    <p className="text-gray-800 mb-6">{project.description}</p>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="font-semibold text-gray-700">Tarih</p>

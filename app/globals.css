@@ -11,6 +11,20 @@ body {
   overflow-x: hidden;
 }
 
+/* Custom border-dashed styles */
+.custom-dashed-border {
+  border: 4px dashed black;
+  border-image: repeating-linear-gradient(
+    to right,
+    black 0,
+    black 10px,
+    transparent 10px,
+    transparent 20px
+  ) 100%;
+  border-width: 4px;
+}
+
+
 /* Animation for sections */
 .animate-on-scroll {
   opacity: 0;

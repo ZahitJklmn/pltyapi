@@ -60,7 +60,7 @@ export default function ClientPage() {
           <h1 className="text-4xl font-bold text-center mb-4 text-gray-800">
             Plt Yapı Tokat - Jotun Boya Ürünleri ve Yapı Malzemeleri
           </h1>
-          <p className="text-lg text-center mb-12 text-gray-700 max-w-4xl mx-auto">
+          <p className="text-lg text-center mb-12 text-gray-800 max-w-4xl mx-auto">
             Tokat'ın güvenilir boya malzemeleri tedarikçisi Plt Yapı'da Jotun boya ürünleri, Tepe Betopan, yapı
             malzemeleri ve profesyonel boya çözümlerini keşfedin. Kaliteli ürünler ve uzman hizmetiyle yanınızdayız.
           </p>
@@ -72,7 +72,7 @@ export default function ClientPage() {
       <section className="animate-on-scroll py-16 ">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Boya ve Boya Ürünleri Kategorilerimiz</h2>
-          <p className="text-center mb-12 text-gray-600">
+          <p className="text-center mb-12 text-gray-800">
             Plt Yapı Tokat olarak geniş ürün yelpazemizle tüm boya ve yapı malzemesi ihtiyaçlarınızı karşılıyoruz.
           </p>
           <ProductGroups />
@@ -82,7 +82,7 @@ export default function ClientPage() {
       <section className="animate-on-scroll py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Jotun Tokat ve Diğer Markalarımız</h2>
-          <p className="text-center mb-12 text-gray-600">
+          <p className="text-center mb-12 text-gray-800">
             Jotun başta olmak üzere dünya çapında tanınmış markaların Tokat'taki yetkili satış noktasıyız.
           </p>
           <BrandsSection />
@@ -96,25 +96,25 @@ export default function ClientPage() {
       </section>
 
       {/* Tokat boya malzemeleri hakkında ek bilgi bölümü */}
-      <section className="animate-on-scroll py-16 bg-gradient-to-br from-neutral-800 via-gray-600 to-neutral-800">
+      <section className="animate-on-scroll py-16 bg-gradient-to-br from-neutral-800 via-neutral-600 to-neutral-800">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6 text-gray-300">Neden PLT YAPI Tokat?</h2>
+            <h2 className="text-3xl font-bold mb-6 text-white inline-block"><div className="flex items-center">Neden <img src="/images/plt-yapi-text.png" alt="PLT YAPI" width={160} className="mx-3" draggable="false"/> Tokat?</div></h2>
             <div className="grid md:grid-cols-3 gap-8 mt-12">
               <div className="text-center">
-                <h3 className="text-xl font-semibold mb-4">Jotun Yetkili Satıcısı</h3>
+                <h3 className="text-2xl font-semibold mb-4 text-neutral-200 underline">Jotun Yetkili Satıcısı</h3>
                 <p className="text-gray-300">
                   Tokat'ta Jotun boya ürünlerinin yetkili satış noktası olarak orijinal ve kaliteli ürünler sunuyoruz.
                 </p>
               </div>
               <div className="text-center">
-                <h3 className="text-xl font-semibold mb-4">Tepe Betopan Uzmanı</h3>
+                <h3 className="text-2xl font-semibold mb-4 text-neutral-200 underline">Tepe Betopan Uzmanı</h3>
                 <p className="text-gray-300">
                   Tokat Tepe Betopan ürünlerinde uzman kadromuzla profesyonel çözümler sağlıyoruz.
                 </p>
               </div>
               <div className="text-center">
-                <h3 className="text-xl font-semibold mb-4">Yerel Hizmet</h3>
+                <h3 className="text-2xl font-semibold mb-4 text-neutral-200 underline">Yerel Hizmet</h3>
                 <p className="text-gray-300">Tokat boya malzemeleri sektöründe yıllardır güvenilir hizmet veriyoruz.</p>
               </div>
             </div>

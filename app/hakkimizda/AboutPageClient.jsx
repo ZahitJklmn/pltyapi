@@ -1,5 +1,7 @@
 "use client"
 import { useState } from "react"
+import Link from "next/link"
+import { Phone } from "lucide-react"
 
 export default function AboutPageClient() {
   const [isFlipped, setIsFlipped] = useState(false)
@@ -21,9 +23,9 @@ export default function AboutPageClient() {
 
         {/* Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-          <div>
+          <div className="border border-black/30 border-dashed p-6 rounded-xl">
             <h2 className="text-3xl font-bold mb-6 text-gray-800">Firmamız</h2>
-            <div className="space-y-4 text-gray-600">
+            <div className="space-y-4 text-gray-800">
               <p>
                 Firmamız, 2003 yılında kurulmuş olup, boya ve boya malzemeleri sektöründe 20 yılı aşkın süredir faaliyet
                 göstermektedir. Kurulduğumuz günden bu yana müşteri memnuniyetini ön planda tutarak, kaliteli ürün ve
@@ -54,7 +56,7 @@ export default function AboutPageClient() {
                 {/* Front Side */}
                 <div className="absolute w-full h-full backface-hidden rounded-lg overflow-hidden shadow-lg">
                   <img
-                    src="/images/dukkan-foto1.png?height=500&width=600&text=Firmamız Ön"
+                    src="/images/slide-1.jpg?height=500&width=600&text=Firmamız Ön"
                     alt="Firmamız"
                     className="w-full h-full object-cover"
                   />
@@ -62,7 +64,7 @@ export default function AboutPageClient() {
                 {/* Back Side */}
                 <div className="absolute w-full h-full backface-hidden rounded-lg overflow-hidden shadow-lg rotate-y-180">
                   <img
-                    src="/images/dukkan-foto2.jpg?height=500&width=600&text=Firmamız Arka"
+                    src="/images/dukkan-adres.png?height=500&width=600&text=Firmamız Arka"
                     alt="Firmamız"
                     className="w-full h-full object-cover"
                   />
@@ -115,6 +117,12 @@ export default function AboutPageClient() {
               <p className="text-gray-600">
                 Sektörün önde gelen markalarının ürünlerini müşterilerimizle buluşturuyoruz. Kaliteden ödün vermiyoruz.
               </p>
+              <Link
+                href="/projeler"
+                className="mx-10 mt-5 px-10 inline-block bg-gradient-to-r from-green-500 to-green-700 text-white py-3 rounded-full font-medium transition-all duration-300 hover:brightness-125 hover:scale-105 shadow-lg"
+              >
+                Projelerimiz
+              </Link>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
             <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -139,8 +147,14 @@ export default function AboutPageClient() {
 
               <h3 className="text-xl font-bold mb-2 text-gray-800">Geniş Ürün Yelpazesi</h3>
               <p className="text-gray-600">
-              İhtiyacınıza uygun onlarca farklı ürün seçeneği.
+              İhtiyacınıza uygun onlarca farklı ürün seçeneği ile her türlü boya ve yapı malzemesi ihtiyacınızı karşılıyoruz.
               </p>
+              <Link
+                href="/urunler"
+                className="mx-10 mt-5 px-10 inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-white py-3 rounded-full font-medium transition-all duration-300 hover:brightness-125 hover:scale-105 shadow-lg"
+              >
+                Ürünlerimiz
+              </Link>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -164,6 +178,14 @@ export default function AboutPageClient() {
                 Uzman ekibimiz, ürünlerimiz hakkında her türlü teknik desteği sağlamaktadır. Sorularınız için bize
                 ulaşabilirsiniz.
               </p>
+              <Link
+                href="/iletisim"
+                className="inline-block mx-10 mt-5 px-9 bg-gradient-to-r from-red-400 to-red-600 text-white py-3 rounded-full font-medium transition-all duration-300 hover:brightness-125 hover:scale-105 shadow-lg"
+              >
+                <div className="flex">
+                <Phone className="mr-3"/>İletişim
+                </div>
+              </Link>
             </div>
           </div>
         </div>

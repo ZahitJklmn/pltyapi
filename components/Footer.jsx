@@ -191,7 +191,7 @@ export default function Footer() {
             {/* Quick Links - Gradient underline hover */}
             <div className="hidden md:block">
               <h3 className="text-xl font-bold mb-6 relative">
-                <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                <span className="bg-white bg-clip-text text-transparent">
                   Hızlı Linkler
                 </span>
                 <div className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
@@ -220,18 +220,18 @@ export default function Footer() {
             {/* Product Categories - Gradient underline hover */}
             <div className="hidden md:block">
               <h3 className="text-xl font-bold mb-6 relative">
-                <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                <span className="bg-white bg-clip-text text-transparent">
                   Ürün Kategorileri
                 </span>
                 <div className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
               </h3>
               <ul className="space-y-3">
                 {[
-                  { name: "İç Cephe Ürünleri", href: "/urunler/jotun/ic-cephe-urunleri" },
-                  { name: "Dış Cephe Ürünleri", href: "/urunler/jotun/dis-cephe-urunleri" },
-                  { name: "Ahşap Ürünleri", href: "/urunler/jotun/ahsap-urunleri" },
-                  { name: "Metal Ürünleri", href: "/urunler/jotun/metal-urunleri" },
-                  { name: "Boya Ekipmanları", href: "/urunler/filli-boya/ic-cephe-boyalari" },
+                  { name: "İç Cephe Ürünleri", href: "/urunler/ic-cephe-urunleri" },
+                  { name: "Dış Cephe Ürünleri", href: "/urunler/dis-cephe-urunleri" },
+                  { name: "Çimentolu Levhalar", href: "/urunler/cimentolu-levhalar" },
+                  { name: "Boya Ekipmanları", href: "/urunler/boya-ekipmanlari" },
+                  { name: "Diğer Ürünler", href: "/urunler/diger-urunler" },
                 ].map((link, index) => (
                   <li key={index}>
                     <Link
@@ -249,7 +249,7 @@ export default function Footer() {
             {/* Contact Info - Icon gradient hover */}
             <div>
               <h3 className="text-xl font-bold mb-6 relative">
-                <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                <span className="bg-white bg-clip-text text-transparent">
                   İletişim Bilgileri
                 </span>
                 <div className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded-full"></div>
