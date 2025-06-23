@@ -54,6 +54,15 @@ export default function ClientPage() {
       />
 
       <HeroSlider />
+      <section className="py-16 px-4 max-w-4xl mx-auto text-center animate-on-scroll">
+  <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+    Tokat'ın Güvenilir Boya ve Yapı Malzemeleri Tedarikçisi
+  </h1>
+  <p className="text-lg text-gray-700">
+    PLT Yapı Tokat olarak Jotun Boya'nın yetkili bayisi olmaktan gurur duyuyoruz. İç cephe, dış cephe, ahşap ve metal yüzeylere özel boya çeşitlerimiz ile profesyonel ve amatör kullanıcıların tüm ihtiyaçlarına çözüm sunuyoruz. Ayrıca Tepe Betopan ve yapı malzemeleri ürün yelpazemizle Tokat bölgesindeki inşaat projelerine destek oluyoruz. Kaliteli hizmet, uygun fiyat ve yerel deneyimle yanınızdayız.
+  </p>
+</section>
+
 
       <section className="animate-on-scroll py-16">
         <div className="container mx-auto px-4">
