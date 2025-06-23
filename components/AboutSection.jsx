@@ -13,20 +13,21 @@ export default function AboutSection() {
           Geniş ürün yelpazemiz, uzman kadromuz ve müşteri memnuniyetine verdiğimiz önem ile sektörde öncü konumdayız.
           İç cephe, dış cephe, ahşap ve metal boyaları başta olmak üzere tüm boya ihtiyaçlarınız için yanınızdayız.
         </p>
-        <Link
-          href="/hakkimizda"
-          className="inline-block bg-gradient-to-r from-blue-400 to-blue-700 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:brightness-125 hover:scale-105 shadow-lg"
-        >
-          Daha Fazla Bilgi
-        </Link>
-
-        <Link
-          href="/projeler"
-          className="mx-10 inline-block bg-gradient-to-r from-orange-400 to-orange-700 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:brightness-125 hover:scale-105 shadow-lg"
-        >
-          Projelerimiz
+        <div className="flex flex-wrap gap-4 mt-4">
+          <Link
+            href="/hakkimizda"
+            className="flex-1 min-w-[140px] text-center bg-gradient-to-r from-blue-400 to-blue-700 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:brightness-125 hover:scale-105 shadow-lg"
+          >
+            Daha Fazla Bilgi
           </Link>
 
+          <Link
+            href="/projeler"
+            className="flex-1 min-w-[140px] text-center bg-gradient-to-r from-orange-400 to-orange-700 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:brightness-125 hover:scale-105 shadow-lg"
+          >
+            Projelerimiz
+          </Link>
+        </div>
       </div>
       <div className="rounded-lg overflow-hidden shadow-lg">
         <img

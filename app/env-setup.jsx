@@ -85,7 +85,7 @@ export default function EnvSetup() {
   }
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 hidden">
       <div className="container mx-auto px-4">
         <h1 className="text-3xl font-bold mb-8">Supabase Yapılandırması</h1>
 

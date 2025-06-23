@@ -117,6 +117,7 @@ function LinkWrapper({ href, externalLink, children, className, title, setConfir
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [hasMounted, setHasMounted] = useState(false);
   const [expandedMobileItems, setExpandedMobileItems] = useState([])
   const [showAdminDropdown, setShowAdminDropdown] = useState(false)
   const [adminDropdownRef] = useState(useRef(null))
@@ -125,26 +126,27 @@ export default function Navbar() {
   const { user, isAdmin, signOut } = useAuth()
 
   useEffect(() => {
+    setHasMounted(true)
+  
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-
-    window.addEventListener("scroll", handleScroll)
-
-    // Admin dropdown dışında bir yere tıklandığında dropdown'ı kapat
+  
     const handleClickOutside = (event) => {
       if (adminDropdownRef.current && !adminDropdownRef.current.contains(event.target)) {
         setShowAdminDropdown(false)
       }
     }
-
+  
+    window.addEventListener("scroll", handleScroll)
     document.addEventListener("mousedown", handleClickOutside)
-
+  
+    // 🔧 Temizleme bloğu BURASI:
     return () => {
       window.removeEventListener("scroll", handleScroll)
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [])
+  }, [])  
 
   const toggleMobileItem = (item) => {
     if (expandedMobileItems.includes(item)) {
@@ -174,9 +176,13 @@ export default function Navbar() {
   }
 
   return (
-    <header
-      className={`select-none fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-gradient-to-b from-black to-black/5" : "bg-neutral-500 transition-transform duration-500  "}`}
-    >
+<header
+  className={`select-none fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ease-in-out ${
+    isScrolled
+      ? "bg-gradient-to-b from-black to-black/5"
+      : "bg-neutral-500"
+  }`}
+>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -272,7 +278,7 @@ export default function Navbar() {
               </Link>
               <div>
                 <div className="text-xs text-gray-300 font-medium">7/24 Bizi Arayın</div>
-                <div className="text-lg font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                <div className="text-lg font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
                   (0356) 212 56 60
                 </div>
               </div>

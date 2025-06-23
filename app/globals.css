@@ -7,7 +7,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  @apply bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600 overflow-x-hidden;
   overflow-x: hidden;
 }
 
@@ -23,7 +23,6 @@ body {
   ) 100%;
   border-width: 4px;
 }
-
 
 /* Animation for sections */
 .animate-on-scroll {
