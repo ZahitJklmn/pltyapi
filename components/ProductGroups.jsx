@@ -34,7 +34,7 @@ const productGroups = [
   {
     id: 6,
     title: "Diğer Ürünler",
-    image: "/stock/diger-urunler.jpg?height=300&width=400&text=Diğer Ürünler",
+    image: "/stock/our-products2.jpg?height=300&width=400&text=Diğer Ürünler",
     link: "/urunler/diger-urunler",
   },
 ]
@@ -52,7 +52,7 @@ export default function ProductGroups() {
             <img
               src={group.image || "/placeholder.svg"}
               alt={group.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <h3 className="absolute bottom-4 left-4 text-xl font-bold text-white">{group.title}</h3>

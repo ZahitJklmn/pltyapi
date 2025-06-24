@@ -1,8 +1,11 @@
 "use client"
 import { useState, useRef } from "react"
-import { X, Upload, Check } from "lucide-react"
+import React from "react"
+
+import { X, Upload, Check, ChevronLeft, ChevronRight } from "lucide-react"
 import { getSupabaseClient } from "@/lib/supabase"
 import { compressAndConvertToWebP } from "@/utils/imageCompression"
+import { generateUniqueFileName, validateFileSize, validateFileType } from "@/utils/fileNameUtils"
 
 export default function ProjectAddModal({ isOpen, onClose, onProjectAdded }) {
   const [loading, setLoading] = useState(false)
@@ -10,34 +13,87 @@ export default function ProjectAddModal({ isOpen, onClose, onProjectAdded }) {
   const [success, setSuccess] = useState(false)
 
   // Form verileri
-  const [projectImage, setProjectImage] = useState(null)
-  const [projectImagePreview, setProjectImagePreview] = useState(null)
+  const [projectImages, setProjectImages] = useState(Array(6).fill(null))
+  const [projectImagePreviews, setProjectImagePreviews] = useState(Array(6).fill(null))
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [location, setLocation] = useState("")
   const [completionDate, setCompletionDate] = useState("")
 
-  const fileInputRef = useRef(null)
+  const fileInputRefs = useRef(
+    Array(6)
+      .fill(null)
+      .map(() => React.createRef()),
+  )
 
   // Görsel seçme işlemi
-  const handleImageSelect = async (e) => {
+  const handleImageSelect = async (e, index) => {
     const file = e.target.files[0]
     if (!file) return
 
     try {
+      // Dosya boyutu kontrolü
+      if (!validateFileSize(file, 5)) {
+        setError("Dosya boyutu 5MB'dan büyük olamaz.")
+        return
+      }
+
+      // Dosya tipi kontrolü
+      if (!validateFileType(file)) {
+        setError("Sadece JPG, PNG ve WebP formatları desteklenmektedir.")
+        return
+      }
+
       const previewUrl = URL.createObjectURL(file)
-      setProjectImagePreview(previewUrl)
-      setProjectImage(file)
+
+      const newImages = [...projectImages]
+      const newPreviews = [...projectImagePreviews]
+
+      newImages[index] = file
+      newPreviews[index] = previewUrl
+
+      setProjectImages(newImages)
+      setProjectImagePreviews(newPreviews)
+      setCurrentImageIndex(index)
+
+      // Hata mesajını temizle
+      setError(null)
     } catch (error) {
       console.error("Görsel seçme hatası:", error)
       setError("Görsel seçilirken bir hata oluştu.")
     }
   }
 
+  // Görseli kaldırma
+  const removeImage = (index) => {
+    const newImages = [...projectImages]
+    const newPreviews = [...projectImagePreviews]
+
+    if (newPreviews[index]) {
+      URL.revokeObjectURL(newPreviews[index])
+    }
+
+    newImages[index] = null
+    newPreviews[index] = null
+
+    setProjectImages(newImages)
+    setProjectImagePreviews(newPreviews)
+
+    // Eğer mevcut görüntülenen resim silindiyse, ilk mevcut resme geç
+    const firstAvailableIndex = newPreviews.findIndex((preview) => preview !== null)
+    if (currentImageIndex === index && firstAvailableIndex !== -1) {
+      setCurrentImageIndex(firstAvailableIndex)
+    } else if (firstAvailableIndex === -1) {
+      setCurrentImageIndex(0)
+    }
+  }
+
   // Form doğrulama
   const validateForm = () => {
-    if (!projectImage) {
-      setError("Lütfen bir proje görseli seçin.")
+    const hasAtLeastOneImage = projectImages.some((img) => img !== null)
+    if (!hasAtLeastOneImage) {
+      setError("Lütfen en az bir proje görseli seçin.")
       return false
     }
     if (!title.trim()) {
@@ -74,52 +130,83 @@ export default function ProjectAddModal({ isOpen, onClose, onProjectAdded }) {
 
     try {
       const supabase = getSupabaseClient()
-
-      // 1. Görseli sıkıştır ve WebP'ye dönüştür
-      const compressedImage = await compressAndConvertToWebP(projectImage)
-
-      // 2. Görseli Supabase Storage'a yükle
       const timestamp = new Date().getTime()
-      const fileName = `projects/${timestamp}_${compressedImage.name}`
+      const imageUrls = []
 
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("project-images")
-        .upload(fileName, compressedImage, {
-          cacheControl: "3600",
-          upsert: false,
-        })
+      // Tüm görselleri yükle
+      for (let i = 0; i < projectImages.length; i++) {
+        const image = projectImages[i]
+        if (image) {
+          try {
+            // Görseli sıkıştır ve WebP'ye dönüştür
+            const compressedImage = await compressAndConvertToWebP(image)
 
-      if (uploadError) {
-        throw new Error(`Görsel yükleme hatası: ${uploadError.message}`)
+            // Güvenli dosya ismi oluştur
+            const fileName = generateUniqueFileName(compressedImage.name, i, timestamp)
+
+            console.log(`Görsel ${i + 1} yükleniyor:`, fileName)
+
+            // Görseli Supabase Storage'a yükle
+            const { data: uploadData, error: uploadError } = await supabase.storage
+              .from("project-images")
+              .upload(fileName, compressedImage, {
+                cacheControl: "3600",
+                upsert: false,
+              })
+
+            if (uploadError) {
+              throw new Error(`Görsel ${i + 1} yükleme hatası: ${uploadError.message}`)
+            }
+
+            // Yüklenen görselin public URL'ini al
+            const { data: urlData } = supabase.storage.from("project-images").getPublicUrl(fileName)
+            imageUrls.push(urlData.publicUrl)
+
+            console.log(`Görsel ${i + 1} başarıyla yüklendi:`, urlData.publicUrl)
+          } catch (imageError) {
+            console.error(`Görsel ${i + 1} yükleme hatası:`, imageError)
+            throw new Error(`Görsel ${i + 1} yüklenirken hata oluştu: ${imageError.message}`)
+          }
+        } else {
+          imageUrls.push(null)
+        }
       }
 
-      // Yüklenen görselin public URL'ini al
-      const { data: urlData } = supabase.storage.from("project-images").getPublicUrl(fileName)
-      const publicUrl = urlData.publicUrl
-
-      // 3. Proje slug'ını oluştur
+      // Proje slug'ını oluştur (Türkçe karakterleri temizle)
       const slug = title
         .toLowerCase()
+        .replace(/[çÇ]/g, "c")
+        .replace(/[ğĞ]/g, "g")
+        .replace(/[ıI]/g, "i")
+        .replace(/[İi]/g, "i")
+        .replace(/[öÖ]/g, "o")
+        .replace(/[şŞ]/g, "s")
+        .replace(/[üÜ]/g, "u")
         .replace(/[^\w\s-]/g, "")
         .replace(/[\s_-]+/g, "-")
         .replace(/^-+|-+$/g, "")
 
-      // 4. Projeyi veritabanına ekle
+      console.log("Proje veritabanına ekleniyor...")
+
+      // Projeyi veritabanına ekle
       const { data: projectData, error: projectError } = await supabase
         .from("projects")
         .insert({
           title,
           description,
-          image_url: publicUrl,
+          image_url: imageUrls.find((url) => url !== null) || null, // İlk geçerli görseli ana görsel yap
+          image_urls: imageUrls,
           completion_date: completionDate,
           location,
-          slug: `${slug}-${timestamp}`, // Benzersizlik için timestamp ekle
+          slug: `${slug}-${timestamp}`,
         })
         .select()
 
       if (projectError) {
         throw new Error(`Proje ekleme hatası: ${projectError.message}`)
       }
+
+      console.log("Proje başarıyla eklendi:", projectData[0])
 
       // Başarılı mesajı göster
       setSuccess(true)
@@ -132,7 +219,6 @@ export default function ProjectAddModal({ isOpen, onClose, onProjectAdded }) {
       // 2 saniye sonra modalı kapat
       setTimeout(() => {
         onClose()
-        // Form verilerini temizle
         resetForm()
       }, 2000)
     } catch (error) {
@@ -148,19 +234,22 @@ export default function ProjectAddModal({ isOpen, onClose, onProjectAdded }) {
     setDescription("")
     setLocation("")
     setCompletionDate("")
-    setProjectImage(null)
-    setProjectImagePreview(null)
+    setProjectImages(Array(6).fill(null))
+    setProjectImagePreviews(Array(6).fill(null))
+    setCurrentImageIndex(0)
     setError(null)
     setSuccess(false)
   }
 
   if (!isOpen) return null
 
+  const currentPreview = projectImagePreviews[currentImageIndex]
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/70" onClick={onClose}></div>
 
-      <div className="relative bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-auto mx-4">
+      <div className="relative bg-white rounded-lg shadow-xl w-full max-w-5xl max-h-[90vh] overflow-auto mx-4">
         <div className="flex items-center justify-between p-6 border-b">
           <h2 className="text-xl font-bold text-gray-800">Yeni Proje Ekle</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700 transition-colors">
@@ -241,46 +330,81 @@ export default function ProjectAddModal({ isOpen, onClose, onProjectAdded }) {
               {/* Görsel Yükleme */}
               <div className="mb-6">
                 <label className="block text-gray-700 font-medium mb-2">
-                  Proje Görseli <span className="text-red-600">*</span>
+                  Proje Görselleri <span className="text-red-600">*</span>
+                  <span className="text-sm text-gray-500 ml-2">(En az 1, en fazla 6 görsel)</span>
                 </label>
-                <div
-                  className="w-full h-64 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-red-500 transition-colors"
-                  onClick={() => fileInputRef.current.click()}
-                >
-                  {projectImagePreview ? (
+
+                {/* Ana görsel görüntüleme alanı */}
+                <div className="w-full h-64 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-red-500 transition-colors mb-4">
+                  {currentPreview ? (
                     <div className="relative w-full h-full">
                       <img
-                        src={projectImagePreview || "/placeholder.svg"}
-                        alt="Proje önizleme"
+                        src={currentPreview || "/placeholder.svg"}
+                        alt={`Proje görseli ${currentImageIndex + 1}`}
                         className="w-full h-full object-cover rounded-lg"
                       />
                       <button
                         type="button"
-                        className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full"
+                        className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full hover:bg-red-700"
                         onClick={(e) => {
                           e.stopPropagation()
-                          setProjectImage(null)
-                          setProjectImagePreview(null)
+                          removeImage(currentImageIndex)
                         }}
                       >
                         <X className="h-4 w-4" />
                       </button>
+                      <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-sm">
+                        {currentImageIndex + 1} / 6
+                      </div>
                     </div>
                   ) : (
-                    <>
+                    <div
+                      className="flex flex-col items-center justify-center h-full"
+                      onClick={() => fileInputRefs.current[currentImageIndex]?.current?.click()}
+                    >
                       <Upload className="h-12 w-12 text-gray-400 mb-2" />
-                      <p className="text-gray-500">Proje görseli yüklemek için tıklayın</p>
+                      <p className="text-gray-500">Görsel {currentImageIndex + 1} yüklemek için tıklayın</p>
                       <p className="text-gray-400 text-sm mt-1">PNG, JPG veya WebP (max. 5MB)</p>
-                    </>
+                    </div>
                   )}
                 </div>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  className="hidden"
-                  accept="image/*"
-                  onChange={handleImageSelect}
-                />
+
+                {/* Görsel seçici daireler */}
+                <div className="flex justify-center space-x-2">
+                  {Array.from({ length: 6 }, (_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      className={`w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium transition-all ${
+                        currentImageIndex === index
+                          ? "border-red-500 bg-red-500 text-white"
+                          : projectImagePreviews[index]
+                            ? "border-green-500 bg-green-500 text-white"
+                            : "border-gray-300 bg-white text-gray-500 hover:border-red-300"
+                      }`}
+                      onClick={() => {
+                        setCurrentImageIndex(index)
+                        if (!projectImagePreviews[index]) {
+                          fileInputRefs.current[index]?.current?.click()
+                        }
+                      }}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Gizli file input'ları */}
+                {Array.from({ length: 6 }, (_, index) => (
+                  <input
+                    key={index}
+                    type="file"
+                    ref={fileInputRefs.current[index]}
+                    className="hidden"
+                    accept="image/*"
+                    onChange={(e) => handleImageSelect(e, index)}
+                  />
+                ))}
               </div>
 
               {/* Proje Kartı Önizleme */}
@@ -288,13 +412,25 @@ export default function ProjectAddModal({ isOpen, onClose, onProjectAdded }) {
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h3 className="text-lg font-semibold mb-4">Kart Önizleme</h3>
                   <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                    <div className="aspect-video w-full overflow-hidden bg-gray-100">
-                      {projectImagePreview ? (
-                        <img
-                          src={projectImagePreview || "/placeholder.svg"}
-                          alt={title}
-                          className="w-full h-full object-cover"
-                        />
+                    <div className="aspect-video w-full overflow-hidden bg-gray-100 relative">
+                      {currentPreview ? (
+                        <>
+                          <img
+                            src={currentPreview || "/placeholder.svg"}
+                            alt={title}
+                            className="w-full h-full object-cover"
+                          />
+                          {projectImagePreviews.filter((p) => p !== null).length > 1 && (
+                            <>
+                              <button className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-1 rounded-full">
+                                <ChevronLeft className="h-4 w-4" />
+                              </button>
+                              <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-1 rounded-full">
+                                <ChevronRight className="h-4 w-4" />
+                              </button>
+                            </>
+                          )}
+                        </>
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-400">Görsel yok</div>
                       )}

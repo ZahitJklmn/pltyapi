@@ -57,7 +57,7 @@ export default function InteriorProductsPage() {
         <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/stock/diger-urunler.jpg?height=400&width=1200&text=İç Cephe Ürünleri')" }}
+            style={{ backgroundImage: "url('/stock/our-products2.jpg?height=400&width=1200&text=İç Cephe Ürünleri')" }}
           ></div>
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="absolute inset-0 flex items-center justify-center">

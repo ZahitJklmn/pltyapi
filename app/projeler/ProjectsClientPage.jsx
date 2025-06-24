@@ -1,10 +1,87 @@
 "use client"
 import { useState, useEffect, useMemo } from "react"
 import Link from "next/link"
-import { Plus, Trash2, ChevronRight } from "lucide-react"
+import { Plus, Trash2, ChevronRight, ChevronLeft } from "lucide-react"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { getSupabaseClient } from "@/lib/supabase"
 import ProjectAddModal from "@/components/admin/ProjectAddModal"
+
+// Proje kartı için carousel bileşeni
+function ProjectImageCarousel({ images, title }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  // Null olmayan görselleri filtrele
+  const validImages = images.filter((img) => img !== null && img !== undefined)
+
+  if (validImages.length === 0) {
+    return (
+      <div className="aspect-video w-full overflow-hidden bg-gray-100 flex items-center justify-center">
+        <span className="text-gray-400">Görsel yok</span>
+      </div>
+    )
+  }
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % validImages.length)
+  }
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + validImages.length) % validImages.length)
+  }
+
+  return (
+    <div className="aspect-video w-full overflow-hidden relative group">
+      <img
+        src={validImages[currentIndex] || "/placeholder.svg"}
+        alt={`${title} - Görsel ${currentIndex + 1}`}
+        className="w-full h-full object-cover transition-opacity duration-300"
+        loading="lazy"
+        draggable="false"
+      />
+
+      {validImages.length > 1 && (
+        <>
+          {/* Sol ok */}
+          <button
+            onClick={prevImage}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"
+            aria-label="Önceki görsel"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+
+          {/* Sağ ok */}
+          <button
+            onClick={nextImage}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"
+            aria-label="Sonraki görsel"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+
+          {/* Görsel sayacı */}
+          <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {currentIndex + 1} / {validImages.length}
+          </div>
+
+          {/* Nokta göstergeleri */}
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {validImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  index === currentIndex ? "bg-white" : "bg-white/50"
+                }`}
+                aria-label={`Görsel ${index + 1}'e git`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
 
 export default function ProjectsClientPage() {
   const [supabaseProjects, setSupabaseProjects] = useState([])
@@ -13,41 +90,7 @@ export default function ProjectsClientPage() {
   const { isAdmin } = useAuth()
 
   // 3 sabit proje - memoize edildi
-  const staticProjects = useMemo(
-    () => [
-      {
-        id: "static-1",
-        title: "Metropol AVM Dış Cephe Yenileme",
-        description:
-          "İstanbul'un en büyük alışveriş merkezlerinden biri olan Metropol AVM'nin dış cephe boyama ve yenileme projesi. 15.000 m² alanın boyanması ve yenilenmesi 45 günde tamamlanmıştır.",
-        image_url: "/placeholder.svg?height=500&width=800&text=Metropol AVM",
-        completion_date: "2023-06-15",
-        location: "İstanbul",
-        slug: "metropol-avm-dis-cephe-yenileme",
-      },
-      {
-        id: "static-2",
-        title: "Yeşil Vadi Konutları",
-        description:
-          "Toplam 12 blok ve 480 daireden oluşan Yeşil Vadi Konutları'nın iç ve dış cephe boya işleri. Özel renk kartelası ile her blok için farklı renk kombinasyonları uygulanmıştır.",
-        image_url: "/placeholder.svg?height=500&width=800&text=Yeşil Vadi Konutları",
-        completion_date: "2023-03-20",
-        location: "Ankara",
-        slug: "yesil-vadi-konutlari",
-      },
-      {
-        id: "static-3",
-        title: "Mavi Deniz Oteli Renovasyonu",
-        description:
-          "Antalya'nın en lüks otellerinden biri olan Mavi Deniz Oteli'nin tüm odalarının ve ortak alanlarının boya ve dekorasyon işleri. Özel efekt boyalar ve duvar kağıtları kullanılarak modern bir görünüm elde edilmiştir.",
-        image_url: "/placeholder.svg?height=500&width=800&text=Mavi Deniz Oteli",
-        completion_date: "2022-11-10",
-        location: "Antalya",
-        slug: "mavi-deniz-oteli-renovasyonu",
-      },
-    ],
-    [],
-  )
+  const staticProjects = useMemo(() => [], [])
 
   useEffect(() => {
     fetchSupabaseProjects()
@@ -64,7 +107,7 @@ export default function ProjectsClientPage() {
       // Sadece gerekli alanları seç (performans için)
       const { data, error } = await supabase
         .from("projects")
-        .select("id, title, description, image_url, completion_date, location, slug")
+        .select("id, title, description, image_url, image_urls, completion_date, location, slug")
         .order("created_at", { ascending: false })
         .limit(20) // Limit ekle
 
@@ -112,6 +155,16 @@ export default function ProjectsClientPage() {
       console.error("Proje silme hatası:", error)
       alert("Proje silinirken bir hata oluştu: " + error.message)
     }
+  }
+
+  // Proje görsellerini al (yeni image_urls alanını öncelikle kullan, yoksa eski image_url'i kullan)
+  const getProjectImages = (project) => {
+    if (project.image_urls && Array.isArray(project.image_urls)) {
+      return project.image_urls
+    } else if (project.image_url) {
+      return [project.image_url]
+    }
+    return ["/placeholder.svg"]
   }
 
   // Tüm projeleri birleştir (memoize edildi)
@@ -188,20 +241,14 @@ export default function ProjectsClientPage() {
                 className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2">
-                  <div className="aspect-video w-full overflow-hidden relative">
-                    <img
-                      src={project.image_url || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy" // Lazy loading ekle
-                      draggable="false" // Resimlerin sürüklenmesini engelle
-                    />
+                  <div className="relative">
+                    <ProjectImageCarousel images={getProjectImages(project)} title={project.title} />
 
                     {/* Admin silme butonu - sadece Supabase projeler için */}
                     {isAdmin && !project.id.toString().startsWith("static") && (
                       <button
                         onClick={() => handleDeleteProject(project.id)}
-                        className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full shadow-lg transition-colors"
+                        className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full shadow-lg transition-colors z-10"
                         title="Projeyi sil"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -229,19 +276,16 @@ export default function ProjectsClientPage() {
                       </div>
                     </div>
                     <div className="my-6 flex">
-                    <div className="text-lg text-black">
-  <p>Projelerinizi Bizimle Güzelleştirmek İçin →</p>
-  <Link
-    href={`/iletisim`}
-    className="flex text-center mt-4 items-center justify-center ml-auto group/btn relative px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
-  >
-    <span className="relative z-10 flex items-center ">
-      İletişime Geçin
-    </span>
-    <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-  </Link>
-</div>
-
+                      <div className="text-lg text-black">
+                        <p>Projelerinizi Bizimle Güzelleştirmek İçin →</p>
+                        <Link
+                          href={`/iletisim`}
+                          className="flex text-center mt-4 items-center justify-center ml-auto group/btn relative px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-medium rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
+                        >
+                          <span className="relative z-10 flex items-center ">İletişime Geçin</span>
+                          <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

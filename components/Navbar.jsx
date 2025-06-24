@@ -73,35 +73,20 @@ const productCategories = [
   },
 ]
 
-// External Link Badge Component
-function ExternalLinkBadge() {
-  return (
-    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-600 text-white ml-2">
-      <ExternalLink className="h-3 w-3 mr-1" />
-      Dış bağlantı
-    </span>
-  )
-}
-
 // Link Wrapper Component - Internal veya External link'i handle eder
-function LinkWrapper({ href, externalLink, children, className, title, setConfirmModal, ...props }) {
+function LinkWrapper({ href, externalLink, children, className, ...props }) {
   const finalHref = externalLink || href
   const isExternal = !!externalLink
 
-  const handleClick = (e) => {
-    if (isExternal) {
-      e.preventDefault()
-      setConfirmModal({
-        isOpen: true,
-        url: finalHref,
-        title: title || "Dış bağlantı",
-      })
-    }
-  }
-
   if (isExternal) {
     return (
-      <a href={finalHref} onClick={handleClick} className={className} {...props}>
+      <a
+        href={finalHref}
+        className={className}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...props}
+      >
         {children}
       </a>
     )
@@ -121,7 +106,6 @@ export default function Navbar() {
   const [expandedMobileItems, setExpandedMobileItems] = useState([])
   const [showAdminDropdown, setShowAdminDropdown] = useState(false)
   const [adminDropdownRef] = useState(useRef(null))
-  const [confirmModal, setConfirmModal] = useState({ isOpen: false, url: "", title: "" })
   const pathname = usePathname()
   const { user, isAdmin, signOut } = useAuth()
 
@@ -165,16 +149,7 @@ export default function Navbar() {
       setShowAdminDropdown(false)
     }
   }
-
-  const handleExternalRedirect = (url) => {
-    window.open(url, "_blank", "noopener,noreferrer")
-    setConfirmModal({ isOpen: false, url: "", title: "" })
-  }
-
-  const closeModal = () => {
-    setConfirmModal({ isOpen: false, url: "", title: "" })
-  }
-
+  
   return (
 <header
   className={`select-none fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ease-in-out ${
@@ -223,7 +198,6 @@ export default function Navbar() {
                           className="block text-white hover:text-orange-400 transition-all duration-200 mb-4"
                           title={category.title}
                           draggable="false"
-                          setConfirmModal={setConfirmModal}
                         >
                           <div className="flex items-center mb-4 p-3 rounded-xl bg-gradient-to-r from-white/5 to-transparent hover:from-orange-500/10 hover:to-red-600/10 transition-all duration-300">
                             <img
@@ -232,7 +206,6 @@ export default function Navbar() {
                               className="h-8 object-contain mr-3"
                             />
                             <div className="flex items-center">
-                              {category.externalLink && <ExternalLinkBadge />}
                             </div>
                           </div>
                         </LinkWrapper>
@@ -243,10 +216,8 @@ export default function Navbar() {
                               href={item.link}
                               externalLink={item.externalLink}
                               className="flex items-center text-gray-300 hover:text-orange-400 transition-all duration-200 py-1 px-2 rounded-lg hover:bg-white/5 text-sm"
-                              setConfirmModal={setConfirmModal}
                             >
                               <span>{item.name}</span>
-                              {item.externalLink && <ExternalLinkBadge />}
                             </LinkWrapper>
                           ))}
                         </div>
@@ -271,7 +242,7 @@ export default function Navbar() {
           <div className="flex items-center">
             {/* Call Us Section - Modern tasarım */}
             <div className="hidden lg:flex items-center text-white mr-6">
-              <Link href={"tel:02121234567"}>
+              <Link href={"tel:02121234567"} className="hover:scale-110 transition-transform duration-300">
                 <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center mr-3">
                   <Phone className="h-5 w-5" />
                 </div>
@@ -407,10 +378,8 @@ export default function Navbar() {
                       externalLink={category.externalLink}
                       className="flex items-center py-2 px-3 text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-lg text-sm"
                       onClick={() => setIsMenuOpen(false)}
-                      setConfirmModal={setConfirmModal}
                     >
                       <span>{category.title}</span>
-                      {category.externalLink && <ExternalLinkBadge />}
                     </LinkWrapper>
                   ))}
                 </div>
@@ -470,58 +439,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-      {/* Confirmation Modal */}
-      {confirmModal.isOpen && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 border border-white/20 rounded-2xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
-            {/* Modal Header */}
-            <div className="p-6 border-b border-white/10">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
-                    <ExternalLink className="h-5 w-5 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">Dış Bağlantı Uyarısı</h3>
-                </div>
-                <button onClick={closeModal} className="text-gray-400 hover:text-white transition-colors duration-200">
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-6">
-              <p className="text-gray-300 mb-4">
-                <span className="font-medium text-white">{confirmModal.title}</span> sayfasına yönlendirileceksiniz.
-              </p>
-              <p className="text-sm text-gray-400 mb-6">Bu sayfaya gitmek istediğinize emin misiniz?</p>
-
-              {/* URL Preview */}
-              <div className="bg-white/5 rounded-lg p-3 mb-6 border border-white/10">
-                <p className="text-xs text-gray-400 mb-1">Hedef URL:</p>
-                <p className="text-sm text-blue-400 break-all">{confirmModal.url}</p>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex gap-3">
-                <button
-                  onClick={closeModal}
-                  className="flex-1 px-4 py-3 bg-red-500/60 hover:bg-red-500 text-white rounded-xl font-medium transition-all duration-200 border border-white/20"
-                >
-                  İptal
-                </button>
-                <button
-                  onClick={() => handleExternalRedirect(confirmModal.url)}
-                  className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-blue-500/25"
-                >
-                  Devam Et
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Overlay for mobile menu */}
       {isMenuOpen && (

@@ -18,11 +18,22 @@ export const metadata = {
     description: "Plt Yapı Tokat'ta Jotun boya ürünleri, Tepe Betopan, yapı malzemeleri ve profesyonel boya çözümleri.",
     type: "website",
     locale: "tr_TR",
+    url: "https://pltyapitokat.com",
+    siteName: "Plt Yapı Tokat",
+    images: [
+      {
+        url: "https://pltyapitokat.com/images/seo-preview.jpg", // BU GÖRSELİ HAZIRLAMALISIN
+        width: 1200,
+        height: 630,
+        alt: "PLT Yapı Tokat mağaza dış görünüm",
+      },
+    ],
   },
   icons: {
-    icon: "/favicon.png", // bu satır favicon'u ekler
-  }
+    icon: "/favicon.png",
+  },
 }
+
 
 export default function RootLayout({ children }) {
   return (

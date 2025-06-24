@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { ChevronLeft, ChevronRight, Trash2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Trash2, Eye, EyeClosed } from "lucide-react"
 import { getSupabaseClient } from "@/lib/supabase"
 import { useAuth } from "@/components/auth/AuthProvider"
 
@@ -58,7 +58,7 @@ export default function FeaturedProductsSlider() {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % featuredProducts.length)
       }
 
-      autoPlayRef.current = setInterval(play, 5000)
+      autoPlayRef.current = setInterval(play, 7000)
 
       return () => {
         if (autoPlayRef.current) {
@@ -141,43 +141,38 @@ export default function FeaturedProductsSlider() {
       <div className="flex flex-wrap justify-center gap-8">
         {featuredProducts.map((product) => (
           <Link
-            key={product.id}
-            href={`/urunler/${product.brand_slug}/${product.category_slug}/${product.product_slug}`}
-            className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl relative"
-          >
-            {/* Admin Delete Button */}
-            {isAdmin && (
-              <button
-                onClick={(e) => handleRemoveFeatured(e, product.id, product.product_name)}
-                disabled={deletingProductId === product.id}
-                className="absolute top-3 right-3 z-10 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg"
-                title="Öne çıkanlardan kaldır"
-              >
-                {deletingProductId === product.id ? (
-                  <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
-                ) : (
-                  <Trash2 className="h-4 w-4" />
-                )}
-              </button>
-            )}
+  key={product.id}
+  href={`/urunler/${product.brand_slug}/${product.category_slug}/${product.product_slug}`}
+  className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 relative w-[300px] flex flex-col"
+>
+  <div className="h-[250px] flex items-center justify-center overflow-hidden mb-4 bg-white">
+    <img
+      src={product.product_image_url || "/placeholder.svg"}
+      alt={product.product_name}
+      className="max-w-[300px] max-h-[240px] object-contain"
+    />
+  </div>
+  <div className="px-4 pb-4 flex flex-col justify-between flex-grow">
+    <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
+    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
+    <div className="flex justify-end items-center mt-auto">
+    <span className="relative bg-orange-600 text-white px-7 py-1 rounded-md text-md font-medium transition-all duration-300 group-hover:bg-orange-700 inline-flex items-center overflow-hidden">
+  {/* EyeOff - varsayılan görünür */}
+  <EyeClosed
+    className="absolute left-2 top-1/2 -translate-y-1/2 transition-all duration-300 opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-90"
+  />
 
-            <div className="p-4">
-              <div className="mb-4 overflow-hidden rounded">
-                <img
-                  src={product.product_image_url || "/placeholder.svg"}
-                  alt={product.product_name}
-                  className="w-full h-74 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
-              <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
-              <div className="flex justify-end items-center mt-auto">
-                <span className="bg-orange-600 text-white px-7 py-1 rounded-md text-md font-medium transition-all duration-300 group-hover:bg-orange-700">
-                  İncele
-                </span>
-              </div>
-            </div>
-          </Link>
+  {/* Eye - hover olunca görünür */}
+  <Eye
+    className="absolute left-2 top-1/2 -translate-y-1/2 transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100"
+  />
+
+  <span className="pl-6">İncele</span>
+</span>
+    </div>
+  </div>
+</Link>
+
         ))}
       </div>
     )
@@ -230,9 +225,10 @@ export default function FeaturedProductsSlider() {
                     <h3 className="text-lg font-semibold mb-2 text-gray-800">{product.product_name}</h3>
                     <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.product_description}</p>
                     <div className="flex justify-end items-center mt-auto">
-                      <span className="bg-orange-600 text-white px-7 py-1 rounded-md text-md font-medium transition-all duration-300 group-hover:bg-orange-700">
-                        İncele
-                      </span>
+                    <span className="relative bg-orange-600 text-white px-7 py-1 rounded-md text-md font-medium transition-all duration-300 group-hover:bg-orange-700 inline-flex items-center overflow-hidden">
+                      <Eye></Eye>
+                      <span className="pl-3">İncele</span>
+                    </span>
                     </div>
                   </div>
                 </Link>
