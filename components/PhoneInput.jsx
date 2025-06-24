@@ -19,7 +19,7 @@ const countries = [
     name: "Amerika Birleşik Devletleri",
     dialCode: "+1",
     flag: "🇺🇸",
-    flagImage: "/flags/us.png",
+    flagImage: "/flags/us.jpg",
     format: "(XXX) XXX-XXXX",
     maxLength: 10,
     placeholder: "(555) 123-4567",
