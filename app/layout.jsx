@@ -43,6 +43,7 @@ export default function RootLayout({ children }) {
         <meta name="geo.region" content="TR-60" />
         <meta name="geo.placename" content="Tokat" />
         <link rel="canonical" href="https://pltyapitokat.com" />
+        <meta name="google-site-verification" content="BCYvNFvfeN3bKFvSRCcl-GBfZGgevGtEUKdxAjovqqs" />
       </head>
       <body className="min-h-screen flex flex-col">
         <AuthProvider>
