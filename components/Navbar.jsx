@@ -242,7 +242,7 @@ export default function Navbar() {
           <div className="flex items-center">
             {/* Call Us Section - Modern tasarım */}
             <div className="hidden lg:flex items-center text-white mr-6">
-              <Link href={"tel:02121234567"} className="hover:scale-110 transition-transform duration-300">
+              <Link href={"tel:+903562125660"} className="hover:scale-110 transition-transform duration-300">
                 <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center mr-3">
                   <Phone className="h-5 w-5" />
                 </div>
