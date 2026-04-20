@@ -247,7 +247,7 @@ export default function BrandPageClient({ params }) {
       <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
         <div className="container mx-auto px-4">
           {/* Hero Section */}
-          <div className="relative md:h-[400px] rounded-lg overflow-hidden mb-12">
+          <div className="relative md:h-[350px] rounded-lg overflow-hidden mb-12">
             <div
               className="absolute inset-0 bg-contain bg-no-repeat bg-center"
               style={{

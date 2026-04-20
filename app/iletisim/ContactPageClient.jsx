@@ -136,7 +136,7 @@ export default function ContactPageClient() {
     <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
-        <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
+        <div className="relative h-[200px] md:h-[400px] rounded-lg overflow-hidden mb-12">
           <div
             className="absolute inset-0 bg-cover bg-top"
             style={{ backgroundImage: "url('/stock/contact.jpg?height=400&width=1200&text=İletişim')" }}
@@ -362,7 +362,7 @@ export default function ContactPageClient() {
         {/* Google Map */}
         <div className="bg-white rounded-lg shadow-lg p-4 overflow-hidden">
           <h2 className="text-2xl font-bold mb-4 text-gray-800 px-4 text-center">Dükkanımızın Konumu</h2>
-          <div className="h-[800px] w-full">
+          <div className="w-full aspect-square md:aspect-auto md:h-[800px]">
           <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3041.4821996920773!2d36.5446746!3d40.331648!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407db75a72a89f95%3A0x69af5028f6bdacbd!2sPLT%20YAPI%20S%C4%B0STEMLER%C4%B0%20-%20JOTUN%20BOYA%20SATI%C5%9E%20MA%C4%9EAZASI!5e0!3m2!1str!2str!4v1749754342474!5m2!1str!2str" 
           width="100%" 
           height="100%" 

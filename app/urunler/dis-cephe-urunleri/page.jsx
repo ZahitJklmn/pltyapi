@@ -165,7 +165,7 @@ export default function InteriorProductsPage() {
     <div className="pt-24 pb-16 bg-gradient-to-br from-neutral-600 via-neutral-200 to-neutral-600">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
-        <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden mb-12">
+        <div className="relative h-[200px] md:h-[400px] rounded-lg overflow-hidden mb-12">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url('/stock/dis-cephe.jpg?height=400&width=1200&text=İç Cephe Ürünleri')" }}
@@ -186,7 +186,7 @@ export default function InteriorProductsPage() {
             Ürünler
           </Link>
           <ChevronRight className="h-4 w-4 mx-2 text-neutral-900" />
-          <span className="text-red-600 font-medium">İç Cephe Ürünleri</span>
+          <span className="text-red-600 font-medium">Dış Cephe Ürünleri</span>
         </div>
 
         {/* Intro Text */}
